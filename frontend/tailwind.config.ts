@@ -48,6 +48,64 @@ const config: Config = {
         successGreen: "#2ECC71",
         warningYellow: "#F1C40F",
       },
+      fontFamily: {
+        /* How to use: Class name: .font-{name} */
+
+        sans: ["Fellix", "sans-serif"],
+      },
+      fontSize: {
+        /* How to use: Class name: .text-{size} */
+        "heading-huge-desktop": ["4.125rem", "90%"],
+        "heading-xlarge-desktop": ["2.875rem", "95%"],
+        "heading-large-desktop": ["2.25rem", "90%"],
+        "heading-medium-desktop": ["1.75rem", "95%"],
+        "heading-small-desktop": ["1.375rem", "95%"],
+        "heading-xsmall-desktop": ["1.125rem", "95%"],
+        "heading-mini-desktop": ["1rem", "95%"],
+
+        "heading-huge-mobile": ["2.125rem", "90%"],
+        "heading-xlarge-mobile": ["2.125rem", "90%"],
+        "heading-large-mobile": ["1.75rem", "95%"],
+        "heading-medium-mobile": ["1.75rem", "95%"],
+        "heading-small-mobile": ["1.25rem", "100%"],
+        "heading-xsmall-mobile": ["1rem", "100%"],
+        "heading-mini-mobile": ["1rem", "100%"],
+
+        ".body-small": ["0.8125rem", "125%"],
+        ".body-large": ["0.9375rem", "150%"],
+        ".body-large-bold": ["0.9375rem", "150%"],
+        ".inline-link": ["0.9375rem", "150%"],
+
+        "trumpet-desktop": ["0.875rem", "100%"],
+        "trumpet-mobile": ["0.8125rem", "100%"],
+
+        "stat-desktop": ["4.625rem", "90%"],
+        "quote-desktop": ["1.75rem", "95%"],
+        "navigation-bar-desktop": ["0.9375rem", "100%"],
+        "link-desktop": ["1rem", "110%"],
+        "label-desktop": ["0.6875rem", "90%"],
+        "tab-desktop": ["0.75rem", "100%"],
+        "input-label-desktop": ["0.75rem", "95%"],
+        "input-text-desktop": ["0.9375rem", "95%"],
+        "rating-desktop": ["0.9375rem", "100%"],
+
+        "stat-mobile": ["3.5rem", "90%"],
+        "quote-mobile": ["1.5rem", "95%"],
+        "navigation-bar-mobile": ["0.9375rem", "100%"],
+        "link-mobile": ["0.875rem", "110%"],
+        "label-mobile": ["0.6875rem", "90%"],
+        "tab-mobile": ["0.75rem", "100%"],
+        "input-label-mobile": ["1.125rem", "95%"],
+        "input-text-mobile": ["0.9375rem", "95%"],
+        "rating-mobile": ["0.9375rem", "100%"],
+      },
+      fontWeight: {
+        /* How to use: Class name: .font-{weight} */
+        regular: "400",
+        medium: "500",
+        semibold: "600",
+        bold: "700",
+      },
     },
   },
   plugins: [],
