@@ -44,7 +44,7 @@ const config: Config = {
           20: "#EAE9E7",
           10: "#F6F4F3",
         },
-        errorRed: "#EB0026",
+        errorRed: "rgba(235, 0, 38, 1)",
         successGreen: "#2ECC71",
         warningYellow: "#F1C40F",
       },
@@ -105,6 +105,12 @@ const config: Config = {
         medium: "500",
         semibold: "600",
         bold: "700",
+      },
+      tracking: {
+        /* How to use: Class name: .tracking-{size} */
+        tight: "-2%",
+        normal: "0",
+        wide: "5%",
       },
     },
   },
