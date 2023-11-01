@@ -55,6 +55,7 @@ const config: Config = {
       },
       fontSize: {
         /* How to use: Class name: .text-{size} */
+        /* Headings - Desktop */
         "heading-huge-desktop": ["4.125rem", "90%"],
         "heading-xlarge-desktop": ["2.875rem", "95%"],
         "heading-large-desktop": ["2.25rem", "90%"],
@@ -63,6 +64,7 @@ const config: Config = {
         "heading-xsmall-desktop": ["1.125rem", "95%"],
         "heading-mini-desktop": ["1rem", "95%"],
 
+        /* Headings - Mobile */
         "heading-huge-mobile": ["2.125rem", "90%"],
         "heading-xlarge-mobile": ["2.125rem", "90%"],
         "heading-large-mobile": ["1.75rem", "95%"],
@@ -71,6 +73,7 @@ const config: Config = {
         "heading-xsmall-mobile": ["1rem", "100%"],
         "heading-mini-mobile": ["1rem", "100%"],
 
+        /* Body - Desktop & Mobile */
         ".body-small": ["0.8125rem", "125%"],
         ".body-large": ["0.9375rem", "150%"],
         ".body-large-bold": ["0.9375rem", "150%"],
@@ -79,6 +82,7 @@ const config: Config = {
         "trumpet-desktop": ["0.875rem", "100%"],
         "trumpet-mobile": ["0.8125rem", "100%"],
 
+        /* Links & Labels - Desktop */
         "stat-desktop": ["4.625rem", "90%"],
         "quote-desktop": ["1.75rem", "95%"],
         "navigation-bar-desktop": ["0.9375rem", "100%"],
@@ -89,6 +93,7 @@ const config: Config = {
         "input-text-desktop": ["0.9375rem", "95%"],
         "rating-desktop": ["0.9375rem", "100%"],
 
+        /* Links & Labels - Mobile */
         "stat-mobile": ["3.5rem", "90%"],
         "quote-mobile": ["1.5rem", "95%"],
         "navigation-bar-mobile": ["0.9375rem", "100%"],
