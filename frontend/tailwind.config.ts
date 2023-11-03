@@ -55,7 +55,6 @@ const config: Config = {
       },
       fontFamily: {
         /* How to use: Class name: .font-{name} */
-
         sans: ["Fellix", "sans-serif"],
       },
       fontSize: {
