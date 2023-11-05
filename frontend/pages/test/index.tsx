@@ -8,6 +8,7 @@ function test() {
       <Button
         color="charcoal"
         isActive={true}
+        isSmall={true}
         onClick={() => {
           console.log("test");
         }}
