@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import InputText from "@/components/formField/InputText";
+import InputSelect from "@/components/formField/InputText";
 import { useState } from "react";
 
 function test() {
@@ -7,7 +7,7 @@ function test() {
 
   return (
     <div className={"px-4 py-4"}>
-      <InputText
+      <InputSelect
         label="Label text"
         onChange={(e) => {
           setMyValue(e.target.value);
