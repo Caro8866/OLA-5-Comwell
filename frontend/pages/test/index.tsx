@@ -1,20 +1,19 @@
 import "@/app/globals.css";
-import Button from "@/components/button/Button";
+import InputText from "@/components/formField/InputText";
+import { useState } from "react";
 
 function test() {
+  const [myValue, setMyValue] = useState("");
+
   return (
-    <div>
-      test
-      <Button
-        color="outline"
-        isActive={true}
-        isSmall={true}
-        onClick={() => {
-          console.log("test");
+    <div className={"px-4 py-4"}>
+      <InputText
+        label="Label text"
+        onChange={(e) => {
+          setMyValue(e.target.value);
         }}
-      >
-        lorem ipsum
-      </Button>
+        value={myValue}
+      />
     </div>
   );
 }
