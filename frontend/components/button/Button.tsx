@@ -1,7 +1,7 @@
 import "@/app/globals.css";
 
 type Props = {
-  color: "charcoal" | "sea" | "sand" | "earth" | "blank";
+  color: "charcoal" | "sea" | "sand" | "earth" | "blank" | "outline";
   children: React.ReactNode;
   onClick?: () => void;
   isActive?: boolean;
@@ -23,6 +23,8 @@ function Button({
     sea: "bg-sea-80 text-slate-50 hover:brightness-150",
     sand: "bg-sand-80 text-slate-50 hover:brightness-150",
     blank: "bg-transparent text-charcoal-100",
+    outline:
+      "bg-transparent text-charcoal-100 border-2 hover:bg-sea-100 hover:text-slate-50 hover:border-sea-100",
   };
 
   return (

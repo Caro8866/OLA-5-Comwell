@@ -6,7 +6,7 @@ function test() {
     <div>
       test
       <Button
-        color="charcoal"
+        color="outline"
         isActive={true}
         isSmall={true}
         onClick={() => {
