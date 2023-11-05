@@ -1,45 +1,28 @@
 import "@/app/globals.css";
 
 type Props = {
-  color: "charcoal" | "sea" | "sand" | "earth";
+  color: "charcoal" | "sea" | "sand" | "earth" | "blank";
   children: React.ReactNode;
+  onClick?: () => void;
 };
 
-function Label({ color, children }: Props) {
-  switch (color) {
-    case "charcoal":
-      return (
-        <span
-          className={`py-1 px-3 bg-charcoal-80 rounded-full text-xs font-medium font-sans text-slate-50`}
-        >
-          {children}
-        </span>
-      );
-    case "sea":
-      return (
-        <span
-          className={`py-1 px-3 bg-sea-80 rounded-full text-xs font-medium font-sans text-slate-50`}
-        >
-          {children}
-        </span>
-      );
-    case "sand":
-      return (
-        <span
-          className={`py-1 px-3 bg-sand-80 rounded-full text-xs font-medium font-sans text-slate-50`}
-        >
-          {children}
-        </span>
-      );
-    case "earth":
-      return (
-        <span
-          className={`py-1 px-3 bg-earth-80 rounded-full text-xs font-medium font-sans text-slate-50`}
-        >
-          {children}
-        </span>
-      );
-  }
+function Label({ color, children, onClick }: Props) {
+  const variants = {
+    charcoal: "bg-charcoal-80 text-slate-50",
+    earth: "bg-earth-80 text-slate-50",
+    sea: "bg-sea-80 text-slate-50",
+    sand: "bg-sand-80 text-slate-50",
+    blank: "bg-transparent text-charcoal-100",
+  };
+
+  return (
+    <span
+      className={`py-1.5 px-5 ${variants[color]} rounded-full text-xs font-semibold font-sans tracking-wide`}
+      onClick={onClick && onClick}
+    >
+      {children}
+    </span>
+  );
 }
 
 export default Label;

@@ -5,7 +5,7 @@ function test() {
   return (
     <div>
       test
-      <Label color="charcoal">XD</Label>
+      <Label color="charcoal">lorem ipsum</Label>
     </div>
   );
 }
