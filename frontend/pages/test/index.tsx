@@ -1,11 +1,19 @@
 import "@/app/globals.css";
-import Label from "@/components/label/Label";
+import Button from "@/components/button/Button";
 
 function test() {
   return (
     <div>
       test
-      <Label color="charcoal">lorem ipsum</Label>
+      <Button
+        color="charcoal"
+        isActive={true}
+        onClick={() => {
+          console.log("test");
+        }}
+      >
+        lorem ipsum
+      </Button>
     </div>
   );
 }
