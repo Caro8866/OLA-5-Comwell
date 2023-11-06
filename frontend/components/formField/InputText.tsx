@@ -6,9 +6,11 @@ type Props = {
   placeholder?: string;
   label?: string;
   value: string;
+  name: string;
+  id: string;
 };
 
-function InputText({ label, value, onChange }: Props) {
+function InputText({ label, value, onChange, name, id }: Props) {
   const [isFocused, setIsFocused] = useState(false);
 
   const ref = useRef<any>(null);
@@ -27,6 +29,7 @@ function InputText({ label, value, onChange }: Props) {
       onBlur={() => setIsFocused(false)}
     >
       <label
+        htmlFor={id}
         className={`font-sans font-semibold absolute bottom-2/4 translate-y-2/4 transition ${
           isFocused || value
             ? " translate-y-[-15%] text-gray-600 font-medium"
@@ -36,6 +39,8 @@ function InputText({ label, value, onChange }: Props) {
         {label}
       </label>
       <input
+        id={id}
+        name={name}
         ref={ref}
         autoFocus={isFocused ? true : false}
         type="text"
