@@ -9,7 +9,7 @@ function test() {
   return (
     <>
       <Header />
-      {/* <div className={"px-4 py-4"}>
+      <div className={"px-4 py-4"}>
         <InputSelect
           label="Label text"
           onClick={() => {
@@ -17,7 +17,115 @@ function test() {
           }}
           value={myValue}
         />
-      </div> */}
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
+      <div className={"px-4 py-4"}>
+        <InputSelect
+          label="Label text"
+          onClick={() => {
+            console.log("test");
+          }}
+          value={myValue}
+        />
+      </div>
     </>
   );
 }
