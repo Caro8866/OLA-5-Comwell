@@ -23,16 +23,22 @@ function ExperienceCard({
   discount,
 }: Props) {
   return (
-    <article className={`rounded-lg border-earth-20 border overflow-hidden`}>
+    <article
+      className={`rounded-lg border-earth-20 border overflow-hidden group`}
+    >
       <Link href={linkTo} className={`w-full h-full flex`}>
         <div className={`relative flex flex-col`}>
-          <Image
-            src={image}
-            alt={title}
-            width="450"
-            height="450"
-            className={`w-full aspect-[1.6/1] h-fit flex`}
-          />
+          <div
+            className={`relative w-full flex  aspect-[1.6/1] overflow-hidden`}
+          >
+            <Image
+              src={image}
+              alt={title}
+              width="450"
+              height="450"
+              className={`w-full h-full flex transition-transform group-hover:scale-[1.05] ease-in duratioobject-cover`}
+            />
+          </div>
           <section className={`p-5 flex flex-col grow justify-between`}>
             <div className={`flex flex-col`}>
               <div>
