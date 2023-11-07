@@ -9,6 +9,9 @@ import menuIcon from "../../public/img/menu-icon.svg";
 
 type Props = {
   children?: React.ReactNode;
+  menuOnClick: () => void;
+  profileOnClick: () => void;
+  locationsOnClick: () => void;
 };
 
 function Header(props: Props) {
@@ -54,7 +57,7 @@ function Header(props: Props) {
 
   return (
     <header
-      className={` fixed top-0 w-full justify-center items-center flex z-50 h-[84px] justify-self-center right-2/4 translate-x-2/4 border-box ${headerTypes[headerStyle]} transition delay-75`}
+      className={` px-4 fixed top-0 w-full justify-center items-center flex z-50 h-[84px] justify-self-center right-2/4 translate-x-2/4 border-box ${headerTypes[headerStyle]} transition delay-75`}
     >
       <div
         className={`grid grid-cols-2 lg:grid-cols-3 w-full lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl`}
@@ -93,7 +96,7 @@ function Header(props: Props) {
           <ul
             className={`flex flex-row items-center justify-end gap-8 font-sans font-semibold`}
           >
-            <li className={`cursor-pointer`}>
+            <li className={`cursor-pointer`} onClick={props.locationsOnClick}>
               <div
                 className={`flex flex-row gap-1.5 justify-center items-center`}
               >
@@ -114,7 +117,7 @@ function Header(props: Props) {
                 </svg>
               </div>
             </li>
-            <li className={`cursor-pointer`}>
+            <li className={`cursor-pointer`} onClick={props.profileOnClick}>
               <div
                 className={`flex flex-row gap-1.5 justify-center items-center`}
               >
@@ -135,7 +138,7 @@ function Header(props: Props) {
                 </svg>
               </div>
             </li>
-            <li className={`cursor-pointer`}>
+            <li className={`cursor-pointer`} onClick={props.menuOnClick}>
               <div
                 className={`flex flex-row gap-1.5 justify-center items-center`}
               >
