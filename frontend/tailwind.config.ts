@@ -1,7 +1,13 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ["./pages/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx,mdx}", "./app/**/*.{js,ts,jsx,tsx,mdx}"],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     extend: {
       screens: {
@@ -50,7 +56,6 @@ const config: Config = {
       },
       fontFamily: {
         /* How to use: Class name: .font-{name} */
-
         sans: ["Fellix", "sans-serif"],
       },
       fontSize: {
@@ -74,10 +79,10 @@ const config: Config = {
         "heading-mini-mobile": ["1rem", "100%"],
 
         /* Body - Desktop & Mobile */
-        ".body-small": ["0.8125rem", "125%"],
-        ".body-large": ["0.9375rem", "150%"],
-        ".body-large-bold": ["0.9375rem", "150%"],
-        ".inline-link": ["0.9375rem", "150%"],
+        "body-small": ["0.8125rem", "125%"],
+        "body-large": ["0.9375rem", "150%"],
+        "body-large-bold": ["0.9375rem", "150%"],
+        "inline-link": ["0.9375rem", "150%"],
 
         "trumpet-desktop": ["0.875rem", "100%"],
         "trumpet-mobile": ["0.8125rem", "100%"],
