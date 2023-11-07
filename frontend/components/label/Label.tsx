@@ -17,7 +17,7 @@ function Label({ color, children, onClick }: Props) {
 
   return (
     <span
-      className={`py-1.5 px-5 ${variants[color]} rounded-full text-xs font-semibold font-sans tracking-wide`}
+      className={`py-1 px-3 ${variants[color]} rounded-full text-xs font-semibold font-sans tracking-wide max-w-content`}
       onClick={onClick && onClick}
     >
       {children}

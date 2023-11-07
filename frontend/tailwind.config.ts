@@ -79,10 +79,10 @@ const config: Config = {
         "heading-mini-mobile": ["1rem", "100%"],
 
         /* Body - Desktop & Mobile */
-        ".body-small": ["0.8125rem", "125%"],
-        ".body-large": ["0.9375rem", "150%"],
-        ".body-large-bold": ["0.9375rem", "150%"],
-        ".inline-link": ["0.9375rem", "150%"],
+        "body-small": ["0.8125rem", "125%"],
+        "body-large": ["0.9375rem", "150%"],
+        "body-large-bold": ["0.9375rem", "150%"],
+        "inline-link": ["0.9375rem", "150%"],
 
         "trumpet-desktop": ["0.875rem", "100%"],
         "trumpet-mobile": ["0.8125rem", "100%"],
