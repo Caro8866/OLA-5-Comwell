@@ -13,6 +13,7 @@ function Label({ color, children, onClick }: Props) {
     sea: "bg-sea-80 text-slate-50",
     sand: "bg-sand-80 text-slate-50",
     blank: "bg-transparent text-charcoal-100",
+    white: "bg-slate-50 text-charcoal-100",
   };
 
   return (
