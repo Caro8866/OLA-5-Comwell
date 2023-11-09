@@ -10,7 +10,7 @@ function test() {
   const [myValue, setMyValue] = useState("Test");
 
   return (
-    <>
+    <div className={`h-full w-full bg-slate-400`}>
       <Header
         menuOnClick={() => {
           console.log("menu");
@@ -48,7 +48,7 @@ function test() {
           tag="Overnight stay"
         />
       </div>
-    </>
+    </div>
   );
 }
 

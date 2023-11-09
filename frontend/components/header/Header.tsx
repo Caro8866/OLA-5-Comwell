@@ -6,6 +6,9 @@ import logo from "../../public/img/comwell-logo.svg";
 import chevronIcon from "../../public/img/chevron.svg";
 import profileIcon from "../../public/img/profile-icon.svg";
 import menuIcon from "../../public/img/menu-icon.svg";
+import InputText from "../formField/InputText";
+import BodyText from "../text/bodyText/BodyText";
+import Button from "../button/Button";
 
 type Props = {
   children?: React.ReactNode;
@@ -31,6 +34,8 @@ function Header(props: Props) {
   };
 
   const [windowPosition, setWindowPosition] = useState(0);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const [headerStyle, setHeaderStyle] = useState<"transparent" | "white">(
     "transparent"
   );
@@ -112,14 +117,14 @@ function Header(props: Props) {
                     fill={iconTypes[headerStyle]}
                     fillRule="evenodd"
                     d="m3 3.94 3 3 3-3L10.06 5 6 9.06 1.94 5 3 3.94Z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </div>
             </li>
-            <li className={`cursor-pointer`} onClick={props.profileOnClick}>
+            <li className={`relative`} onClick={props.profileOnClick}>
               <div
-                className={`flex flex-row gap-1.5 justify-center items-center`}
+                className={`flex flex-row gap-1.5 justify-center items-center cursor-pointer`}
               >
                 Profile
                 <svg
@@ -133,9 +138,74 @@ function Header(props: Props) {
                     fill={iconTypes[headerStyle]}
                     fillRule="evenodd"
                     d="M8.334.75a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5ZM6.743 2.909a2.25 2.25 0 1 1 3.181 3.182 2.25 2.25 0 0 1-3.181-3.182Zm.09 5.841a3.75 3.75 0 0 0-3.75 3.75v2.75h10.501V12.5a3.75 3.75 0 0 0-3.75-3.75h-3Zm5.25 5V12.5a2.249 2.249 0 0 0-2.25-2.25h-3a2.25 2.25 0 0 0-2.25 2.25v1.25h7.5Z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
+              </div>
+              <div className={`absolute flex flex-col bg-slate-50 rounded-lg`}>
+                <div className={`px-4 pt-6 pb-3 flex flex-col`}>
+                  <InputText
+                    onChange={(e) => {
+                      setLoginEmail(e.target.value);
+                    }}
+                    value={loginEmail}
+                    name="email"
+                    id="email"
+                    label="Email"
+                  ></InputText>
+                  <InputText
+                    onChange={(e) => {
+                      setLoginPassword(e.target.value);
+                    }}
+                    value={loginPassword}
+                    name="password"
+                    id="password"
+                    label="Password"
+                    isPassword
+                    styles="mt-2"
+                  ></InputText>
+                  <BodyText
+                    size={1}
+                    styles="text-charcoal-60 mt-2 font-regular"
+                  >
+                    Forgot your password?
+                  </BodyText>
+                  <Link
+                    href="#"
+                    className={`text-sea-80 underline font-regular`}
+                  >
+                    Reset password
+                  </Link>
+                  <BodyText
+                    size={1}
+                    styles="text-charcoal-60 mt-2 font-regular"
+                  >
+                    Don't have an account?
+                  </BodyText>
+                  <Link
+                    href="#"
+                    className={`text-sea-80 underline font-regular`}
+                  >
+                    Sign up for Comwell club
+                  </Link>
+                </div>
+                <span
+                  className={`pt-6 mt-2 border-t border-gray-300 px-6 pb-4`}
+                >
+                  <Button
+                    color={"sea"}
+                    isActive={
+                      loginPassword.length && loginEmail.length ? true : false
+                    }
+                    onClick={() => {
+                      console.log("login handler");
+                    }}
+                    isFullWidth
+                    styles={`text-heading-xsmall-desktop mb-2`}
+                  >
+                    Log in
+                  </Button>
+                </span>
               </div>
             </li>
             <li className={`cursor-pointer`} onClick={props.menuOnClick}>
@@ -153,7 +223,7 @@ function Header(props: Props) {
                     fill={iconTypes[headerStyle]}
                     fillRule="evenodd"
                     d="M14.667 3.416H1.333v-1.5h13.334v1.5Zm0 5.334H1.333v-1.5h13.334v1.5ZM1.333 14.084h13.334v-1.5H1.333v1.5Z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </div>

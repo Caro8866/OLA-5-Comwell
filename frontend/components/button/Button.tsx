@@ -7,6 +7,7 @@ type Props = {
   isActive?: boolean;
   isFullWidth?: boolean;
   isSmall?: boolean;
+  styles?: string;
 };
 
 function Button({
@@ -16,6 +17,7 @@ function Button({
   isActive,
   isFullWidth,
   isSmall,
+  styles,
 }: Props) {
   const variants = {
     charcoal: "bg-charcoal-80 text-slate-50 hover:brightness-150",
@@ -31,11 +33,13 @@ function Button({
     <span
       className={`${
         isSmall ? "py-1.5" : "py-4"
-      } px-10 box-border block transition ${isFullWidth ? "w-full" : "w-max"} ${
-        isActive ? variants[color] : "bg-gray-500 text-slate-50"
-      } rounded-full text-normal font-semibold font-sans tracking-wide ${
-        isActive && onClick && "cursor-pointer"
-      }`}
+      } px-10 box-border block transition ${
+        isFullWidth ? "w-full text-center" : "w-max"
+      } ${
+        isActive ? variants[color] : "bg-gray-400 text-slate-50"
+      } rounded-full font-semibold font-sans tracking-wide ${
+        isActive && onClick ? "cursor-pointer" : "cursor-not-allowed"
+      } ${styles}`}
       onClick={onClick && isActive ? onClick : () => {}}
     >
       {children}

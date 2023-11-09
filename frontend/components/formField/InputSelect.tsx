@@ -16,7 +16,7 @@ function InputSelect({ label, value, onClick }: Props) {
 
   return (
     <div
-      className={`flex max-content flex-col border-2 rounded border-gray-200 px-3 py-4 relative transition hover:border-gray-400 ${
+      className={`flex max-content flex-col border-2 rounded border-gray-300 px-3 py-4 relative transition hover:border-gray-400 ${
         isFocused && "border-gray-800 hover:border-gray-800"
       } `}
       onClick={() => {
