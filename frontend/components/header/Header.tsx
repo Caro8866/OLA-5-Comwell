@@ -13,7 +13,6 @@ import Button from "../button/Button";
 type Props = {
   children?: React.ReactNode;
   menuOnClick: () => void;
-  profileOnClick: () => void;
   locationsOnClick: () => void;
 };
 
@@ -36,6 +35,7 @@ function Header(props: Props) {
   const [windowPosition, setWindowPosition] = useState(0);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [headerStyle, setHeaderStyle] = useState<"transparent" | "white">(
     "transparent"
   );
@@ -122,7 +122,14 @@ function Header(props: Props) {
                 </svg>
               </div>
             </li>
-            <li className={`relative`} onClick={props.profileOnClick}>
+            <li
+              className={`relative`}
+              onClick={() =>
+                isLoginVisible
+                  ? setIsLoginVisible(false)
+                  : setIsLoginVisible(true)
+              }
+            >
               <div
                 className={`flex flex-row gap-1.5 justify-center items-center cursor-pointer`}
               >
@@ -142,7 +149,11 @@ function Header(props: Props) {
                   ></path>
                 </svg>
               </div>
-              <div className={`absolute flex flex-col bg-slate-50 rounded-lg`}>
+              <div
+                className={`absolute flex flex-col bg-slate-50 rounded-lg right-2/4 translate-x-2/4 top-12 ${
+                  isLoginVisible ? "" : "hidden"
+                }`}
+              >
                 <div className={`px-4 pt-6 pb-3 flex flex-col`}>
                   <InputText
                     onChange={(e) => {

@@ -15,9 +15,6 @@ function test() {
         menuOnClick={() => {
           console.log("menu");
         }}
-        profileOnClick={() => {
-          console.log("profile");
-        }}
         locationsOnClick={() => {
           console.log("locations");
         }}
