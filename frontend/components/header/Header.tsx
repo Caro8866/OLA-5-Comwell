@@ -129,7 +129,7 @@ function Header(props: Props) {
                   onClick={() => {
                     if (isLoginVisible) {
                       setIsLoginVisible(false);
-                      setHeaderStyle("transparent");
+                      windowPosition < 150 && setHeaderStyle("transparent");
                     } else {
                       setIsLoginVisible(true);
                       setHeaderStyle("white");
@@ -252,6 +252,7 @@ function Header(props: Props) {
         }`}
         onClick={() => {
           setIsLoginVisible(false);
+          windowPosition < 150 && setHeaderStyle("transparent");
         }}
       ></div>
     </>
