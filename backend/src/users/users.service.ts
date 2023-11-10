@@ -11,7 +11,7 @@ export class UsersService {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async signup(createUserDto: CreateUserDto) {
     const createdNewUser = new this.userModel(createUserDto);
     return createdNewUser.save();
   }

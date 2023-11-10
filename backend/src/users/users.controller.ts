@@ -17,9 +17,9 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
+  async signup(@Body() createUserDto: CreateUserDto) {
     try {
-      return await this.usersService.create(createUserDto);
+      return await this.usersService.signup(createUserDto);
     } catch (error) {
       throw new ConflictException('User already exists');
     }
