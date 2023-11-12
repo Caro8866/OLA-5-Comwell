@@ -1,4 +1,11 @@
-import { Body, ConflictException, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  ConflictException,
+  Controller,
+  Post,
+  HttpStatus,
+  HttpCode,
+} from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 
@@ -13,5 +20,11 @@ export class AuthController {
     } catch (error) {
       throw new ConflictException('User already exists');
     }
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('login')
+  signIn(@Body() signInDto: Record<string, string>) {
+    return this.authService.signIn(signInDto.email, signInDto.password);
   }
 }
