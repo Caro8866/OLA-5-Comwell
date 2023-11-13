@@ -30,7 +30,6 @@ export class CreateUserDto {
   })
   gender: string;
 
-  // @IsDate({ message: 'Invalid date of birth.' })
   @Validate(IsDateOfBirthValid, {
     message: 'The person must be at least 18 years old.',
   })
