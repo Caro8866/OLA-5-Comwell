@@ -4,7 +4,11 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/comwell'), UsersModule, AuthModule],
+  imports: [
+    MongooseModule.forRoot('mongodb://localhost/comwell'),
+    UsersModule,
+    AuthModule,
+  ],
   controllers: [],
   providers: [],
 })
