@@ -1,5 +1,5 @@
 # Use a Node.js base image with alpine linux to reduce image size
-FROM node:12.18.3-alpine
+FROM node:20.3.1-alpine
 
 # Set the working directory in the Docker image
 WORKDIR /backend
