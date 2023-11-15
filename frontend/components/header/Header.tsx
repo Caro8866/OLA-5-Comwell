@@ -9,6 +9,9 @@ import menuIcon from "../../public/img/menu-icon.svg";
 import InputText from "../formField/InputText";
 import BodyText from "../text/bodyText/BodyText";
 import Button from "../button/Button";
+import Drawer from "react-modern-drawer";
+import "react-modern-drawer/dist/index.css";
+import Heading from "../text/heading/Heading";
 
 type Props = {
   children?: React.ReactNode;
@@ -39,6 +42,10 @@ function Header(props: Props) {
   const [headerStyle, setHeaderStyle] = useState<"transparent" | "white">(
     "transparent"
   );
+  const [isRegisterDrawerOpen, setIsRegisterDrawerOpen] = useState(false);
+  const toggleDrawer = () => {
+    setIsRegisterDrawerOpen((prevState) => !prevState);
+  };
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY; // => scroll position
@@ -71,7 +78,7 @@ function Header(props: Props) {
           <section className={`flex items-center`}>
             <Link href="/">
               <svg
-                enable-background="new 0 0 500 144"
+                enableBackground="new 0 0 500 144"
                 viewBox="0 0 500 144"
                 xmlns="http://www.w3.org/2000/svg"
                 className={`max-w-fit w-full h-10`}
@@ -184,24 +191,23 @@ function Header(props: Props) {
                     >
                       Forgot your password?
                     </BodyText>
-                    <Link
-                      href="#"
-                      className={`text-sea-80 underline font-regular w-max`}
+                    <span
+                      className={`text-sea-80 underline font-regular w-max cursor-pointer`}
                     >
                       Reset password
-                    </Link>
+                    </span>
                     <BodyText
                       size={1}
                       styles="text-charcoal-60 mt-2 font-regular"
                     >
                       Don't have an account?
                     </BodyText>
-                    <Link
-                      href="#"
-                      className={`text-sea-80 underline font-regular w-max`}
+                    <span
+                      onClick={toggleDrawer}
+                      className={`text-sea-80 underline font-regular w-max cursor-pointer`}
                     >
                       Sign up for Comwell club
-                    </Link>
+                    </span>
                   </div>
                   <span
                     className={`pt-6 mt-2 border-t border-gray-300 px-6 pb-4`}
@@ -246,6 +252,106 @@ function Header(props: Props) {
           </nav>
         </div>
       </header>
+      <Drawer
+        open={isRegisterDrawerOpen}
+        onClose={toggleDrawer}
+        direction="right"
+        customIdSuffix="registerForm"
+        size="420px"
+      >
+        <section className={`px-4 pt-8 flex flex-col flex-grow h-full`}>
+          <Heading size={2} styles={"mb-4"}>
+            Sign up for Comwell club
+          </Heading>
+          <BodyText size={1} styles={`mb-8 leading-snug font-medium`}>
+            Become a member of Comwell Club for free and earn points everytime
+            you stay with us. You'll also receive 25 points when you sign up
+          </BodyText>
+          <form className={`flex flex-col gap-4 mt-8 flex-grow h-full`}>
+            <InputText
+              onChange={(e) => {
+                console.log(e.target.value);
+              }}
+              value=""
+              id="name"
+              name="name"
+              label="Full name"
+              styles={`w-96`}
+            />
+            <InputText
+              onChange={(e) => {
+                console.log(e.target.value);
+              }}
+              value=""
+              id="email"
+              name="email"
+              label="Email"
+              styles={`w-96`}
+            />
+            <InputText
+              onChange={(e) => {
+                console.log(e.target.value);
+              }}
+              value=""
+              id="password"
+              name="password"
+              label="Password"
+              styles={`w-96`}
+            />
+            <InputText
+              onChange={(e) => {
+                console.log(e.target.value);
+              }}
+              value=""
+              id="password-confirmation"
+              name="password-confirmation"
+              label="Confirm password"
+              styles={`w-96`}
+            />
+            <div className={`flex flex-row gap-4 justify-items-center mt-4`}>
+              <input
+                type="checkbox"
+                id="termsAndConditions"
+                name="terms"
+                value="terms"
+                className={`min-w-[1.5rem] min-h-[1.5rem] rounded-lg flex`}
+              />
+              <label
+                htmlFor="termsAndConditions"
+                className={`flex items-center`}
+              >
+                <BodyText size={1} styles={`leading-snug font-medium w-full`}>
+                  Accept Terms an Conditions
+                </BodyText>
+              </label>
+            </div>
+            <div className={`flex flex-row gap-4 justify-items-center mt-4`}>
+              <input
+                type="checkbox"
+                id="marketing"
+                name="marketing"
+                value="marketing"
+                className={`min-w-[1.5rem] min-h-[1.5rem] rounded-lg flex`}
+              />
+              <label htmlFor="marketing" className={`flex items-center`}>
+                <BodyText size={1} styles={`leading-snug font-medium`}>
+                  I would like to be updated on current member offers, Comwell
+                  Club surprises and other recommendations personalized to me. I
+                  can unsubscribe again at any time.
+                </BodyText>
+              </label>
+            </div>
+            <div className={`flex-grow`}></div>
+            <Button
+              color="charcoal"
+              isFullWidth
+              styles={`self-end my-8 justify-self-end`}
+            >
+              Sign up
+            </Button>
+          </form>
+        </section>
+      </Drawer>
       <div
         className={`w-full h-screen fixed bg-sea-80 bg-opacity-60 z-40 transition ${
           isLoginVisible ? "" : "hidden"

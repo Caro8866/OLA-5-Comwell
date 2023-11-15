@@ -18,9 +18,9 @@ function BodyText({ size, color, styles, children, isBold }: Props) {
 
   return (
     <span
-      className={`font-sans ${isBold ? "font-semibold" : ""}${BodySize[size]} ${
-        color ? BodyColor[color] : BodyColor["black"]
-      } ${styles}`}
+      className={`font-sans ${isBold ? "font-semibold" : ""} ${
+        BodySize[size]
+      } ${color ? BodyColor[color] : BodyColor["black"]} ${styles}`}
     >
       {children}
     </span>
