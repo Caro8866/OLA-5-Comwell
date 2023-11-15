@@ -15,7 +15,6 @@ import Heading from "../text/heading/Heading";
 
 type Props = {
   children?: React.ReactNode;
-  menuOnClick: () => void;
   locationsOnClick: () => void;
 };
 
@@ -43,8 +42,13 @@ function Header(props: Props) {
     "transparent"
   );
   const [isRegisterDrawerOpen, setIsRegisterDrawerOpen] = useState(false);
-  const toggleDrawer = () => {
+  const [isMenuDrawerOpen, setIsMenuDrawerOpen] = useState(false);
+  const toggleRegisterDrawer = () => {
     setIsRegisterDrawerOpen((prevState) => !prevState);
+  };
+
+  const toggleMenuDrawer = () => {
+    setIsMenuDrawerOpen((prevState) => !prevState);
   };
 
   const handleScroll = () => {
@@ -203,7 +207,7 @@ function Header(props: Props) {
                       Don't have an account?
                     </BodyText>
                     <span
-                      onClick={toggleDrawer}
+                      onClick={toggleRegisterDrawer}
                       className={`text-sea-80 underline font-regular w-max cursor-pointer`}
                     >
                       Sign up for Comwell club
@@ -228,7 +232,12 @@ function Header(props: Props) {
                   </span>
                 </div>
               </li>
-              <li className={`cursor-pointer`} onClick={props.menuOnClick}>
+              <li
+                className={`cursor-pointer`}
+                onClick={() => {
+                  toggleMenuDrawer();
+                }}
+              >
                 <div
                   className={`flex flex-row gap-1.5 justify-center items-center`}
                 >
@@ -254,10 +263,11 @@ function Header(props: Props) {
       </header>
       <Drawer
         open={isRegisterDrawerOpen}
-        onClose={toggleDrawer}
+        onClose={toggleRegisterDrawer}
         direction="right"
         customIdSuffix="registerForm"
         size="420px"
+        className={`rounded-l-xl`}
       >
         <section className={`px-4 pt-8 flex flex-col flex-grow h-full`}>
           <Heading size={2} styles={"mb-4"}>
@@ -351,6 +361,82 @@ function Header(props: Props) {
             </Button>
           </form>
         </section>
+      </Drawer>
+      <Drawer
+        open={isMenuDrawerOpen}
+        onClose={toggleMenuDrawer}
+        direction="right"
+        customIdSuffix="menuDrawer"
+        size="80vw"
+        className={`rounded-l-xl`}
+      >
+        <nav className={`flex flex-col pt-8 pb-4 pl-12 h-full`}>
+          <section>{/*Section for searchbar */}</section>
+          <section
+            className={`flex flex-col gap-4 py-8 mb-4 text-heading-huge-desktop font-semibold hover:text-charcoal-40`}
+          >
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Hotels
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Packages
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Meeting & Conference
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Restaurant & Events
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Spa
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Contact
+            </Link>
+          </section>
+          <section
+            className={`flex flex-col gap-4 pb-8 pt-12  text-heading-small-desktop font-semibold hover:text-charcoal-40 border-t`}
+          >
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              To Comwell.com
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              News
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Comwell club
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Gift Cards
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Corporate Agreement
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              About Comwell
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Job & Career
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Global frontpage
+            </Link>
+          </section>
+          <div className={`flex-grow`}></div>
+          <section
+            className={`flex flex-row gap-4 pt-4 text-body-large font-semibold hover:text-charcoal-40 border-t justify-self-end`}
+          >
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Facebook{" "}
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              LinkedIn
+            </Link>
+            <Link href="#" className={`transition hover:text-charcoal-100`}>
+              Instagram
+            </Link>
+          </section>
+        </nav>
       </Drawer>
       <div
         className={`w-full h-screen fixed bg-sea-80 bg-opacity-60 z-40 transition ${
