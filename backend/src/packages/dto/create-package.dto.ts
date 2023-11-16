@@ -4,7 +4,6 @@ export class CreatePackageDto {
   @IsNotEmpty({ message: 'Package name must be provided' })
   name: string;
 
-  _id: string;
   type: string;
   tags: string[];
   description: string;
@@ -16,7 +15,6 @@ export class CreatePackageDto {
   discount: number;
 
   constructor(
-    _id: string,
     name: string,
     type: string,
     tags: string[],
