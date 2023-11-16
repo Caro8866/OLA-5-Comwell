@@ -1,0 +1,16 @@
+export type Area =
+  | 'Aarhus'
+  | 'Snekkersten'
+  | 'Horsens'
+  | 'Nordhavn'
+  | 'Odense'
+  | 'Holte'
+  | 'Aalborg'
+  | 'Børkop'
+  | 'Korsør'
+  | 'Kolding'
+  | 'Middelfart'
+  | 'Køge'
+  | 'Skørping'
+  | 'Roskilde'
+  | 'Varberg';
