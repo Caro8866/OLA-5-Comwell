@@ -36,6 +36,7 @@ interface PaymentDetails {
   cardCVC: string;
 }
 
+// State structure for the booking form
 export interface BookingFormState {
   bookingType: bookingType;
   selectedHotel: string | null;
