@@ -5,7 +5,7 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/comwell'),
+    MongooseModule.forRoot('mongodb://mongodb:27017/comwell'),
     UsersModule,
     AuthModule,
   ],

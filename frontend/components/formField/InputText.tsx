@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import React from "react";
 import { useState, useRef } from "react";
 
 type Props = {
@@ -8,9 +9,19 @@ type Props = {
   value: string;
   name: string;
   id: string;
+  isPassword?: boolean;
+  styles?: string;
 };
 
-function InputText({ label, value, onChange, name, id }: Props) {
+function InputText({
+  label,
+  value,
+  onChange,
+  name,
+  id,
+  isPassword,
+  styles,
+}: Props) {
   const [isFocused, setIsFocused] = useState(false);
 
   const ref = useRef<any>(null);
@@ -22,9 +33,9 @@ function InputText({ label, value, onChange, name, id }: Props) {
 
   return (
     <div
-      className={`flex max-content flex-col border-2 rounded border-gray-200 px-3 py-4 relative transition hover:border-gray-400 ${
+      className={`flex max-content flex-col border-2 rounded border-gray-300 px-3 py-4 relative transition hover:border-gray-400 ${
         isFocused && "border-gray-800 hover:border-gray-800"
-      } `}
+      }  ${styles}`}
       onClick={handleClick}
       onBlur={() => setIsFocused(false)}
     >
@@ -33,7 +44,7 @@ function InputText({ label, value, onChange, name, id }: Props) {
         className={`font-sans font-semibold absolute bottom-2/4 translate-y-2/4 transition ${
           isFocused || value
             ? " translate-y-[-15%] text-gray-600 font-medium"
-            : "translate-y-2/4"
+            : "translate-y-2/4 text-charcoal-80"
         } `}
       >
         {label}
@@ -43,12 +54,10 @@ function InputText({ label, value, onChange, name, id }: Props) {
         name={name}
         ref={ref}
         autoFocus={isFocused ? true : false}
-        type="text"
+        type={isPassword ? "password" : "text"}
         value={value}
         onChange={onChange}
-        className={
-          "font-semibold text-lg translate-y-1/4 bg-transparent focus:outline-none"
-        }
+        className={`font-semibold text-lg translate-y-1/4 bg-transparent focus:outline-none text-charcoal-80`}
       />
     </div>
   );

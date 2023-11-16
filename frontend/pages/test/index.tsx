@@ -6,31 +6,19 @@ import { log } from "console";
 import React from "react";
 import { useState } from "react";
 
-function test() {
+function Test() {
   const [myValue, setMyValue] = useState("Test");
 
   return (
-    <>
+    <div className={`h-full w-full bg-slate-400`}>
       <Header
-        menuOnClick={() => {
-          console.log("menu");
-        }}
-        profileOnClick={() => {
-          console.log("profile");
-        }}
+        menuOnClick={() => {}}
         locationsOnClick={() => {
           console.log("locations");
         }}
       />
       <div className={`py-4 grid grid-cols-4 gap-4`}>
-        <ExperienceCard
-          linkTo="/test"
-          image="/img/placeholder.webp"
-          title="Overnight stay with breakfast"
-          description="lorem ipsum dolor sit amet"
-          tag="Overnight stay"
-          price={1234}
-        />
+        <ExperienceCard linkTo="/test" image="/img/placeholder.webp" title="Overnight stay with breakfast" description="lorem ipsum dolor sit amet" tag="Overnight stay" price={1234} />
         <ExperienceCard
           linkTo="/test"
           image="/img/placeholder.webp"
@@ -40,16 +28,10 @@ function test() {
           price={1000}
           discount={0.5}
         />
-        <ExperienceCard
-          linkTo="/test"
-          image="/img/placeholder.webp"
-          title="Overnight stay with breakfast"
-          description="lorem ipsum dolor sit amet"
-          tag="Overnight stay"
-        />
+        <ExperienceCard linkTo="/test" image="/img/placeholder.webp" title="Overnight stay with breakfast" description="lorem ipsum dolor sit amet" tag="Overnight stay" />
       </div>
-    </>
+    </div>
   );
 }
 
-export default test;
+export default Test;
