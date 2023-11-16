@@ -3,14 +3,24 @@ import React, { createContext, useState, useContext } from "react";
 
 const BookingFormContext = createContext<[BookingFormState, (state: BookingFormState) => void] | undefined>(undefined);
 
-// Example initial state based on the BookingFormState interface
+// Helper function to add days to a date
+const addDays = (date: Date, days: number) => {
+  const result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+};
+
+const today = new Date();
+const tomorrow = addDays(today, 1);
+
+// Initial state based on the BookingFormState interface
 const initialBookingFormState: BookingFormState = {
   bookingType: bookingType.hotel,
   selectedHotel: null,
   roomCount: 1,
   personCount: 1,
-  startDate: null,
-  endDate: null,
+  startDate: today,
+  endDate: tomorrow,
   rooms: [],
   package: null,
   price: null,
