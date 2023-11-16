@@ -1,13 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { Package } from 'src/packages/schemas/package.schema';
 import { Area } from 'src/utils/Area';
 import { Region } from 'src/utils/Region';
+import * as mongoose from 'mongoose';
 
 export type HotelDocument = HydratedDocument<Hotel>;
 
 @Schema()
 export class Hotel {
-  @Prop({ unique: true })
+  @Prop({ required: true })
   name: string;
 
   @Prop()
@@ -19,9 +21,8 @@ export class Hotel {
   @Prop()
   description: string;
 
-  //   @Prop()
-  //   packages: ExperiencePackage[];
-  // Name, tag, description, price, discount
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: Package.name }] })
+  packages: Package[];
 
   //   @Prop()
   //   offers: HotelOffers[];
