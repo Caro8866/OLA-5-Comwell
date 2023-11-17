@@ -33,6 +33,7 @@ export class HotelsService {
   // packages
 
   async addPackage(id: string, pkg: CreatePackageDto) {
+    // send package object with ID
     const updateHotel = await this.hotelModel.findById(id);
     updateHotel.packages.push(pkg);
 
