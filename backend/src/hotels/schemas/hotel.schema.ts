@@ -4,6 +4,7 @@ import { Package } from 'src/packages/schemas/package.schema';
 import { Area } from 'src/utils/Area';
 import { Region } from 'src/utils/Region';
 import * as mongoose from 'mongoose';
+import { HotelOffer } from 'src/hotel-offers/schemas/hotel-offer.schema';
 
 export type HotelDocument = HydratedDocument<Hotel>;
 
@@ -21,11 +22,15 @@ export class Hotel {
   @Prop()
   description: string;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: Package.name }] })
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: Package.name }],
+  })
   packages: Package[];
 
-  //   @Prop()
-  //   offers: HotelOffers[];
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: HotelOffer.name }],
+  })
+  offers: HotelOffer[];
   // Info cards with icon, headline and description
 
   @Prop()
