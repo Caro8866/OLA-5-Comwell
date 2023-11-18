@@ -17,11 +17,19 @@ export class HotelsService {
   }
 
   findAll() {
-    return this.hotelModel.find().populate('packages').populate('offers');
+    return this.hotelModel
+      .find()
+      .populate('packages')
+      .populate('offers')
+      .populate('rooms');
   }
 
   findOne(id: number) {
-    return this.hotelModel.findById(id).populate('packages').populate('offers');
+    return this.hotelModel
+      .findById(id)
+      .populate('packages')
+      .populate('offers')
+      .populate('rooms');
   }
 
   update(id: number, updateHotelDto: UpdateHotelDto) {
