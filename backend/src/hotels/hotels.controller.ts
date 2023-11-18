@@ -56,8 +56,8 @@ export class HotelsController {
     @Param('id') id: string,
     @Param('pkgId') pkgId: string,
   ): Promise<Hotel> {
-    console.log('package ID', pkgId);
-    console.log('hotel ID', id);
+    // console.log('package ID', pkgId);
+    // console.log('hotel ID', id);
 
     return this.hotelsService.deletePackage(id, pkgId);
   }
@@ -75,8 +75,8 @@ export class HotelsController {
     @Param('id') id: string,
     @Param('pkgId') offerId: string,
   ): Promise<Hotel> {
-    console.log('Offer ID', offerId);
-    console.log('hotel ID', id);
+    // console.log('Offer ID', offerId);
+    // console.log('hotel ID', id);
 
     return this.hotelsService.deleteOffer(id, offerId);
   }
