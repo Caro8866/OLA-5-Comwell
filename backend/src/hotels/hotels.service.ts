@@ -4,8 +4,9 @@ import { UpdateHotelDto } from './dto/update-hotel.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Hotel } from './schemas/hotel.schema';
 import { Model } from 'mongoose';
-import { CreatePackageDto } from 'src/packages/dto/create-package.dto';
+import { CreatePackageDto } from 'src/hotel-packages/dto/create-package.dto';
 import { CreateHotelOfferDto } from 'src/hotel-offers/dto/create-hotel-offer.dto';
+import { CreateHotelRoomDto } from 'src/hotel-rooms/dto/create-hotel-room.dto';
 @Injectable()
 export class HotelsService {
   constructor(@InjectModel(Hotel.name) private hotelModel: Model<Hotel>) {}
@@ -16,11 +17,19 @@ export class HotelsService {
   }
 
   findAll() {
-    return this.hotelModel.find().populate('packages').populate('offers');
+    return this.hotelModel
+      .find()
+      .populate('packages')
+      .populate('offers')
+      .populate('rooms');
   }
 
   findOne(id: number) {
-    return this.hotelModel.findById(id).populate('packages').populate('offers');
+    return this.hotelModel
+      .findById(id)
+      .populate('packages')
+      .populate('offers')
+      .populate('rooms');
   }
 
   update(id: number, updateHotelDto: UpdateHotelDto) {
@@ -31,10 +40,9 @@ export class HotelsService {
     return this.hotelModel.findByIdAndDelete(id).exec();
   }
 
-  // packages
+  /* --- PACKAGES --- */
 
   async addPackage(id: string, pkg: CreatePackageDto) {
-    // send package object with ID
     const updateHotel = await this.hotelModel.findById(id);
     updateHotel.packages.push(pkg);
 
@@ -51,8 +59,10 @@ export class HotelsService {
 
     return updateHotel.save();
   }
+
+  /* --- OFFERS --- */
+
   async addOffer(id: string, offer: CreateHotelOfferDto) {
-    // send package object with ID
     const updateHotel = await this.hotelModel.findById(id);
     updateHotel.offers.push(offer);
 
@@ -66,6 +76,26 @@ export class HotelsService {
       return offer.toString() !== offId;
     });
     updateHotel.offers = filteredOffers;
+
+    return updateHotel.save();
+  }
+
+  /* --- ROOMS --- */
+
+  async addRoom(id: string, room: CreateHotelRoomDto) {
+    const updateHotel = await this.hotelModel.findById(id);
+    updateHotel.rooms.push(room);
+
+    return updateHotel.save();
+  }
+
+  async deleteRoom(id: string, roomId: string) {
+    const updateHotel = await this.hotelModel.findById(id);
+
+    const filteredRooms = updateHotel.rooms.filter((room: any) => {
+      return room.toString() !== roomId;
+    });
+    updateHotel.rooms = filteredRooms;
 
     return updateHotel.save();
   }

@@ -10,9 +10,10 @@ import {
 import { HotelsService } from './hotels.service';
 import { CreateHotelDto } from './dto/create-hotel.dto';
 import { UpdateHotelDto } from './dto/update-hotel.dto';
-import { CreatePackageDto } from 'src/packages/dto/create-package.dto';
+import { CreatePackageDto } from 'src/hotel-packages/dto/create-package.dto';
 import { Hotel } from './schemas/hotel.schema';
 import { CreateHotelOfferDto } from 'src/hotel-offers/dto/create-hotel-offer.dto';
+import { CreateHotelRoomDto } from 'src/hotel-rooms/dto/create-hotel-room.dto';
 
 @Controller('hotels')
 export class HotelsController {
@@ -56,9 +57,6 @@ export class HotelsController {
     @Param('id') id: string,
     @Param('pkgId') pkgId: string,
   ): Promise<Hotel> {
-    // console.log('package ID', pkgId);
-    // console.log('hotel ID', id);
-
     return this.hotelsService.deletePackage(id, pkgId);
   }
 
@@ -73,11 +71,24 @@ export class HotelsController {
   @Delete(':id/offers/:offId')
   deleteOffer(
     @Param('id') id: string,
-    @Param('pkgId') offerId: string,
+    @Param('offerId') offerId: string,
   ): Promise<Hotel> {
-    // console.log('Offer ID', offerId);
-    // console.log('hotel ID', id);
-
     return this.hotelsService.deleteOffer(id, offerId);
+  }
+
+  @Post(':id/rooms')
+  addRoom(
+    @Param('id') id: string,
+    @Body() room: CreateHotelRoomDto,
+  ): Promise<Hotel> {
+    return this.hotelsService.addRoom(id, room);
+  }
+
+  @Delete(':id/rooms/:RoomId')
+  deleteRoom(
+    @Param('id') id: string,
+    @Param('roomId') roomId: string,
+  ): Promise<Hotel> {
+    return this.hotelsService.deleteRoom(id, roomId);
   }
 }

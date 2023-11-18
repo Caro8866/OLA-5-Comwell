@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePackageDto } from './dto/create-package.dto';
 import { UpdatePackageDto } from './dto/update-package.dto';
-import { Package } from './schemas/package.schema';
+import { HotelPackage } from './schemas/package.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class PackagesService {
   constructor(
-    @InjectModel(Package.name) private packageModel: Model<Package>,
+    @InjectModel(HotelPackage.name) private packageModel: Model<HotelPackage>,
   ) {}
 
   create(createPackageDto: CreatePackageDto) {
