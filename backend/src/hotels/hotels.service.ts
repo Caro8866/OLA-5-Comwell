@@ -4,7 +4,7 @@ import { UpdateHotelDto } from './dto/update-hotel.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Hotel } from './schemas/hotel.schema';
 import { Model } from 'mongoose';
-import { CreatePackageDto } from 'src/packages/dto/create-package.dto';
+import { CreatePackageDto } from 'src/hotel-packages/dto/create-package.dto';
 import { CreateHotelOfferDto } from 'src/hotel-offers/dto/create-hotel-offer.dto';
 @Injectable()
 export class HotelsService {

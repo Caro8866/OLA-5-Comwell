@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { HotelsModule } from './hotels/hotels.module';
-import { PackagesModule } from './packages/packages.module';
+import { PackagesModule } from './hotel-packages/packages.module';
 import { HotelOffersModule } from './hotel-offers/hotel-offers.module';
 import { HotelRoomsModule } from './hotel-rooms/hotel-rooms.module';
 

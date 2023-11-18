@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { CreateHotelRoomDto } from './dto/create-hotel-room.dto';
 import { UpdateHotelRoomDto } from './dto/update-hotel-room.dto';
+import { HotelRoom } from './schemas/hotel-room.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class HotelRoomsService {
+  constructor(
+    @InjectModel(HotelRoom.name) private hotelRoomModel: Model<HotelRoom>,
+  ) {}
+
   create(createHotelRoomDto: CreateHotelRoomDto) {
-    return 'This action adds a new hotelRoom';
+    const createdHotelRoom = new this.hotelRoomModel(createHotelRoomDto);
+    return createdHotelRoom.save();
   }
 
   findAll() {
-    return `This action returns all hotelRooms`;
+    return this.hotelRoomModel.find().exec();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} hotelRoom`;
+    return this.hotelRoomModel.findById({ id }).exec();
   }
 
   update(id: number, updateHotelRoomDto: UpdateHotelRoomDto) {
-    return `This action updates a #${id} hotelRoom`;
+    return this.hotelRoomModel.findByIdAndUpdate(id, updateHotelRoomDto).exec();
   }
 
   remove(id: number) {
-    return `This action removes a #${id} hotelRoom`;
+    return this.hotelRoomModel.findByIdAndRemove(id).exec();
   }
 }
