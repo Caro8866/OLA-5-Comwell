@@ -12,6 +12,7 @@ import { CreateHotelDto } from './dto/create-hotel.dto';
 import { UpdateHotelDto } from './dto/update-hotel.dto';
 import { CreatePackageDto } from 'src/packages/dto/create-package.dto';
 import { Hotel } from './schemas/hotel.schema';
+import { CreateHotelOfferDto } from 'src/hotel-offers/dto/create-hotel-offer.dto';
 
 @Controller('hotels')
 export class HotelsController {
@@ -55,9 +56,28 @@ export class HotelsController {
     @Param('id') id: string,
     @Param('pkgId') pkgId: string,
   ): Promise<Hotel> {
-    console.log('package ID', pkgId);
-    console.log('hotel ID', id);
+    // console.log('package ID', pkgId);
+    // console.log('hotel ID', id);
 
     return this.hotelsService.deletePackage(id, pkgId);
+  }
+
+  @Post(':id/offers')
+  addOffer(
+    @Param('id') id: string,
+    @Body() offer: CreateHotelOfferDto,
+  ): Promise<Hotel> {
+    return this.hotelsService.addOffer(id, offer);
+  }
+
+  @Delete(':id/offers/:offId')
+  deleteOffer(
+    @Param('id') id: string,
+    @Param('pkgId') offerId: string,
+  ): Promise<Hotel> {
+    // console.log('Offer ID', offerId);
+    // console.log('hotel ID', id);
+
+    return this.hotelsService.deleteOffer(id, offerId);
   }
 }
