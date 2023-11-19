@@ -6,6 +6,7 @@ import { HotelsModule } from './hotels/hotels.module';
 import { PackagesModule } from './hotel-packages/packages.module';
 import { HotelOffersModule } from './hotel-offers/hotel-offers.module';
 import { HotelRoomsModule } from './hotel-rooms/hotel-rooms.module';
+import { BookingsModule } from './bookings/bookings.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { HotelRoomsModule } from './hotel-rooms/hotel-rooms.module';
     PackagesModule,
     HotelOffersModule,
     HotelRoomsModule,
+    BookingsModule,
   ],
   controllers: [],
   providers: [],
