@@ -10,8 +10,8 @@ import {
 import { HotelPackage } from 'src/hotel-packages/schemas/package.schema';
 import { HotelRoom } from 'src/hotel-rooms/schemas/hotel-room.schema';
 import { Hotel } from 'src/hotels/schemas/hotel.schema';
-import { Booker } from 'src/utils/Booker';
-import { Guest } from 'src/utils/Guest';
+import { Guest } from '../schemas/guest.schema';
+import { Booker } from '../schemas/booker.schema';
 
 export class CreateBookingDto {
   @IsNotEmpty({ message: 'Booking type must be selected' })

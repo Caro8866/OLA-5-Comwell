@@ -3,34 +3,39 @@ import { HydratedDocument } from 'mongoose';
 import { HotelPackage } from 'src/hotel-packages/schemas/package.schema';
 import { HotelRoom } from 'src/hotel-rooms/schemas/hotel-room.schema';
 import { Hotel } from 'src/hotels/schemas/hotel.schema';
-import { Booker } from 'src/utils/Booker';
-import { Guest } from 'src/utils/Guest';
-
+import { Guest } from './guest.schema';
+import { Booker } from './booker.schema';
 export type BookingDocument = HydratedDocument<Booking>;
 
 @Schema()
 export class Booking {
-  @Prop({ required: true })
+  @Prop()
   bookingType: string;
 
-  @Prop({ required: true })
+  @Prop()
   hotel: Hotel;
 
-  @Prop({ required: true })
+  @Prop()
   rooms: HotelRoom[];
 
-  @Prop({ required: true })
+  @Prop()
   checkInDate: Date;
 
-  @Prop({ required: true })
+  @Prop()
   checkOutDate: Date;
 
-  @Prop({ required: true })
+  @Prop()
   package: HotelPackage;
 
   // addons tbd not required
   @Prop()
   guest: Guest;
+
+  @Prop()
+  price: number;
+
+  @Prop()
+  termsAccepted: boolean;
 
   @Prop()
   booker: Booker;
@@ -39,13 +44,7 @@ export class Booking {
   comment: string;
 
   @Prop()
-  termsAccepted: boolean;
-
-  @Prop()
   discount: number;
-
-  @Prop()
-  price: number;
 }
 
-export const PackageSchema = SchemaFactory.createForClass(Booking);
+export const BookingSchema = SchemaFactory.createForClass(Booking);
