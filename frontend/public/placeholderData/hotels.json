@@ -1,0 +1,68 @@
+[
+  {
+    "_id": "507f191e810c19729de860ea",
+    "name": "The Grandiose Hotel",
+    "location": "Cambridge",
+    "region": "East Anglia",
+    "description": "An exquisite stay awaits you at The Grandiose Hotel, where luxury meets comfort in the heart of academia.",
+    "isHotel": true,
+    "isConferenceCenter": true,
+    "isBanquet": true,
+    "__v": 6,
+    "packages": [
+      {
+        "_id": "507f1f77bcf86cd799439011",
+        "name": "Luxury Weekend Getaway",
+        "type": "weekendSpecial",
+        "tags": ["relaxation", "spa", "gourmet"],
+        "description": "Indulge in a luxurious weekend retreat with spa access and gourmet dining.",
+        "price": 2500,
+        "discount": 10,
+        "__v": 0
+      },
+      {
+        "_id": "507f1f77bcf86cd799439014",
+        "name": "Business Executive Package",
+        "type": "businessDeal",
+        "tags": ["conference", "networking", "executive"],
+        "description": "Designed for the discerning business traveller, offering conference facilities and networking opportunities.",
+        "price": 1800,
+        "discount": 5,
+        "__v": 0
+      }
+    ]
+  },
+  {
+    "_id": "507f191e810c19729de860eb",
+    "name": "Seaside Escape Resort",
+    "location": "Brighton",
+    "region": "South Coast",
+    "description": "Embrace the sea breeze and stunning views at our beachfront Seaside Escape Resort.",
+    "isHotel": true,
+    "isConferenceCenter": false,
+    "isBanquet": true,
+    "__v": 6,
+    "packages": [
+      {
+        "_id": "507f1f77bcf86cd799439022",
+        "name": "Romantic Beachfront Package",
+        "type": "romanticRetreat",
+        "tags": ["couples", "beach", "sunset"],
+        "description": "A romantic getaway with sunset beach walks and a candlelit dinner by the sea.",
+        "price": 2200,
+        "discount": 15,
+        "__v": 0
+      },
+      {
+        "_id": "507f1f77bcf86cd799439023",
+        "name": "Adventure Seekers' Special",
+        "type": "adventurePack",
+        "tags": ["adventure", "watersports", "excitement"],
+        "description": "For those who crave adventure, try our watersports and outdoor activities.",
+        "price": 2000,
+        "discount": 0,
+        "__v": 0
+      }
+    ]
+  }
+]
