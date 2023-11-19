@@ -11,7 +11,7 @@ export enum region {
   jutland = "jutland",
 }
 
-interface RoomDetails {
+export interface RoomDetails {
   roomType: string;
   roomCount: number;
   personCount: number;
@@ -20,6 +20,12 @@ interface RoomDetails {
 interface AddonDetails {
   addonType: string;
   addonCount: number;
+}
+
+export interface People {
+  adults: number;
+  children: number;
+  toddlers: number;
 }
 
 interface GuestInfo {
@@ -48,10 +54,10 @@ export interface BookingFormState {
   bookingType: bookingType;
   selectedHotel: string | null;
   roomCount: number;
-  personCount: number;
+  personCount: object;
   startDate: Date | null;
   endDate: Date | null;
-  rooms: Array<RoomDetails>;
+  rooms: People[];
   package: string | null;
   price: number | null;
   addons: Array<AddonDetails>;
