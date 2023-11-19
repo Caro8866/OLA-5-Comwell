@@ -1,7 +1,14 @@
 export enum bookingType {
-  hotel = "hotel",
+  accomodation = "accomodation",
   conference = "conference",
   banquet = "banquet",
+}
+
+export enum region {
+  all = "all",
+  zealand = "zealand",
+  funen = "funen",
+  jutland = "jutland",
 }
 
 interface RoomDetails {
