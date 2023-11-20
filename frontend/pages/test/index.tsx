@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import BookingForm from "@/components/bookingForm/BookingForm";
+// import BookingForm from "@/components/bookingForm/BookingForm";
 import ExperienceCard from "@/components/experienceCard/ExperienceCard";
 import InputSelect from "@/components/formField/InputSelect";
 import Header from "@/components/header/Header";
@@ -19,7 +19,14 @@ function Test() {
         }}
       />
       <div className={`py-4 grid grid-cols-4 gap-4`}>
-        <ExperienceCard linkTo="/test" image="/img/placeholder.webp" title="Overnight stay with breakfast" description="lorem ipsum dolor sit amet" tag="Overnight stay" price={1234} />
+        <ExperienceCard
+          linkTo="/test"
+          image="/img/placeholder.webp"
+          title="Overnight stay with breakfast"
+          description="lorem ipsum dolor sit amet"
+          tag="Overnight stay"
+          price={1234}
+        />
         <ExperienceCard
           linkTo="/test"
           image="/img/placeholder.webp"
@@ -29,9 +36,15 @@ function Test() {
           price={1000}
           discount={0.5}
         />
-        <ExperienceCard linkTo="/test" image="/img/placeholder.webp" title="Overnight stay with breakfast" description="lorem ipsum dolor sit amet" tag="Overnight stay" />
+        <ExperienceCard
+          linkTo="/test"
+          image="/img/placeholder.webp"
+          title="Overnight stay with breakfast"
+          description="lorem ipsum dolor sit amet"
+          tag="Overnight stay"
+        />
       </div>
-      <BookingForm />
+      {/* <BookingForm /> */}
     </div>
   );
 }
