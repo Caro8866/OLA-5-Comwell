@@ -1,3 +1,4 @@
+import Button from "@/components/button/Button";
 import Heading from "@/components/text/heading/Heading";
 import React from "react";
 import Drawer from "react-modern-drawer";
@@ -19,9 +20,17 @@ function DateDrawer({ isOpen, onClose, startDate, endDate, onStartDateChange, on
         <Heading size={2} color="black">
           Check In
         </Heading>
-        <Heading size={2} color="black">
-          Check Out
-        </Heading>
+        <form className="flex flex-col gap-2">
+          <input type="date" value={startDate?.toISOString().slice(0, 10)} onChange={(e) => onStartDateChange(new Date(e.target.value))} />
+          <Heading size={2} color="black">
+            Check Out
+          </Heading>
+          <input type="date" value={endDate?.toISOString().slice(0, 10)} onChange={(e) => onEndDateChange(new Date(e.target.value))} />
+          {/* button to close drawer */}
+          <Button onClick={onClose} color="charcoal" isFullWidth={true} isActive={true}>
+            Select
+          </Button>
+        </form>
       </div>
     </Drawer>
   );
