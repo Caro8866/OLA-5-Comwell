@@ -5,6 +5,7 @@ import { region } from "@/utils/bookingFormState";
 import Heading from "@/components/text/heading/Heading";
 import TabGroup from "@/components/tabGroup/TabGroup";
 import HotelCard from "@/components/hotelCard/HotelCard";
+import { BeatLoader } from "react-spinners";
 
 type HotelDrawerProps = {
   isOpen: boolean;
@@ -71,7 +72,7 @@ function HotelDrawer({ isOpen, onClose, selectedHotel, onSelectHotel, currentReg
       <TabGroup activeTab={currentRegion} onTabChange={onSelectRegion} tabs={Object.values(region)} />
       <div className="flex flex-col my-4">
         {loading && <div>Loading hotels...</div>}
-        {error && <div>Error loading hotels: {error}</div>}
+        {error && <BeatLoader loading={loading} size={15} />}
         {!loading && !error && filteredHotels.map((hotel) => <HotelCard key={hotel.name} name={hotel.name} location={hotel.location} isSelected={selectedHotel === hotel.name} onSelect={() => onSelectHotel(hotel.name)} />)}
       </div>
     </Drawer>
