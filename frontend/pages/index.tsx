@@ -6,6 +6,8 @@ import React, { useEffect, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import ExperienceCard from "@/components/experienceCard/ExperienceCard";
+import Label from "@/components/label/Label";
+import Button from "@/components/button/Button";
 
 function index() {
   const [ref] = useKeenSlider<HTMLDivElement>({
@@ -78,9 +80,22 @@ function index() {
           />
         </section>
         <section className={`py-20  relative`}>
-          <Heading size={3} styles={`px-8 mx-auto 2xl:max-w-[1600px] mb-8`}>
-            Offers & Experiences
-          </Heading>
+          <div
+            className={`px-8 mx-auto 2xl:max-w-[1600px] mb-8 w-full flex flex-row justify-between`}
+          >
+            <Heading size={3}>Offers & Experiences</Heading>
+            <Button
+              color="outline"
+              isActive
+              onClick={() => {
+                console.log("whatever");
+              }}
+              isSmall
+            >
+              See our offers and experiences
+            </Button>
+          </div>
+
           <div className={`w-screen overflow-visible`}>
             <div
               ref={ref}
