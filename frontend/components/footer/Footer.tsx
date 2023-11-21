@@ -2,18 +2,32 @@ import "@/app/globals.css";
 import Link from "next/link";
 import BodyText from "../text/bodyText/BodyText";
 import Heading from "../text/heading/Heading";
+import { useState } from "react";
 
 type Props = {};
 
 function Footer(props: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <footer className={`w-full bg-sea-80 text-slate-50 pt-20`}>
       <section
         className={`mx-auto max-w-[1600px] flex flex-col md:flex-row gap-4 md:gap-8 lg:gap-36 px-8 pb-8 lg:pb-96`}
       >
         <div className={`mb-8`}>
+          <div
+            className={`w-full flex justify-between py-6 border-t-[1px] border-slate-600 cursor-pointer md:hidden`}
+            onClick={() => {
+              // toggler
+              setIsOpen((previousState) => !previousState);
+            }}
+          >
+            <p>MENU</p> <p>V</p>
+          </div>
           <ul
-            className={`font-semibold text-heading-large-desktop flex flex-col gap-4 hover:text-slate-400`}
+            className={`font-semibold text-heading-small-desktop md:text-heading-large-desktop flex flex-col gap-4 hover:text-slate-400 transition-all overflow-hidden h-fit ${
+              isOpen ? "md:max-h-fit" : "max-h-0  md:max-h-fit"
+            }`}
           >
             <Link href="#" className={`hover:text-slate-50 transition`}>
               Hotels
@@ -35,7 +49,7 @@ function Footer(props: Props) {
             </Link>
           </ul>
         </div>
-        <div className={`flex flex-col gap-2`}>
+        <div className={`flex flex-col gap-2 order-first md:order-last`}>
           <BodyText size={2} color="white" isBold styles="mb-1">
             CONTACT
           </BodyText>
