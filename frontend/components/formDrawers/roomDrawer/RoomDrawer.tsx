@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import Heading from "@/components/text/heading/Heading";
 import { BookingFormState } from "@/utils/bookingFormState";
 import Counter from "@/components/counter/Counter";
+import BodyText from "@/components/text/bodyText/BodyText";
 
 type RoomDrawerProps = {
   isOpen: boolean;
@@ -13,7 +14,19 @@ type RoomDrawerProps = {
 };
 
 function RoomDrawer({ isOpen, onClose, rooms, setRooms }: RoomDrawerProps) {
+  const [warningMessage, setWarningMessage] = useState("");
+
   const handleCountChange = (roomIndex: number, type: "adults" | "children" | "toddlers", increment: boolean) => {
+    const room = rooms[roomIndex];
+    const totalPeople = room.adults + room.children + room.toddlers;
+
+    if (increment && totalPeople >= 4) {
+      setWarningMessage("Maximum 4 people allowed in one room");
+      return;
+    } else if (totalPeople <= 4) {
+      setWarningMessage("");
+    }
+
     setRooms(
       rooms.map((room, index) => {
         if (index === roomIndex) {
@@ -52,6 +65,11 @@ function RoomDrawer({ isOpen, onClose, rooms, setRooms }: RoomDrawerProps) {
             {renderCounter("Children", "children", room, index, "Age 2-12")}
             {renderCounter("Toddlers", "toddlers", room, index, "Under 2")}
           </div>
+          {warningMessage && (
+            <BodyText size={2} color="black">
+              {warningMessage}
+            </BodyText>
+          )}
         </div>
       ))}
       <button onClick={handleAddRoom}>Add Room</button>
