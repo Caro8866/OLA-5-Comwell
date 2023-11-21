@@ -11,7 +11,7 @@ function Footer(props: Props) {
       <section
         className={`mx-auto max-w-[1600px] flex flex-col md:flex-row gap-4 md:gap-8 lg:gap-36 px-8 pb-8 lg:pb-96`}
       >
-        <div>
+        <div className={`mb-8`}>
           <ul
             className={`font-semibold text-heading-large-desktop flex flex-col gap-4 hover:text-slate-400`}
           >
