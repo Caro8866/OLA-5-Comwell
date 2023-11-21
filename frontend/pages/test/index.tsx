@@ -1,8 +1,10 @@
 import "@/app/globals.css";
-import BookingForm from "@/components/bookingForm/BookingForm";
 import ExperienceCard from "@/components/experienceCard/ExperienceCard";
+import GuestInformation from "@/components/formDrawers/guestInformation/GuestInformation";
 import InputSelect from "@/components/formField/InputSelect";
 import Header from "@/components/header/Header";
+import SearchWidget from "@/components/searchWidget/SearchWidget";
+import { BookingFormProvider } from "@/context/BookingFormContext";
 import { log } from "console";
 import React from "react";
 import { useState } from "react";
@@ -12,8 +14,8 @@ function Test() {
 
   return (
     <div className={`h-full w-full bg-slate-400`}>
-      <Header
-        /* menuOnClick={() => {}} */
+      {/*  <Header
+        /* menuOnClick={() => {}}
         locationsOnClick={() => {
           console.log("locations");
         }}
@@ -30,8 +32,12 @@ function Test() {
           discount={0.5}
         />
         <ExperienceCard linkTo="/test" image="/img/placeholder.webp" title="Overnight stay with breakfast" description="lorem ipsum dolor sit amet" tag="Overnight stay" />
-      </div>
-      <BookingForm />
+      </div> */}
+      <BookingFormProvider>
+        <SearchWidget />
+      </BookingFormProvider>
+      {/*       <GuestInformation />
+       */}{" "}
     </div>
   );
 }
