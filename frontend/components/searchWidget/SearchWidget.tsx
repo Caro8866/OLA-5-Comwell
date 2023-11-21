@@ -9,6 +9,10 @@ import TabGroup from "../tabGroup/TabGroup";
 import HotelDrawer from "../formDrawers/hotelDrawer/HotelDrawer";
 import { region as RegionType } from "@/utils/bookingFormState";
 import RoomDrawer from "../formDrawers/roomDrawer/RoomDrawer";
+import DualInputSelect from "../formField/DualInputSelect";
+import DateDrawer from "../formDrawers/dateDrawer/DateDrawer";
+import Button from "../button/Button";
+import RoomSelectionDrawer from "../formDrawers/roomSelectionDrawer/RoomSelectionDrawer";
 
 function SearchWidget() {
   const [formState, setFormState] = useBookingForm();
@@ -19,6 +23,8 @@ function SearchWidget() {
   const [selectedRooms, setSelectedRooms] = useState("");
   const [rooms, setRooms] = useState<People[]>([{ adults: 1, children: 0, toddlers: 0 }]);
   const [drawer, setDrawer] = useState("");
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
 
   const filteredHotels = hotelsData.filter((hotel) => currentRegion === region.all || hotel.region === currentRegion);
 
@@ -45,11 +51,23 @@ function SearchWidget() {
           <>
             <InputSelect label="Hotel" value={selectedHotel || "Select Hotel"} onClick={() => setDrawer("hotel")} />
             <InputSelect label="Rooms" value={roomPeopleInfo || "Select Rooms"} onClick={() => setDrawer("rooms")} />
+            <DualInputSelect
+              label1="Check In"
+              value1={formState.startDate ? formState.startDate.toLocaleDateString("en-UK", { day: "numeric", month: "short" }) : ""}
+              label2="Check Out"
+              value2={formState.endDate ? formState.endDate.toLocaleDateString("en-UK", { day: "numeric", month: "short" }) : ""}
+              onClick={() => setDrawer("date")}
+            />
+            <Button onClick={() => setDrawer("roomSelection")} color="charcoal" isActive={true}>
+              Search
+            </Button>
           </>
         )}
       </div>
       <HotelDrawer isOpen={drawer === "hotel"} onClose={() => setDrawer("")} selectedHotel={selectedHotel} onSelectHotel={setSelectedHotel} currentRegion={currentRegion} onSelectRegion={handleRegionChange} />
       <RoomDrawer isOpen={drawer === "rooms"} onClose={() => setDrawer("")} rooms={rooms} setRooms={setRooms} />
+      <DateDrawer isOpen={drawer === "date"} onClose={() => setDrawer("")} startDate={formState.startDate} endDate={formState.endDate} onStartDateChange={setStartDate} onEndDateChange={setEndDate} />
+      <RoomSelectionDrawer isOpen={drawer === "roomSelection"} onClose={() => setDrawer("")} selectedRooms={selectedRooms} onClick={() => setDrawer("")} />
     </>
   );
 }
