@@ -9,17 +9,17 @@ type Props = {
   value: string;
   name: string;
   id: string;
-  isPassword?: boolean;
+  type?: string;
   styles?: string;
 };
 
-function InputText({
+function InputField({
   label,
   value,
   onChange,
   name,
   id,
-  isPassword,
+  type = "text",
   styles,
 }: Props) {
   const [isFocused, setIsFocused] = useState(false);
@@ -54,7 +54,7 @@ function InputText({
         name={name}
         ref={ref}
         autoFocus={isFocused ? true : false}
-        type={isPassword ? "password" : "text"}
+        type={type}
         value={value}
         onChange={onChange}
         className={`font-semibold text-lg translate-y-1/4 bg-transparent focus:outline-none text-charcoal-80`}
@@ -63,4 +63,4 @@ function InputText({
   );
 }
 
-export default InputText;
+export default InputField;

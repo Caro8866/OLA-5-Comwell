@@ -6,13 +6,13 @@ import logo from "../../public/img/comwell-logo.svg";
 import chevronIcon from "../../public/img/chevron.svg";
 import profileIcon from "../../public/img/profile-icon.svg";
 import menuIcon from "../../public/img/menu-icon.svg";
-import InputText from "../formField/InputText";
+import InputField from "../formField/InputField";
 import BodyText from "../text/bodyText/BodyText";
 import Button from "../button/Button";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import Heading from "../text/heading/Heading";
-import SignUpForm from "./userForms/signUpForm";
+import SignUpForm from "./userForms/SignUpForm";
 
 type Props = {
   children?: React.ReactNode;
@@ -170,7 +170,7 @@ function Header(props: Props) {
                   }`}
                 >
                   <div className={`px-4 pt-6 pb-3 flex flex-col`}>
-                    <InputText
+                    <InputField
                       onChange={(e) => {
                         setLoginEmail(e.target.value);
                       }}
@@ -178,8 +178,8 @@ function Header(props: Props) {
                       name="email"
                       id="email"
                       label="Email"
-                    ></InputText>
-                    <InputText
+                    ></InputField>
+                    <InputField
                       onChange={(e) => {
                         setLoginPassword(e.target.value);
                       }}
@@ -187,9 +187,9 @@ function Header(props: Props) {
                       name="password"
                       id="password"
                       label="Password"
-                      isPassword
+                      type="password"
                       styles="mt-2"
-                    ></InputText>
+                    ></InputField>
                     <BodyText
                       size={1}
                       styles="text-charcoal-60 mt-2 font-regular"

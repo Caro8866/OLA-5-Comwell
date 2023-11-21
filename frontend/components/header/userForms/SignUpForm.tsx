@@ -1,7 +1,7 @@
 import Drawer from "react-modern-drawer";
 import Heading from "@/components/text/heading/Heading";
 import BodyText from "@/components/text/bodyText/BodyText";
-import InputText from "@/components/formField/InputText";
+import InputField from "@/components/formField/InputField";
 import Button from "@/components/button/Button";
 
 type Props = {
@@ -31,7 +31,7 @@ export default function SignUpForm({
           stay with us. You'll also receive 25 points when you sign up
         </BodyText>
         <form className={`flex flex-col gap-4 mt-8 flex-grow h-full`}>
-          <InputText
+          <InputField
             onChange={(e) => {
               console.log(e.target.value);
             }}
@@ -41,7 +41,7 @@ export default function SignUpForm({
             label="Full name"
             styles={`w-96`}
           />
-          <InputText
+          <InputField
             onChange={(e) => {
               console.log(e.target.value);
             }}
@@ -51,7 +51,7 @@ export default function SignUpForm({
             label="Email"
             styles={`w-96`}
           />
-          <InputText
+          <InputField
             onChange={(e) => {
               console.log(e.target.value);
             }}
@@ -59,9 +59,10 @@ export default function SignUpForm({
             id="password"
             name="password"
             label="Password"
+            type="password"
             styles={`w-96`}
           />
-          <InputText
+          <InputField
             onChange={(e) => {
               console.log(e.target.value);
             }}
