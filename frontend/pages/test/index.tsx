@@ -1,5 +1,4 @@
 import "@/app/globals.css";
-import BookingForm from "@/components/bookingForm/BookingForm";
 import ExperienceCard from "@/components/experienceCard/ExperienceCard";
 import InputSelect from "@/components/formField/InputSelect";
 import Header from "@/components/header/Header";
@@ -31,7 +30,6 @@ function Test() {
         />
         <ExperienceCard linkTo="/test" image="/img/placeholder.webp" title="Overnight stay with breakfast" description="lorem ipsum dolor sit amet" tag="Overnight stay" />
       </div>
-      <BookingForm />
     </div>
   );
 }
