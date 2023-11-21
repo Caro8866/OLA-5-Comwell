@@ -13,10 +13,6 @@ type RoomDrawerProps = {
 };
 
 function RoomDrawer({ isOpen, onClose, rooms, setRooms }: RoomDrawerProps) {
-  const getTotalPeople = () => {
-    return rooms.reduce((total, room) => total + room.adults + room.children + room.toddlers, 0);
-  };
-
   const handleCountChange = (roomIndex: number, type: "adults" | "children" | "toddlers", increment: boolean) => {
     setRooms(
       rooms.map((room, index) => {
