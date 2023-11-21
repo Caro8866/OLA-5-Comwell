@@ -8,6 +8,7 @@ import "keen-slider/keen-slider.min.css";
 import ExperienceCard from "@/components/experienceCard/ExperienceCard";
 import Label from "@/components/label/Label";
 import Button from "@/components/button/Button";
+import Footer from "@/components/footer/Footer";
 
 function index() {
   const [ref] = useKeenSlider<HTMLDivElement>({
@@ -155,6 +156,7 @@ function index() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }
