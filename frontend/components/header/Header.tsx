@@ -111,7 +111,7 @@ function Header(props: Props) {
           </section>
           <nav className={`flex justify-end ${textTypes[headerStyle]}`}>
             <ul
-              className={`flex flex-row items-center justify-end gap-8 font-sans font-semibold`}
+              className={`flex flex-row items-center justify-end gap-8 font-sans font-semibold z-50`}
             >
               <li className={`cursor-pointer`} onClick={props.locationsOnClick}>
                 <div

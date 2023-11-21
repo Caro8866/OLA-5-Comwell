@@ -1,12 +1,13 @@
 import "@/app/globals.css";
 
 type Props = {
-  color: "charcoal" | "sea" | "sand" | "earth" | "blank";
+  color: "charcoal" | "sea" | "sand" | "earth" | "blank" | "white";
   children: React.ReactNode;
   onClick?: () => void;
+  styles?: string;
 };
 
-function Label({ color, children, onClick }: Props) {
+function Label({ color, children, onClick, styles }: Props) {
   const variants = {
     charcoal: "bg-charcoal-80 text-slate-50",
     earth: "bg-earth-80 text-slate-50",
@@ -18,7 +19,11 @@ function Label({ color, children, onClick }: Props) {
 
   return (
     <span
-      className={`py-1 px-3 ${variants[color]} rounded-full text-xs font-semibold font-sans tracking-wide max-w-content`}
+      className={`py-1 px-3 ${
+        variants[color]
+      } rounded-full text-xs font-semibold font-sans tracking-wide ${
+        styles ? styles : ""
+      }`}
       onClick={onClick && onClick}
     >
       {children}

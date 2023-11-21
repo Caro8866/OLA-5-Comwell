@@ -13,6 +13,7 @@ export class BookingsService {
   ) {}
 
   create(createBookingDto: CreateBookingDto) {
+    // validate if exists
     const createdNewBooking = new this.bookingModel(createBookingDto);
     return createdNewBooking.save();
   }

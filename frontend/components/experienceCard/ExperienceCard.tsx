@@ -11,6 +11,7 @@ type Props = {
   tag: string;
   price?: number;
   discount?: number;
+  styles?: string;
 };
 
 function ExperienceCard({
@@ -21,10 +22,13 @@ function ExperienceCard({
   tag,
   price,
   discount,
+  styles,
 }: Props) {
   return (
     <article
-      className={`rounded-lg border-earth-20 border overflow-hidden group`}
+      className={`rounded-lg border-earth-20 border overflow-hidden group ${
+        styles ? styles : ""
+      }`}
     >
       <Link href={linkTo} className={`w-full h-full flex`}>
         <div className={`relative flex flex-col`}>
