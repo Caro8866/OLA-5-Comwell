@@ -2,9 +2,24 @@ import Header from "@/components/header/Header";
 import InfoCard from "@/components/infoCard/InfoCard";
 import Heading from "@/components/text/heading/Heading";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
+import ExperienceCard from "@/components/experienceCard/ExperienceCard";
 
 function index() {
+  const [ref] = useKeenSlider<HTMLDivElement>({
+    breakpoints: {
+      "(min-width: 768px)": {
+        slides: { perView: 2, spacing: 5 },
+      },
+      "(min-width: 1000px)": {
+        slides: { perView: 3, spacing: 15 },
+      },
+    },
+    slides: { perView: 1 },
+  });
+
   return (
     <>
       <Header
@@ -12,12 +27,14 @@ function index() {
           console.log("locations");
         }}
       />
-      <main>
+      <main className={`max-w-screen overflow-hidden`}>
         <section
           id="hero"
           className={`w-full h-[calc(100vh-118px)] relative pt-[86px]`}
         >
-          <div className={`w-full h-full z-50 relative`}>
+          <div
+            className={`w-full h-full z-20 relative max-w-2xl 2xl:max-w-[1600px] mx-auto`}
+          >
             <Heading size={1} color="white">
               TEST
             </Heading>
@@ -35,7 +52,7 @@ function index() {
         </section>
         <section
           id=""
-          className={`max-w-screen-2xl grid grid-cols-3 gap-8 py-12 px-8 mx-auto`}
+          className={`max-w-screen-2xl 2xl:max-w-[1600px] grid sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 py-20 px-8 mx-auto`}
         >
           <InfoCard
             src="/img/placeholder.webp"
@@ -43,7 +60,84 @@ function index() {
             href="/test"
             label="test label text"
             description="Lorem ipsum dolor sit amet"
+            styles={`col-span-2 md:col-span-1`}
           />
+          <InfoCard
+            src="/img/placeholder.webp"
+            title="test title whatever"
+            href="/test"
+            label="test label text"
+            description="Lorem ipsum dolor sit amet"
+          />
+          <InfoCard
+            src="/img/placeholder.webp"
+            title="test title whatever"
+            href="/test"
+            label="test label text"
+            description="Lorem ipsum dolor sit amet"
+          />
+        </section>
+        <section className={`py-20  relative`}>
+          <Heading size={3} styles={`px-8 mx-auto 2xl:max-w-[1600px] mb-8`}>
+            Offers & Experiences
+          </Heading>
+          <div className={`w-screen overflow-visible`}>
+            <div
+              ref={ref}
+              className={`keen-slider !overflow-visible max-w-[1600px] mx-auto px-8`}
+            >
+              <ExperienceCard
+                linkTo="/test"
+                image="/img/placeholder.webp"
+                title="Overnight stay with breakfast"
+                description="lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet"
+                tag="Overnight stay"
+                price={1000}
+                discount={0.5}
+                styles={"keen-slider__slide"}
+              />
+              <ExperienceCard
+                linkTo="/test"
+                image="/img/placeholder.webp"
+                title="Overnight stay with breakfast"
+                description="lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet"
+                tag="Overnight stay"
+                price={1000}
+                discount={0.5}
+                styles={"keen-slider__slide"}
+              />
+              <ExperienceCard
+                linkTo="/test"
+                image="/img/placeholder.webp"
+                title="Overnight stay with breakfast"
+                description="lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet"
+                tag="Overnight stay"
+                price={1000}
+                discount={0.5}
+                styles={"keen-slider__slide"}
+              />
+              <ExperienceCard
+                linkTo="/test"
+                image="/img/placeholder.webp"
+                title="Overnight stay with breakfast"
+                description="lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet"
+                tag="Overnight stay"
+                price={1000}
+                discount={0.5}
+                styles={"keen-slider__slide"}
+              />
+              <ExperienceCard
+                linkTo="/test"
+                image="/img/placeholder.webp"
+                title="Overnight stay with breakfast"
+                description="lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet"
+                tag="Overnight stay"
+                price={1000}
+                discount={0.5}
+                styles={"keen-slider__slide"}
+              />
+            </div>
+          </div>
         </section>
       </main>
     </>

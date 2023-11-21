@@ -12,11 +12,16 @@ type Props = {
   description: string;
   label: string;
   href: string;
+  styles?: string;
 };
 
 function InfoCard(props: Props) {
   return (
-    <article className={`flex rounded-xl column overflow-hidden min-h-[300px]`}>
+    <article
+      className={`flex rounded-xl column overflow-hidden min-h-[400px] ${
+        props.styles ? props.styles : ""
+      }`}
+    >
       <Link
         href={props.href}
         className={`w-full h-full flex flex-col p-8 relative`}
@@ -39,7 +44,7 @@ function InfoCard(props: Props) {
         <Image
           src={props.src}
           alt={props.title}
-          height={500}
+          height={600}
           width={500}
           className={`absolute top-0 left-0 z-0 brightness-90 contrast-[1.1] w-full h-full object-cover`}
         />

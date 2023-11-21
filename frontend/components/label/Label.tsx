@@ -4,7 +4,7 @@ type Props = {
   color: "charcoal" | "sea" | "sand" | "earth" | "blank" | "white";
   children: React.ReactNode;
   onClick?: () => void;
-  styles: string;
+  styles?: string;
 };
 
 function Label({ color, children, onClick, styles }: Props) {
