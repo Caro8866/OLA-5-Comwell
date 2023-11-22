@@ -6,7 +6,7 @@ type Props = {
   onChange: (e: any) => void;
   placeholder?: string;
   label?: string;
-  value: string;
+  value: string | number;
   name: string;
   id: string;
   type?: string;
