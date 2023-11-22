@@ -3,7 +3,7 @@ import Heading from "@/components/text/heading/Heading";
 import BodyText from "@/components/text/bodyText/BodyText";
 import InputField from "@/components/formField/InputField";
 import Button from "@/components/button/Button";
-import { useState, useRef } from "react";
+import { useState, useRef, FormEvent } from "react";
 
 type Props = {
   isRegisterDrawerOpen: boolean;
@@ -21,6 +21,7 @@ export default function SignUpForm({
   const [dateOfBirth, setDateOfBirth] = useState("mm / dd / yyyy");
   const [loginPassword, setLoginPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [selectedGender, setSelectedGender] = useState("Prefer not to say");
 
   const [isFocused, setIsFocused] = useState(false);
 
@@ -29,6 +30,41 @@ export default function SignUpForm({
   const handleClick = () => {
     setIsFocused(true);
     ref.current && ref.current.focus();
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    fetch("http://localhost:5000/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullName,
+        zipCode: Number(zipCode),
+        email: loginEmail,
+        phone: Number(phone),
+        gender: selectedGender,
+        password: loginPassword,
+        dateOfBirth,
+      }),
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          return response.json().then((errorData) => {
+            throw new Error(`Server error! Message: ${errorData.message}`);
+          });
+        }
+        // Parse the response data as needed
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Response:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error.message);
+      });
   };
 
   return (
@@ -50,7 +86,10 @@ export default function SignUpForm({
           Become a member of Comwell Club for free and earn points everytime you
           stay with us. You'll also receive 25 points when you sign up
         </BodyText>
-        <form className={`flex flex-col gap-4 mt-8 flex-grow h-full`}>
+        <form
+          onSubmit={handleSubmit}
+          className={`flex flex-col gap-4 mt-8 flex-grow h-full`}
+        >
           <InputField
             onChange={(e) => {
               setFullName(e.target.value);
@@ -127,6 +166,10 @@ export default function SignUpForm({
               onBlur={() => setIsFocused(false)}
               name="gender"
               className="bg-white text-medium font-semibold pt-2.5"
+              value={selectedGender}
+              onChange={(e) => {
+                setSelectedGender(e.target.value);
+              }}
             >
               <option value="Prefer not to say">Prefer not to say</option>
               <option value="Male">Male</option>
@@ -185,13 +228,12 @@ export default function SignUpForm({
             </label>
           </div>
           <div className={`flex-grow`}></div>
-          <Button
-            color="charcoal"
-            isFullWidth
-            styles={`self-end my-8 justify-self-end`}
+          <button
+            type="submit"
+            className={`py-4 px-10 box-border block w-full text-center self-end my-8 justify-self-end bg-charcoal-80 text-slate-50 hover:brightness-150 rounded-full font-semibold font-sans tracking-wide cursor-pointer`}
           >
             Sign up
-          </Button>
+          </button>
         </form>
       </section>
     </Drawer>
