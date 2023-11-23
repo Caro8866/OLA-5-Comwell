@@ -10,6 +10,8 @@ export class CreateHotelDto {
   location: Area;
   region: Region;
 
+  image: string;
+
   @IsNotEmpty({ message: 'Hotel description cannot be empty' })
   description: string;
 
@@ -27,6 +29,7 @@ export class CreateHotelDto {
     location: Area,
     region: Region,
     description: string,
+    image: string,
     roomsDescription?: string,
     isHotel?: boolean,
     isConferenceCenter?: boolean,
@@ -36,6 +39,7 @@ export class CreateHotelDto {
     this.location = location;
     this.region = region;
     this.description = description;
+    this.image = image;
     this.roomsDescription = roomsDescription;
     this.isHotel = isHotel;
     this.isConferenceCenter = isConferenceCenter;

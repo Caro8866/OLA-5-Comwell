@@ -23,6 +23,7 @@ export class HotelsCommand {
         'Jutland',
         `Comwell Aarhus welcomes you to a world of design, quality and well-being with the city's best view of the harbour, forest and beach. A hotel stay in Aarhus welcomes you with endless possibilities for entertainment and unique experiences.The hotel is located at one of the city's most central addresses close to the centrum and the station.`,
         `We have 240 rooms divided into five categories, all of which have a beautiful view. The rooms are decorated in collaboration with the Danish design company HAY and feature the necessary amenities. Free WiFi is available in all rooms. There are free coffee stations on the 6th and 7th floor.`,
+        `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/caa/udefra/comwell-aarhus-bygning.jpg/c4677c907569793b5e2e89ef52b55da4.webp`,
         true,
         false,
         false,
@@ -37,6 +38,7 @@ export class HotelsCommand {
         'Zealand',
         `Step inside the lobby of Comwell Copenhagen Portside and be blown away by the lively atmosphere. Here you'll find a mix of locals stopping by for a fresh cup of coffee, freelancers working in the open Co-Work area, and international guests meeting over a cocktail. A Nordic version of a lively Italian square. Raw. Refined and incomparable. We are located in the heart of the booming Nordhavn surrounded by water and with amazing access to everything a port city has to offer - just 20 minutes from Copenhagen Airport and 10 minutes from the Copenhagen Central Station.`,
         `At Comwell Copenhagen Portside we have 484 rooms`,
+        `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/ccp/comwell-portside-06.jpg/6a816480ae65dd072c336e45366d915e.webp`,
         true,
         true,
         true,
@@ -55,6 +57,7 @@ export class HotelsCommand {
         
         The hotel is spread across various buildings and is beautifully located on a slope. This means that there are stairs to all rooms, and the hotel is therefore not suitable for guests with limited mobility or disabilities.`,
         `Our rooms are furnished with all modern conveniences and in the Nordic style. The appearance varies and not all rooms look exactly like the picture. We have 112 rooms in total - 6 junior suites, 34 superior rooms, 45 standard rooms with a double bed and 32 standard rooms with two single beds (these rooms are located on the hotel's top level in the annexe). `,
+        `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/cho/udendoers/comwell-holte-061.jpg/b7fadccc9f4eb0b28730dac066564e11.webp`,
         true,
         true,
         false,
@@ -75,6 +78,7 @@ export class HotelsCommand {
         
         In 2011, Comwell Hotels took ownership of Kongebrogaarden, and in 2018 the hotel was voted for 'Best Luxury Hotel of the Year'`,
         `We have 62 well-appointed rooms, including 18 suites. All our rooms have a balcony or a terrace with a view over the water, forest or the atrium. The rooms have just got a thorough renovation and are furnished with classic and modern furniture and genuine art.`,
+        `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/ckg/rs23582_kongebrogaarden-026-original.jpg/94c4aea04a8a530f444572fbc53f31c9.webp`,
         true,
         true,
         false,
@@ -91,6 +95,7 @@ export class HotelsCommand {
 
         Our central location provides easy access, and we are located near a number of famous attractions, making it ideal whether you need a conference hotel, need accommodation for sightseeing or for a weekend trip with your partner.`,
         `We have 180 double rooms, all of which were renovated in 2019 and have new beds and furnishings. They are all decorated in a modern style with all the conveniences and plenty of natural light. Among these rooms, we offer four different categories.`,
+        `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/cko/comwell_kolding_facade-aften.jpg/2ed818c0d2936281b9f250ee74a05972.webp`,
         true,
         false,
         false,
