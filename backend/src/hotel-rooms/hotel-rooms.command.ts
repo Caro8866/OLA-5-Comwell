@@ -206,6 +206,24 @@ export class HotelRoomsCommand {
       kongebrogaarden3,
     );
 
-    console.log('Hotel room seeding finished successfully.');
+    if (
+      aarhus1 &&
+      aarhus2 &&
+      aarhus3 &&
+      portside1 &&
+      portside2 &&
+      portside3 &&
+      holte1 &&
+      holte2 &&
+      kongebrogaarden1 &&
+      kongebrogaarden2 &&
+      kongebrogaarden3 &&
+      kolding1 &&
+      kolding2 &&
+      kolding3 &&
+      kolding4
+    ) {
+      console.log('Hotel room seeding finished successfully.');
+    }
   }
 }
