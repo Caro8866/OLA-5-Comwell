@@ -1,6 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CommandModule } from 'nestjs-command';
+import { PackagesCommand } from 'src/hotel-packages/packages.commands';
+import { PackagesService } from 'src/hotel-packages/packages.service';
+import {
+  HotelPackage,
+  PackageSchema,
+} from 'src/hotel-packages/schemas/package.schema';
 import { HotelRoomsCommand } from 'src/hotel-rooms/hotel-rooms.command';
 import { HotelRoomsService } from 'src/hotel-rooms/hotel-rooms.service';
 import {
@@ -18,13 +24,18 @@ import { Hotel, HotelSchema } from 'src/hotels/schemas/hotel.schema';
     MongooseModule.forFeature([
       { name: HotelRoom.name, schema: HotelRoomSchema },
     ]),
+    MongooseModule.forFeature([
+      { name: HotelPackage.name, schema: PackageSchema },
+    ]),
   ],
   providers: [
     HotelsCommand,
+    HotelsService,
     HotelRoomsCommand,
     HotelRoomsService,
-    HotelsService,
+    PackagesCommand,
+    PackagesService,
   ],
-  exports: [HotelsCommand, HotelRoomsCommand],
+  exports: [HotelsCommand, HotelRoomsCommand, PackagesCommand],
 })
 export class SeedsModule {}
