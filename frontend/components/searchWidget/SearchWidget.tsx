@@ -14,6 +14,8 @@ function SearchWidget() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
+  const [isBookingCodeInputVisible, setIsBookingCodeInputVisible] = useState(false);
+
   //   const { setBookingData } = useBookingContext();
 
   /* convert room object into string */
@@ -44,6 +46,18 @@ function SearchWidget() {
           <InputSelect label="Hotel" onClick={() => {}} value={selectedHotel ? selectedHotel : "Choose hotel"} />
           <InputSelect label="Room" onClick={() => {}} value={roomToString(selectedRoom)} />
           <DualInputSelect label1={"Check in"} value1={startDate ? startDate : "Choose Date"} label2={"Check out"} value2={endDate ? endDate : "Choose Date"} onClick={() => {}} />
+          {!isBookingCodeInputVisible && (
+            <Button color="blank" isFullWidth={false} isActive={true} styles="flex items-center justify-center gap-x-1 font-light text-sm self-center cursor-pointer" onClick={() => setIsBookingCodeInputVisible(true)}>
+              <div className="mr-2 rounded-full bg-charcoal-20 p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-4">
+                  <path stroke="currentColor" stroke-width="1.5" d="M12 3.5v17M3.5 12h17"></path>
+                </svg>
+              </div>
+              Add booking code
+            </Button>
+          )}
+          {isBookingCodeInputVisible && <InputSelect label="Booking code" onClick={() => {}} value={"Enter booking code"} />}
+
           <Button color="charcoal" isFullWidth={true} isActive={selectedHotel && selectedRoom && startDate && endDate ? true : false} onClick={handleSearch} styles="flex items-center justify-center gap-x-1 font-light">
             Search
             <svg xmlns="http://www.w3.org/2000/svg" height="20q" viewBox="0 -960 960 960" width="20q" fill="#fff">
