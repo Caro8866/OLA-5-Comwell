@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  images: {
+    domains: ["cdn.dwarf.dk"],
+    defaultLocale: true,
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
