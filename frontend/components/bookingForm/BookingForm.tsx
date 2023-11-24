@@ -37,7 +37,7 @@ function BookingForm({ isOpen, onClose }: BookingFormProps) {
       content = <GuestInformation onNext={nextStep} bookingData={bookingData} />;
       break;
     case 5:
-      content = <OrderOverview onNext={nextStep} bookingData={bookingData} />;
+      // content = <OrderOverview onNext={nextStep} bookingData={bookingData} />;
       break;
     case 6:
       // content = <FinalBooking onConfirm={nextStep}  bookingData={bookingData} />;

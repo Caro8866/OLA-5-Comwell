@@ -35,7 +35,8 @@ const addDays = (date: Date, days: number): Date => {
 };
 
 function SearchWidget() {
-  const [formState, setFormState] = useBookingForm();
+  const contextValue = useBookingForm();
+  const { state: formState, setState: setFormState } = useBookingForm();
   const [currentBookingType, setBookingType] = useState(bookingType.accomodation);
   const [currentRegion, setSelectedRegion] = useState(RegionType.all);
   const [selectedHotel, setSelectedHotel] = useState("");

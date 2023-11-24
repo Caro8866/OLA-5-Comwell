@@ -33,11 +33,11 @@ function Test() {
         />
         <ExperienceCard linkTo="/test" image="/img/placeholder.webp" title="Overnight stay with breakfast" description="lorem ipsum dolor sit amet" tag="Overnight stay" />
       </div> */}
-      <BookingFormProvider>
+      <BookingFormProvider value={myValue}>
         <SearchWidget />
       </BookingFormProvider>
       {/*       <GuestInformation />
-       */}{" "}
+       */}
     </div>
   );
 }

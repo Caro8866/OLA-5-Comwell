@@ -24,8 +24,7 @@ const initialBookingFormState: BookingFormState = {
   price: null,
   addons: [],
   guestInfo: {
-    firstName: "",
-    lastName: "",
+    fullName: "",
     email: "",
     phone: "",
   },
