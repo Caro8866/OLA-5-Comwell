@@ -1,8 +1,8 @@
 import { BookingFormState, bookingType } from "@/utils/bookingFormState";
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
 
 // Content for managing state of the booking form
-export const BookingFormContext = createContext<[BookingFormState, (state: BookingFormState) => void] | undefined>(undefined);
+export const BookingFormContext = createContext<{ state: BookingFormState; setState: React.Dispatch<React.SetStateAction<BookingFormState>> } | undefined>(undefined);
 
 // Helper function to add days to a date
 const addDays = (date: Date, days: number): Date => {
@@ -11,18 +11,14 @@ const addDays = (date: Date, days: number): Date => {
   return result;
 };
 
-// Setting the initial start and end dates to today and tomorrow
-const today = new Date();
-const tomorrow = addDays(today, 1);
-
 // Creating a initial state based on the BookingFormState interface
 const initialBookingFormState: BookingFormState = {
   bookingType: bookingType.accomodation,
   selectedHotel: null,
   roomCount: 1,
   personCount: { adults: 1, children: 0, toddlers: 0 },
-  startDate: today,
-  endDate: tomorrow,
+  startDate: new Date(),
+  endDate: addDays(new Date(), 1),
   rooms: [],
   package: null,
   price: null,
