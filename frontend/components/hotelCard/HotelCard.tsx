@@ -18,7 +18,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ name, location, isSelected, onSel
           <p>{location}</p>
         </div>
       </div>
-      {isSelected && <img src="./public/img/chevron.svg" className={"h-6 w-6 "} alt="Chevron" />}
+      {isSelected && <img src="./public/img/chevron.svg" className={"h-6 w-6 "} alt="V" />}
     </div>
   );
 };
