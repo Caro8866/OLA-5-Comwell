@@ -26,6 +26,14 @@ export class Hotel {
   @Prop()
   image: string;
 
+  @Prop()
+  addons: {
+    name: string;
+    price: number;
+    description?: string;
+    image?: string;
+  }[];
+
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: HotelPackage.name }],
   })

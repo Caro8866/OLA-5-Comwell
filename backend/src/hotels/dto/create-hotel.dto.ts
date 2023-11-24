@@ -9,11 +9,17 @@ export class CreateHotelDto {
 
   location: Area;
   region: Region;
-
-  image: string;
-
   @IsNotEmpty({ message: 'Hotel description cannot be empty' })
   description: string;
+  image: string;
+
+  @IsOptional()
+  addons: {
+    name: string;
+    price: number;
+    description?: string;
+    image?: string;
+  }[];
 
   @IsOptional()
   roomsDescription: string;
@@ -34,12 +40,19 @@ export class CreateHotelDto {
     isHotel?: boolean,
     isConferenceCenter?: boolean,
     isBanquet?: boolean,
+    addons?: {
+      name: string;
+      price: number;
+      description?: string;
+      image?: string;
+    }[],
   ) {
     this.name = name;
     this.location = location;
     this.region = region;
     this.description = description;
     this.image = image;
+    this.addons = addons;
     this.roomsDescription = roomsDescription;
     this.isHotel = isHotel;
     this.isConferenceCenter = isConferenceCenter;

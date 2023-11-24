@@ -15,6 +15,32 @@ export class HotelsCommand {
     describe: 'creates hotels',
   })
   async create() {
+    const addons = [
+      {
+        name: 'Baby cot',
+        price: 150,
+        description: 'Price is for the complete stay',
+        image:
+          'https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/familie.jpg/c8981acfb16ccd6df98bb3ec5b92912e.webp',
+      },
+      {
+        name: 'Early check-in',
+        price: 200,
+        description:
+          'With early check-in, you will be able to arrive earlier than the usual check-in. Subject to availability and specific time will be confirmed by the hotel',
+        image:
+          'https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/generisk-vaerelse.jpg/76c7f48299e3c216c11de067b73952e0.webp',
+      },
+      {
+        name: 'Late departure',
+        price: 200,
+        description:
+          'With late departure you can extend your stay for a few hours. Subject to availability and time will be confirmed by the hotel.',
+        image:
+          'https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/generisk-vaerelse.jpg/76c7f48299e3c216c11de067b73952e0.webp',
+      },
+    ];
+
     const aarhusHotel = await this.hotelsService.create(
       new CreateHotelDto(
         'Aarhus',
@@ -26,6 +52,7 @@ export class HotelsCommand {
         true,
         false,
         false,
+        addons,
       ),
     );
 
@@ -40,6 +67,7 @@ export class HotelsCommand {
         true,
         true,
         true,
+        addons,
       ),
     );
 
@@ -58,6 +86,7 @@ export class HotelsCommand {
         true,
         true,
         false,
+        addons,
       ),
     );
 
@@ -78,6 +107,7 @@ export class HotelsCommand {
         true,
         true,
         false,
+        addons,
       ),
     );
 
@@ -94,6 +124,7 @@ export class HotelsCommand {
         true,
         false,
         false,
+        addons,
       ),
     );
     if (
