@@ -1,10 +1,10 @@
-import { useState } from "react";
-// import { useBookingContext } from "@/app/contexts/BookingContext";
+import { useContext, useState } from "react";
 import Heading from "../text/heading/Heading";
 import InputSelect from "../formField/InputSelect";
 import DualInputSelect from "../formField/DualInputSelect";
 import Button from "../button/Button";
 import TabGroup from "../tabGroup/TabGroup";
+import { BookingContext } from "@/context/BookingContext";
 
 function SearchWidget() {
   const [bookingType, setBookingType] = useState("accomodation"); // ["accomodation", "conference", "banquet"]
@@ -16,7 +16,7 @@ function SearchWidget() {
 
   const [isBookingCodeInputVisible, setIsBookingCodeInputVisible] = useState(false);
 
-  //   const { setBookingData } = useBookingContext();
+  const { bookingData, setBookingData } = useContext(BookingContext);
 
   /* convert room object into string */
   const roomToString = (room: { adults: number; children: number; infants: number }) => {
@@ -27,12 +27,12 @@ function SearchWidget() {
 
   const handleSearch = () => {
     console.log("Search");
-    // setBookingData({
-    //   hotel: selectedHotel,
-    //   room: selectedRoom,
-    //   startDate: startDate,
-    //   endDate: endDate,
-    // });
+    setBookingData({
+      hotel: selectedHotel,
+      room: selectedRoom,
+      startDate: startDate,
+      endDate: endDate,
+    });
   };
 
   return (
