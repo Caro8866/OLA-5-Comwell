@@ -2,8 +2,8 @@ import Drawer from "react-modern-drawer";
 import Heading from "@/components/text/heading/Heading";
 import BodyText from "@/components/text/bodyText/BodyText";
 import InputField from "@/components/formField/InputField";
-import Button from "@/components/button/Button";
 import { useState, useRef, FormEvent } from "react";
+import InputError from "@/components/formField/InputError";
 
 type Props = {
   isRegisterDrawerOpen: boolean;
@@ -99,7 +99,10 @@ export default function SignUpForm({
             name="name"
             label="Full name"
             styles={`w-96`}
+            validationCondition={() => fullName.split(/\s+/).length >= 2}
+            errorMessage="You need to fill in your last name"
           />
+
           <InputField
             onChange={(e) => {
               setLoginEmail(e.target.value);
@@ -110,6 +113,10 @@ export default function SignUpForm({
             label="Email"
             styles={`w-96`}
             type="email"
+            validationCondition={() =>
+              loginEmail.includes("@") && loginEmail.includes(".")
+            }
+            errorMessage="Invalid email. Please verify your details"
           />
           <InputField
             onChange={(e) => {
@@ -120,7 +127,9 @@ export default function SignUpForm({
             name="zipCode"
             label="Zip code"
             styles={`w-96`}
-            type="number"
+            type="text"
+            validationCondition={() => Number.isInteger(Number(zipCode))}
+            errorMessage="Invalid postal code"
           />
           <InputField
             onChange={(e) => {
@@ -131,7 +140,9 @@ export default function SignUpForm({
             name="phone"
             label="Phone"
             styles={`w-96`}
-            type="number"
+            type="text"
+            validationCondition={() => Number.isInteger(Number(phone))}
+            errorMessage="Invalid phone number. Please verify your details"
           />
           <InputField
             onChange={(e) => {
@@ -143,6 +154,11 @@ export default function SignUpForm({
             label="Password"
             type="password"
             styles={`w-96`}
+            validationCondition={() => {
+              const regex = /^(?=.*[A-Z])(?=.*\d).{6,}$/; // At least one uppercase letter, one number, and 6 characters long
+              return regex.test(loginPassword);
+            }}
+            errorMessage="Your password needs to be at least 6 characters long, contain at least an uppercase letter and a number"
           />
           <InputField
             onChange={(e) => {
@@ -154,6 +170,8 @@ export default function SignUpForm({
             label="Confirm password"
             type="password"
             styles={`w-96`}
+            validationCondition={() => loginPassword === confirmPassword}
+            errorMessage="Your passwords don't match."
           />
 
           <div
@@ -195,6 +213,14 @@ export default function SignUpForm({
             label="Date of birth"
             type="date"
             styles={`w-96`}
+            validationCondition={() => {
+              const today = new Date();
+              const birthDate = new Date(dateOfBirth);
+              const age = today.getFullYear() - birthDate.getFullYear();
+
+              return age >= 18;
+            }}
+            errorMessage="You need to be at least 18 years old to create an account"
           />
 
           <div className={`flex flex-row gap-4 justify-items-center mt-4`}>
