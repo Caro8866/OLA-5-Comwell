@@ -29,8 +29,7 @@ export interface People {
 }
 
 interface GuestInfo {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   phone: string;
 }
@@ -55,8 +54,8 @@ export interface BookingFormState {
   selectedHotel: string | null;
   roomCount: number;
   personCount: object;
-  startDate: Date | null;
-  endDate: Date | null;
+  startDate: Date | null | undefined;
+  endDate: Date | null | undefined;
   rooms: People[];
   package: string | null;
   price: number | null;
