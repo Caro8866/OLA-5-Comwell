@@ -13,4 +13,5 @@ export type Area =
   | 'Køge'
   | 'Skørping'
   | 'Roskilde'
-  | 'Varberg';
+  | 'Varberg'
+  | 'Copenhagen';

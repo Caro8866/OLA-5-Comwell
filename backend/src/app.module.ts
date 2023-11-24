@@ -7,6 +7,8 @@ import { PackagesModule } from './hotel-packages/packages.module';
 import { HotelOffersModule } from './hotel-offers/hotel-offers.module';
 import { HotelRoomsModule } from './hotel-rooms/hotel-rooms.module';
 import { BookingsModule } from './bookings/bookings.module';
+import { CommandModule } from 'nestjs-command';
+import { SeedsModule } from './shared/seeds.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { BookingsModule } from './bookings/bookings.module';
     HotelOffersModule,
     HotelRoomsModule,
     BookingsModule,
+    CommandModule,
+    SeedsModule,
   ],
   controllers: [],
   providers: [],

@@ -7,6 +7,7 @@ export class CreatePackageDto {
   type: string;
   tags: string[];
   description: string;
+  image: string;
 
   @IsNotEmpty({ message: 'Package price must be provided' })
   price: number;
@@ -19,6 +20,7 @@ export class CreatePackageDto {
     type: string,
     tags: string[],
     description: string,
+    image: string,
     price: number,
     discount?: number,
   ) {
@@ -26,6 +28,7 @@ export class CreatePackageDto {
     this.type = type;
     this.tags = tags;
     this.description = description;
+    this.image = image;
     this.price = price;
     this.discount = discount;
   }
