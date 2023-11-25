@@ -30,7 +30,7 @@ function Button({
   };
 
   return (
-    <span
+    <button
       className={`${
         isSmall ? "py-1.5" : "py-4"
       } px-10 box-border block transition ${
@@ -43,7 +43,7 @@ function Button({
       onClick={onClick && isActive ? onClick : () => {}}
     >
       {children}
-    </span>
+    </button>
   );
 }
 

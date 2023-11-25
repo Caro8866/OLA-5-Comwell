@@ -6,16 +6,18 @@ import logo from "../../public/img/comwell-logo.svg";
 import chevronIcon from "../../public/img/chevron.svg";
 import profileIcon from "../../public/img/profile-icon.svg";
 import menuIcon from "../../public/img/menu-icon.svg";
-import InputText from "../formField/InputText";
+import InputField from "../formField/InputField";
 import BodyText from "../text/bodyText/BodyText";
 import Button from "../button/Button";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import Heading from "../text/heading/Heading";
+import SignUpForm from "./userForms/SignUpForm";
+import { Hotel } from "@/utils/Hotel.types";
+import HotelList from "../hotellist/HotelList";
 
 type Props = {
   children?: React.ReactNode;
-  locationsOnClick: () => void;
 };
 
 function Header(props: Props) {
@@ -47,6 +49,14 @@ function Header(props: Props) {
     setIsRegisterDrawerOpen((prevState) => !prevState);
   };
 
+  const [isLocationsDrawerOpen, setIsLocationsDrawerOpen] = useState(false);
+  const toggleLocationsDrawer = () => {
+    setIsLocationsDrawerOpen((prevState) => !prevState);
+  };
+
+  const [areHotelsLoading, setAreHotelsLoading] = useState(false);
+  const [hotels, setHotels] = useState<Hotel[]>();
+
   const toggleMenuDrawer = () => {
     setIsMenuDrawerOpen((prevState) => !prevState);
   };
@@ -55,6 +65,7 @@ function Header(props: Props) {
     const scrollPosition = window.scrollY; // => scroll position
     setWindowPosition(scrollPosition);
   };
+
   useEffect(() => {
     handleScroll();
     window.addEventListener("scroll", handleScroll);
@@ -70,6 +81,19 @@ function Header(props: Props) {
       setHeaderStyle("transparent");
     }
   }, [windowPosition]);
+
+  useEffect(() => {
+    setAreHotelsLoading(true);
+    fetch("http://localhost:5000/hotels")
+      .then((response) => response.json())
+      .then((data: Hotel[]) => {
+        setHotels(data);
+        setAreHotelsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
@@ -105,15 +129,17 @@ function Header(props: Props) {
               </svg>
             </Link>
           </section>
-          <section className={`hidden lg:flex`}>
-            {/* booking widget */}
-            {props.children}
-          </section>
+          <section className={`hidden lg:flex`}>{props.children}</section>
           <nav className={`flex justify-end ${textTypes[headerStyle]}`}>
             <ul
               className={`flex flex-row items-center justify-end gap-8 font-sans font-semibold z-50`}
             >
-              <li className={`cursor-pointer`} onClick={props.locationsOnClick}>
+              <li
+                className={`cursor-pointer`}
+                onClick={() => {
+                  setIsLocationsDrawerOpen(true);
+                }}
+              >
                 <div
                   className={`flex flex-row gap-1.5 justify-center items-center`}
                 >
@@ -169,7 +195,7 @@ function Header(props: Props) {
                   }`}
                 >
                   <div className={`px-4 pt-6 pb-3 flex flex-col`}>
-                    <InputText
+                    <InputField
                       onChange={(e) => {
                         setLoginEmail(e.target.value);
                       }}
@@ -177,8 +203,8 @@ function Header(props: Props) {
                       name="email"
                       id="email"
                       label="Email"
-                    ></InputText>
-                    <InputText
+                    ></InputField>
+                    <InputField
                       onChange={(e) => {
                         setLoginPassword(e.target.value);
                       }}
@@ -186,9 +212,9 @@ function Header(props: Props) {
                       name="password"
                       id="password"
                       label="Password"
-                      isPassword
+                      type="password"
                       styles="mt-2"
-                    ></InputText>
+                    ></InputField>
                     <BodyText
                       size={1}
                       styles="text-charcoal-60 mt-2 font-regular"
@@ -261,119 +287,42 @@ function Header(props: Props) {
           </nav>
         </div>
       </header>
-      <Drawer
-        open={isRegisterDrawerOpen}
-        onClose={toggleRegisterDrawer}
-        direction="right"
-        customIdSuffix="registerForm"
-        size="420px"
-        className={`rounded-l-xl`}
-      >
-        <section className={`px-4 pt-8 flex flex-col flex-grow h-full`}>
-          <Heading size={2} styles={"mb-4"}>
-            Sign up for Comwell club
-          </Heading>
-          <BodyText size={1} styles={`mb-8 leading-snug font-medium`}>
-            Become a member of Comwell Club for free and earn points everytime
-            you stay with us. You'll also receive 25 points when you sign up
-          </BodyText>
-          <form className={`flex flex-col gap-4 mt-8 flex-grow h-full`}>
-            <InputText
-              onChange={(e) => {
-                console.log(e.target.value);
-              }}
-              value=""
-              id="name"
-              name="name"
-              label="Full name"
-              styles={`w-96`}
-            />
-            <InputText
-              onChange={(e) => {
-                console.log(e.target.value);
-              }}
-              value=""
-              id="email"
-              name="email"
-              label="Email"
-              styles={`w-96`}
-            />
-            <InputText
-              onChange={(e) => {
-                console.log(e.target.value);
-              }}
-              value=""
-              id="password"
-              name="password"
-              label="Password"
-              styles={`w-96`}
-            />
-            <InputText
-              onChange={(e) => {
-                console.log(e.target.value);
-              }}
-              value=""
-              id="password-confirmation"
-              name="password-confirmation"
-              label="Confirm password"
-              styles={`w-96`}
-            />
-            <div className={`flex flex-row gap-4 justify-items-center mt-4`}>
-              <input
-                type="checkbox"
-                id="termsAndConditions"
-                name="terms"
-                value="terms"
-                className={`min-w-[1.5rem] min-h-[1.5rem] rounded-lg flex`}
-              />
-              <label
-                htmlFor="termsAndConditions"
-                className={`flex items-center`}
-              >
-                <BodyText size={1} styles={`leading-snug font-medium w-full`}>
-                  Accept Terms an Conditions
-                </BodyText>
-              </label>
-            </div>
-            <div className={`flex flex-row gap-4 justify-items-center mt-4`}>
-              <input
-                type="checkbox"
-                id="marketing"
-                name="marketing"
-                value="marketing"
-                className={`min-w-[1.5rem] min-h-[1.5rem] rounded-lg flex`}
-              />
-              <label htmlFor="marketing" className={`flex items-center`}>
-                <BodyText size={1} styles={`leading-snug font-medium`}>
-                  I would like to be updated on current member offers, Comwell
-                  Club surprises and other recommendations personalized to me. I
-                  can unsubscribe again at any time.
-                </BodyText>
-              </label>
-            </div>
-            <div className={`flex-grow`}></div>
-            <Button
-              color="charcoal"
-              isFullWidth
-              styles={`self-end my-8 justify-self-end`}
-            >
-              Sign up
-            </Button>
-          </form>
-        </section>
-      </Drawer>
+
+      <SignUpForm
+        isRegisterDrawerOpen={isRegisterDrawerOpen}
+        toggleRegisterDrawer={toggleRegisterDrawer}
+      />
+
       <Drawer
         open={isMenuDrawerOpen}
         onClose={toggleMenuDrawer}
         direction="right"
         customIdSuffix="menuDrawer"
-        size="80vw"
-        className={`rounded-l-xl`}
+        className={`rounded-l-xl relative !w-screen lg:!w-[60vw] 2xl:!w-[60vw] overflow-hidden`}
       >
-        <nav className={`flex flex-col pt-8 pb-4 pl-12 h-full`}>
+        <button
+          onClick={toggleMenuDrawer}
+          className="flex items-center rounded-full bg-charcoal-20 p-2 absolute right-4 top-4 md:right-6 md:top-6 z-[200]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 16 16"
+            className="w-[16px] h-[16px]"
+          >
+            <path
+              stroke="currentColor"
+              strokeWidth="1.5"
+              d="M2.62 13.38 12.99 3.01M13.38 13.38 3.01 3.01"
+            ></path>
+          </svg>
+        </button>
+        <nav
+          className={`flex flex-col pt-8 pb-4 pl-4 lg:pl-12 h-full overflow-y-scroll no-scrollbar`}
+        >
           <section>{/*Section for searchbar */}</section>
           <section
-            className={`flex flex-col gap-4 py-8 mb-4 px-2 text-heading-huge-mobile xl:text-heading-huge-desktop font-semibold hover:text-charcoal-40`}
+            className={`flex flex-col gap-4 py-2 lg:py-8 mb-4 px-2 text-heading-huge-mobile xl:text-heading-huge-desktop font-semibold hover:text-charcoal-40 `}
           >
             <Link href="#" className={`transition hover:text-charcoal-100`}>
               Hotels
@@ -437,6 +386,32 @@ function Header(props: Props) {
             </Link>
           </section>
         </nav>
+      </Drawer>
+      <Drawer
+        open={isLocationsDrawerOpen}
+        onClose={toggleLocationsDrawer}
+        direction="right"
+        customIdSuffix="locationsDrawer"
+        className={`rounded-l-xl relative !w-screen lg:!w-[60vw] 2xl:!w-[60vw] overflow-hidden`}
+      >
+        <button
+          onClick={toggleLocationsDrawer}
+          className="flex items-center rounded-full bg-charcoal-20 p-2 absolute  right-4 top-4 md:right-6 md:top-6"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 16 16"
+            className="w-[16px] h-[16px]"
+          >
+            <path
+              stroke="currentColor"
+              strokeWidth="1.5"
+              d="M2.62 13.38 12.99 3.01M13.38 13.38 3.01 3.01"
+            ></path>
+          </svg>
+        </button>
+        <HotelList hotels={hotels} />
       </Drawer>
       <div
         className={`w-full h-screen fixed bg-sea-80 bg-opacity-60 z-40 transition ${

@@ -1,25 +1,40 @@
+import { Area } from "./Area.types";
 import { HotelRoom } from "./HotelRoom.types";
-import { Offer } from "./offer.types";
-import { Package } from "./package.types";
+import { HotelPackage } from "./HotelPackage.types";
+import { Offer } from "./Offer.types";
+import { Region } from "./Region.types";
 
 export type Hotel = {
-  id: number;
+  _id: string;
+
   name: string;
-  location: string;
-  region: string;
+
+  location: Area;
+
+  region: Region;
+
   description: string;
+
   image: string;
+
   addons: {
     name: string;
     price: number;
     description?: string;
     image?: string;
   }[];
-  packages: Array<Package>;
-  offers: Array<Offer>;
-  rooms: Array<HotelRoom>;
+
+  packages: HotelPackage[];
+
+  offers: Offer[];
+
+  rooms: HotelRoom[];
+
   roomsDescription: string;
+
   isHotel: boolean;
+
   isConferenceCenter: boolean;
+
   isBanquet: boolean;
 };

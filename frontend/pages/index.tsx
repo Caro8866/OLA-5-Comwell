@@ -9,9 +9,9 @@ import ExperienceCard from "@/components/experienceCard/ExperienceCard";
 import Label from "@/components/label/Label";
 import Button from "@/components/button/Button";
 import Footer from "@/components/footer/Footer";
-import { Package } from "@/utils/package.types";
+import { Package } from "@/utils/Package.types";
 import Spinner from "@/components/spinner/Spinner";
-import { Offer } from "@/utils/offer.types";
+import { Offer } from "@/utils/Offer.types";
 
 function index() {
   const [arePkgLoading, setArePkgLoading] = useState(false);
@@ -59,11 +59,7 @@ function index() {
 
   return (
     <>
-      <Header
-        locationsOnClick={() => {
-          console.log("locations");
-        }}
-      />
+      <Header />
       <main className={`max-w-screen overflow-hidden`}>
         <section
           id="hero"
