@@ -1,4 +1,5 @@
 import { Hotel } from "@/utils/Hotel.types";
+import { HotelPackage } from "@/utils/HotelPackage.types";
 import { HotelRoom } from "@/utils/HotelRoom.types";
 import React, { createContext, useState } from "react";
 
@@ -11,6 +12,7 @@ type BookingContextType = {
     startDate: Date | null;
     endDate: Date | null;
     selectedRoom: HotelRoom;
+    selectedPackage: HotelPackage;
   };
   setBookingData: (data: BookingContextType["bookingData"]) => void;
 };
@@ -45,6 +47,15 @@ export const BookingContext = createContext<BookingContextType>({
       image: "",
       price: 0,
     },
+    selectedPackage: {
+      name: "",
+      type: "",
+      tags: [],
+      description: "",
+      price: 0,
+      image: "",
+      discount: 0,
+    },
   },
   setBookingData: () => {},
 });
@@ -78,6 +89,15 @@ export const BookingContextProvider = ({ children }: { children: React.ReactNode
       description: "",
       image: "",
       price: 0,
+    },
+    selectedPackage: {
+      name: "",
+      type: "",
+      tags: [],
+      description: "",
+      price: 0,
+      image: "",
+      discount: 0,
     },
   });
 
