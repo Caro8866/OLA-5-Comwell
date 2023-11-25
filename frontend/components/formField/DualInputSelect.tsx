@@ -17,7 +17,7 @@ function DualInputSelect({ label1, value1, label2, value2, onClick }: DualInputS
   };
 
   return (
-    <button className={`group relative min-w-[360px] flex w-full rounded-md border-[1px] ${isFocused ? "border-gray-800 hover:border-gray-800" : "border-cw-gray-300 hover:border-gray-400"} px-3 py-2`} onClick={handleClick}>
+    <div className={`group relative min-w-[360px] flex w-full rounded-md border-[1px] ${isFocused ? "border-gray-800 hover:border-gray-800" : "border-cw-gray-300 hover:border-gray-400"} px-3 py-2`} onClick={handleClick}>
       <div className="flex flex-col text-left w-full relative">
         <p className="text-xs text-active-gray">{label1}</p>
         <p className=" font-light">{value1}</p>
@@ -42,7 +42,7 @@ function DualInputSelect({ label1, value1, label2, value2, onClick }: DualInputS
           <path stroke="currentColor" strokeWidth="1.5" d="M16.666 12.916 10 6.666l-6.667 6.25"></path>
         </svg>
       </div>
-    </button>
+    </div>
   );
 }
 

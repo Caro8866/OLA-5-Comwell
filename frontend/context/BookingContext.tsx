@@ -4,7 +4,8 @@ import React, { createContext, useContext, useState } from "react";
 type BookingContextType = {
   bookingData: {
     hotel: string;
-    room: { adults: number; children: number; infants: number };
+    peopleCount: { adults: number; children: number; infants: number };
+    roomCount: number;
     startDate: Date | null;
     endDate: Date | null;
   };
@@ -15,7 +16,8 @@ type BookingContextType = {
 export const BookingContext = createContext<BookingContextType>({
   bookingData: {
     hotel: "",
-    room: { adults: 1, children: 0, infants: 0 },
+    peopleCount: { adults: 1, children: 0, infants: 0 },
+    roomCount: 1,
     startDate: null,
     endDate: null,
   },
@@ -26,7 +28,8 @@ export const BookingContext = createContext<BookingContextType>({
 export const BookingContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [bookingData, setBookingData] = useState<BookingContextType["bookingData"]>({
     hotel: "",
-    room: { adults: 1, children: 0, infants: 0 },
+    peopleCount: { adults: 1, children: 0, infants: 0 },
+    roomCount: 1,
     startDate: null,
     endDate: null,
   });
