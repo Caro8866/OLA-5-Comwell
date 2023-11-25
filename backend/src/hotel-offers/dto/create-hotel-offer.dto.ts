@@ -1,17 +1,26 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateHotelOfferDto {
-  @IsNotEmpty({ message: 'Hptel offer name must be provided' })
+  @IsNotEmpty({ message: 'Hotel offer name must be provided' })
   name: string;
 
   description: string;
-
+  tag: string;
+  href: string;
   @IsOptional()
-  icon: string;
+  image: string;
 
-  constructor(name: string, description: string, icon?: string) {
+  constructor(
+    name: string,
+    description: string,
+    tag: string,
+    href: string,
+    image: string,
+  ) {
     this.name = name;
     this.description = description;
-    this.icon = icon;
+    this.tag = tag;
+    this.href = href;
+    this.image = image;
   }
 }
