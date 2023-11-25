@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TabGroup from "@/components/tabGroup/TabGroup";
 import HotelCard from "./HotelCard";
-import { Hotel } from "@/utils/types";
+import { Hotel } from "@/utils/Hotel.types";
 import SelectionDrawer from "../SelectionDrawer";
 import { BeatLoader } from "react-spinners";
 
