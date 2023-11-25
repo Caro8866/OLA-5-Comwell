@@ -12,10 +12,11 @@ import Button from "../button/Button";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import Heading from "../text/heading/Heading";
+import { Hotel } from "@/utils/Hotel.types";
+import HotelList from "../hotellist/HotelList";
 
 type Props = {
   children?: React.ReactNode;
-  locationsOnClick: () => void;
 };
 
 function Header(props: Props) {
@@ -47,6 +48,14 @@ function Header(props: Props) {
     setIsRegisterDrawerOpen((prevState) => !prevState);
   };
 
+  const [isLocationsDrawerOpen, setIsLocationsDrawerOpen] = useState(false);
+  const toggleLocationsDrawer = () => {
+    setIsLocationsDrawerOpen((prevState) => !prevState);
+  };
+
+  const [areHotelsLoading, setAreHotelsLoading] = useState(false);
+  const [hotels, setHotels] = useState<Hotel[]>();
+
   const toggleMenuDrawer = () => {
     setIsMenuDrawerOpen((prevState) => !prevState);
   };
@@ -55,6 +64,7 @@ function Header(props: Props) {
     const scrollPosition = window.scrollY; // => scroll position
     setWindowPosition(scrollPosition);
   };
+
   useEffect(() => {
     handleScroll();
     window.addEventListener("scroll", handleScroll);
@@ -70,6 +80,19 @@ function Header(props: Props) {
       setHeaderStyle("transparent");
     }
   }, [windowPosition]);
+
+  useEffect(() => {
+    setAreHotelsLoading(true);
+    fetch("http://localhost:5000/hotels")
+      .then((response) => response.json())
+      .then((data: Hotel[]) => {
+        setHotels(data);
+        setAreHotelsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
@@ -105,15 +128,17 @@ function Header(props: Props) {
               </svg>
             </Link>
           </section>
-          <section className={`hidden lg:flex`}>
-            {/* booking widget */}
-            {props.children}
-          </section>
+          <section className={`hidden lg:flex`}>{props.children}</section>
           <nav className={`flex justify-end ${textTypes[headerStyle]}`}>
             <ul
               className={`flex flex-row items-center justify-end gap-8 font-sans font-semibold z-50`}
             >
-              <li className={`cursor-pointer`} onClick={props.locationsOnClick}>
+              <li
+                className={`cursor-pointer`}
+                onClick={() => {
+                  setIsLocationsDrawerOpen(true);
+                }}
+              >
                 <div
                   className={`flex flex-row gap-1.5 justify-center items-center`}
                 >
@@ -437,6 +462,16 @@ function Header(props: Props) {
             </Link>
           </section>
         </nav>
+      </Drawer>
+      <Drawer
+        open={isLocationsDrawerOpen}
+        onClose={toggleLocationsDrawer}
+        direction="right"
+        customIdSuffix="locationsDrawer"
+        size="80vw"
+        className={`rounded-l-xl relative`}
+      >
+        <HotelList hotels={hotels} />
       </Drawer>
       <div
         className={`w-full h-screen fixed bg-sea-80 bg-opacity-60 z-40 transition ${
