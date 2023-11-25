@@ -36,13 +36,17 @@ function HotelInputDrawer({ isOpen, onClose, onSelect }: HotelInputDrawerProps) 
     }
   };
 
+  const filteredHotels = region === "All" ? hotels : hotels.filter((hotel) => hotel.region === region);
+
   return (
     <SelectionDrawer isOpen={isOpen} onClose={onClose} onSelect={handleConfirmSelect} title="Hotels">
       <TabGroup activeTab={region} onTabChange={setRegion} tabs={["All", "Zealand", "Funen", "Jutland"]} />
       {/* loop through hotels */}
-      {hotels.map((hotel: Hotel) => (
-        <HotelCard key={hotel.name} hotel={hotel} isSelected={hotel === selectedHotel} onSelect={handleHotelSelect} />
-      ))}
+      <ul className="flex flex-col gap-1">
+        {filteredHotels.map((hotel: Hotel) => (
+          <HotelCard key={hotel.name} hotel={hotel} isSelected={hotel === selectedHotel} onSelect={handleHotelSelect} />
+        ))}
+      </ul>
     </SelectionDrawer>
   );
 }
