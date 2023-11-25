@@ -3,6 +3,7 @@ import TabGroup from "@/components/tabGroup/TabGroup";
 import HotelCard from "./HotelCard";
 import { Hotel } from "@/utils/types";
 import SelectionDrawer from "../SelectionDrawer";
+import { BeatLoader } from "react-spinners";
 
 type HotelInputDrawerProps = {
   isOpen: boolean;
@@ -13,13 +14,35 @@ type HotelInputDrawerProps = {
 function HotelInputDrawer({ isOpen, onClose, onSelect }: HotelInputDrawerProps) {
   const [region, setRegion] = useState("All");
 
-  // fetch hotels from backend
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   useEffect(() => {
-    fetch("http://localhost:5000/hotels")
-      .then((response) => response.json())
-      .then((data) => setHotels(data))
-      .catch((error) => console.error("Error:", error));
-  }, []);
+    if (isOpen) {
+      const fetchHotels = async () => {
+        setLoading(true);
+
+        try {
+          const response = await fetch("http://localhost:5000/hotels");
+          if (!response.ok) {
+            throw new Error("Something went wrong");
+          }
+          const data = await response.json();
+          setHotels(data);
+        } catch (error) {
+          if (error instanceof Error) {
+            setError(error.message);
+          } else {
+            setError("We were unable to fetch hotels at this time. Please try again later.");
+          }
+          setLoading(false);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchHotels();
+    }
+  }, [isOpen]);
 
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
@@ -43,9 +66,9 @@ function HotelInputDrawer({ isOpen, onClose, onSelect }: HotelInputDrawerProps) 
       <TabGroup activeTab={region} onTabChange={setRegion} tabs={["All", "Zealand", "Funen", "Jutland"]} />
       {/* loop through hotels */}
       <ul className="flex flex-col gap-1">
-        {filteredHotels.map((hotel: Hotel) => (
-          <HotelCard key={hotel.name} hotel={hotel} isSelected={hotel === selectedHotel} onSelect={handleHotelSelect} />
-        ))}
+        {loading && <BeatLoader loading={loading} size={15} className="flex justify-center items-center mt-80" />}
+        {error && <p>{error}</p>}
+        {!loading && !error && filteredHotels.map((hotel: Hotel) => <HotelCard key={hotel.name} hotel={hotel} isSelected={hotel === selectedHotel} onSelect={handleHotelSelect} />)}
       </ul>
     </SelectionDrawer>
   );
