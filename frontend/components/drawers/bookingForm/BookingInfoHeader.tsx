@@ -10,15 +10,16 @@ type BookingInfoHeaderProps = {
     hotel: string;
     selectedRoom: HotelRoom;
   };
+  prevStep: () => void;
 };
 
-function BookingInfoHeader({ bookingData }: BookingInfoHeaderProps) {
+function BookingInfoHeader({ bookingData, prevStep }: BookingInfoHeaderProps) {
   const startDate = bookingData.startDate?.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
   const endDate = bookingData.endDate?.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
 
   return (
     <header className="flex flex-row justify-start items-center py-2 px-2 gap-4">
-      <button className="flex items-center rounded-full bg-charcoal-20 p-2 ml-2">
+      <button className="flex items-center rounded-full bg-charcoal-20 p-2 ml-2" onClick={prevStep}>
         <svg xmlns="http://www.w3.org/2000/svg" height="8" viewBox="0 -960 960 960" width="8">
           <path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z" />
         </svg>

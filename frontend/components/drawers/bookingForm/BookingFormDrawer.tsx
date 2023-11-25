@@ -46,7 +46,7 @@ function BookingFormDrawer({ isOpen, onClose }: BookingFormDrawerProps) {
   return (
     <Drawer open={isOpen} onClose={onClose} direction="right" size={700}>
       <div className="h-full flex flex-col">
-        <BookingInfoHeader bookingData={bookingData} />
+        <BookingInfoHeader bookingData={bookingData} onClick={prevStep} />
         <div className="h-full w-full">{content}</div>
       </div>
     </Drawer>
