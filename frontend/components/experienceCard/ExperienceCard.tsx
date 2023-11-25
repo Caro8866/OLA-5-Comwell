@@ -40,7 +40,7 @@ function ExperienceCard({
               alt={title}
               width="450"
               height="450"
-              className={`w-full h-full flex transition-transform group-hover:scale-[1.05] ease-in duratioobject-cover object-cover`}
+              className={`w-full h-full flex transition-transform group-hover:scale-[1.05] ease-in object-cover`}
             />
           </div>
           <section className={`p-5 flex flex-col grow justify-between`}>
