@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import SelectionDrawer from "../SelectionDrawer";
+import BodyText from "@/components/text/bodyText/BodyText";
 
 type DateInputDrawerProps = {
   isOpen: boolean;
@@ -10,6 +11,18 @@ type DateInputDrawerProps = {
 function DateInputDrawer({ isOpen, onClose, onSelect }: DateInputDrawerProps) {
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
+
+  const [error, setError] = useState("");
+
+  const validateDates = (newStartDate: Date, newEndDate: Date) => {
+    if (newStartDate > newEndDate) {
+      setError("Start date cannot be after end date");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
   useEffect(() => {
     if (isOpen) {
       const today = new Date();
@@ -24,7 +37,7 @@ function DateInputDrawer({ isOpen, onClose, onSelect }: DateInputDrawerProps) {
   const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newStartDate = new Date(e.target.value);
     setSelectedStartDate(newStartDate);
-    if (selectedEndDate) {
+    if (selectedEndDate && validateDates(newStartDate, selectedEndDate)) {
       onSelect(newStartDate, selectedEndDate);
     }
   };
@@ -32,11 +45,10 @@ function DateInputDrawer({ isOpen, onClose, onSelect }: DateInputDrawerProps) {
   const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEndDate = new Date(e.target.value);
     setSelectedEndDate(newEndDate);
-    if (selectedStartDate) {
+    if (selectedStartDate && validateDates(selectedStartDate, newEndDate)) {
       onSelect(selectedStartDate, newEndDate);
     }
   };
-
   const handleConfirmSelect = () => {
     if (selectedStartDate && selectedEndDate) {
       onSelect(selectedStartDate, selectedEndDate);
@@ -47,7 +59,7 @@ function DateInputDrawer({ isOpen, onClose, onSelect }: DateInputDrawerProps) {
   return (
     <SelectionDrawer isOpen={isOpen} onClose={onClose} title="Dates" onSelect={handleConfirmSelect}>
       <div className="mt-12">
-        <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-col gap-2">
           <div className="flex flex-col">
             <label htmlFor="start-date" className="text-charcoal-60 text-[0.6rem] py-0">
               Check-in
@@ -60,6 +72,11 @@ function DateInputDrawer({ isOpen, onClose, onSelect }: DateInputDrawerProps) {
             </label>
             <input id="end-date" type="date" value={selectedEndDate ? selectedEndDate.toISOString().split("T")[0] : ""} onChange={handleEndDateChange} />
           </div>
+          {error && (
+            <BodyText size={2} color="black" styles="text-charcoal-60 text-[0.8rem] ">
+              {error}
+            </BodyText>
+          )}
         </div>
       </div>
     </SelectionDrawer>
