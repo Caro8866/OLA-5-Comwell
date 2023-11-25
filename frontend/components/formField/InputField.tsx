@@ -12,7 +12,14 @@ type Props = {
   id: string;
   type?: string;
   styles?: string;
+  // a condition that will be checked onBlur
   validationCondition?: () => boolean;
+  // a condition that is checked when the submit action is triggered
+  validationOnSend?: boolean;
+  // setter function for validation errors array
+  setValidationErrors?: React.Dispatch<React.SetStateAction<string[]>>;
+  // an error message that will be displayed if
+  // validationCondition or validationOnSend fail
   errorMessage?: string;
 };
 
@@ -25,24 +32,17 @@ function InputField({
   type = "text",
   styles,
   validationCondition,
+  setValidationErrors,
+  validationOnSend,
   errorMessage,
 }: Props) {
   const [isFocused, setIsFocused] = useState(false);
   const [conditionPassed, setConditionPassed] = useState(true);
-
   const ref = useRef<any>(null);
-
   const handleClick = () => {
     setIsFocused(true);
     ref.current && ref.current.focus();
   };
-
-  validationCondition &&
-    useEffect(() => {
-      value !== ""
-        ? setConditionPassed(validationCondition())
-        : setConditionPassed(true);
-    }, [isFocused]);
 
   return (
     <>
@@ -51,7 +51,17 @@ function InputField({
           isFocused && "border-gray-800 hover:border-gray-800"
         }  ${styles}`}
         onClick={handleClick}
-        onBlur={() => setIsFocused(false)}
+        onBlur={() => {
+          setIsFocused(false);
+
+          // if there are validation rules check if they pass
+          // and display an error message accordingly
+          setValidationErrors &&
+            setValidationErrors((prev) => prev.filter((e) => e !== name));
+          validationCondition && value
+            ? setConditionPassed(validationCondition())
+            : setConditionPassed(true);
+        }}
       >
         <label
           htmlFor={id}
@@ -75,7 +85,10 @@ function InputField({
         />
       </div>
 
-      <InputError message={errorMessage} conditionPassed={conditionPassed} />
+      <InputError
+        message={errorMessage}
+        showError={!validationOnSend || !conditionPassed ? true : false}
+      />
     </>
   );
 }

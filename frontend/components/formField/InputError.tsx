@@ -1,12 +1,13 @@
 export default function InputError({
   message,
-  conditionPassed = true,
+  showError = false,
 }: {
-  message: string | undefined;
-  conditionPassed: boolean;
+  message?: string;
+  showError: boolean;
 }) {
   return (
-    !conditionPassed && (
+    showError &&
+    message && (
       <div className="flex gap-1 -mt-3 text-errorRed w-96">
         <svg
           className="w-[16px] min-w-[16px]"
