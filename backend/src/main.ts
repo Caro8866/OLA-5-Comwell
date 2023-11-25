@@ -6,5 +6,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(5000);
+  console.log('Server is now live.');
+  console.log(
+    'If you want to seed the database please check backend/README.md for appropriate commands.',
+  );
 }
 bootstrap();
