@@ -12,7 +12,7 @@ function HotelList(props: Props) {
   const [visible, setVisible] = useState("");
 
   return (
-    <section>
+    <section className={`w-min-screen xl:min-w-[600px]`}>
       <nav
         className={`z-20 relative flex px-8 py-12 text-heading-medium-mobile xl:text-heading-medium-desktop font-semibold hover:text-charcoal-40 ease duration-300`}
       >

@@ -392,13 +392,31 @@ function Header(props: Props) {
         onClose={toggleMenuDrawer}
         direction="right"
         customIdSuffix="menuDrawer"
-        size="80vw"
-        className={`rounded-l-xl`}
+        className={`rounded-l-xl relative !w-screen lg:!w-[60vw] 2xl:!w-[60vw] overflow-hidden`}
       >
-        <nav className={`flex flex-col pt-8 pb-4 pl-12 h-full`}>
+        <button
+          onClick={toggleMenuDrawer}
+          className="flex items-center rounded-full bg-charcoal-20 p-2 absolute right-4 top-4 md:right-6 md:top-6 z-[200]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 16 16"
+            className="w-[16px] h-[16px]"
+          >
+            <path
+              stroke="currentColor"
+              strokeWidth="1.5"
+              d="M2.62 13.38 12.99 3.01M13.38 13.38 3.01 3.01"
+            ></path>
+          </svg>
+        </button>
+        <nav
+          className={`flex flex-col pt-8 pb-4 pl-4 lg:pl-12 h-full overflow-y-scroll no-scrollbar`}
+        >
           <section>{/*Section for searchbar */}</section>
           <section
-            className={`flex flex-col gap-4 py-8 mb-4 px-2 text-heading-huge-mobile xl:text-heading-huge-desktop font-semibold hover:text-charcoal-40`}
+            className={`flex flex-col gap-4 py-2 lg:py-8 mb-4 px-2 text-heading-huge-mobile xl:text-heading-huge-desktop font-semibold hover:text-charcoal-40 `}
           >
             <Link href="#" className={`transition hover:text-charcoal-100`}>
               Hotels
@@ -468,9 +486,25 @@ function Header(props: Props) {
         onClose={toggleLocationsDrawer}
         direction="right"
         customIdSuffix="locationsDrawer"
-        size="80vw"
-        className={`rounded-l-xl relative`}
+        className={`rounded-l-xl relative !w-screen lg:!w-[60vw] 2xl:!w-[60vw] overflow-hidden`}
       >
+        <button
+          onClick={toggleLocationsDrawer}
+          className="flex items-center rounded-full bg-charcoal-20 p-2 absolute  right-4 top-4 md:right-6 md:top-6"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 16 16"
+            className="w-[16px] h-[16px]"
+          >
+            <path
+              stroke="currentColor"
+              strokeWidth="1.5"
+              d="M2.62 13.38 12.99 3.01M13.38 13.38 3.01 3.01"
+            ></path>
+          </svg>
+        </button>
         <HotelList hotels={hotels} />
       </Drawer>
       <div
