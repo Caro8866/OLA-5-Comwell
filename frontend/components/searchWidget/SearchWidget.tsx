@@ -83,6 +83,14 @@ function SearchWidget() {
       peopleCount: selectedPeopleCount,
       startDate: selectedStartDate,
       endDate: selectedEndDate,
+      selectedRoom: {
+        id: 0,
+        name: "",
+        size: 0,
+        description: "",
+        image: "",
+        price: 0,
+      },
     });
     setBookingFormDrawerOpen(true);
   };
