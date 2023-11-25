@@ -1,6 +1,6 @@
 import BodyText from "@/components/text/bodyText/BodyText";
 import Heading from "@/components/text/heading/Heading";
-import { Hotel } from "@/utils/hotel";
+import { Hotel } from "@/utils/types";
 import Image from "next/image";
 
 type HotelCardProps = {

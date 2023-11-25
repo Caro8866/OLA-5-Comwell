@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TabGroup from "@/components/tabGroup/TabGroup";
 import HotelCard from "./HotelCard";
-import { Hotel } from "@/utils/hotel";
+import { Hotel } from "@/utils/types";
 import SelectionDrawer from "../SelectionDrawer";
 
 type HotelInputDrawerProps = {
