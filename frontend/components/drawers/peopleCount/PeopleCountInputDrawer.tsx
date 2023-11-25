@@ -24,17 +24,18 @@ function PeopleCountInputDrawer({ isOpen, onClose, onSelect }: PeopleCountInputD
   const totalPeople = peopleCount.adults + peopleCount.children + peopleCount.infants;
 
   const handleIncrement = (type: "adults" | "children" | "infants") => {
-    if (totalPeople > 4) {
-      setError("There is a maximum of 4 people per room. Contact the hotel directly for specific requirements.");
-    } else {
-      setPeopleCount({ ...peopleCount, [type]: peopleCount[type] + 1 });
+    if (totalPeople < 4) {
+      const updatedCount = { ...peopleCount, [type]: peopleCount[type] + 1 };
+      setPeopleCount(updatedCount);
+      onSelect(updatedCount);
     }
   };
 
   const handleDecrement = (type: "adults" | "children" | "infants") => {
-    setPeopleCount({ ...peopleCount, [type]: peopleCount[type] - 1 });
-    if (totalPeople > 4) {
-      setError("");
+    if (peopleCount[type] > 0) {
+      const updatedCount = { ...peopleCount, [type]: peopleCount[type] - 1 };
+      setPeopleCount(updatedCount);
+      onSelect(updatedCount);
     }
   };
 

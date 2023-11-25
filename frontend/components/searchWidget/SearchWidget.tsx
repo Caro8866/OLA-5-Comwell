@@ -5,10 +5,15 @@ import InputSelect from "../formField/InputSelect";
 import DualInputSelect from "../formField/DualInputSelect";
 import Button from "../button/Button";
 import TabGroup from "../tabGroup/TabGroup";
-import { Hotel } from "@/utils/types";
+import { Hotel, PeopleCount } from "@/utils/types";
 import HotelInputDrawer from "@/components/drawers/hotel/HotelInputDrawer";
-import RoomInputDrawer from "../drawers/peopleCount/RoomInputDrawer";
 import PeopleCountInputDrawer from "../drawers/peopleCount/PeopleCountInputDrawer";
+
+const peopleCountToString = (peopleCount: { adults: number; children: number; infants: number }) => {
+  let totalPeople = peopleCount.adults + peopleCount.children + peopleCount.infants;
+  let peopleCountString = `1 Room, ${totalPeople} ${totalPeople > 1 ? "Persons" : "Person"}`;
+  return peopleCountString;
+};
 
 function SearchWidget() {
   const [bookingType, setBookingType] = useState("accomodation"); // ["accomodation", "conference", "banquet"]
@@ -48,17 +53,10 @@ function SearchWidget() {
     setPeopleCountDrawerOpen(false);
   };
 
-  const handlePeopleCountSelect = (selectedPeopleCount: { adults: number; children: number; infants: number }) => {
+  const handlePeopleCountSelect = (selectedPeopleCount: PeopleCount) => {
     setSelectedPeopleCount(selectedPeopleCount);
     setBookingData({ ...bookingData, peopleCount: selectedPeopleCount });
     console.log(bookingData, selectedPeopleCount);
-  };
-
-  /* convert room object into string */
-  const peopleCountToString = (peopleCount: { adults: number; children: number; infants: number }) => {
-    let totalPeople = peopleCount.adults + peopleCount.children + peopleCount.infants;
-    let peopleCountString = `1 Room, ${totalPeople} ${totalPeople > 1 ? "Persons" : "Person"}`;
-    return peopleCountString;
   };
 
   const handleSearch = () => {
