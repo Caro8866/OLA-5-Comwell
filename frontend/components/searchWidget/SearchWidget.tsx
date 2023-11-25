@@ -10,7 +10,7 @@ import { PeopleCount } from "@/utils/PeopleCount.types";
 import HotelInputDrawer from "@/components/drawers/hotel/HotelInputDrawer";
 import PeopleCountInputDrawer from "../drawers/peopleCount/PeopleCountInputDrawer";
 import DateInputDrawer from "../drawers/date/DateInputDrawer";
-import InputText from "../formField/InputText";
+import InputField from "../formField/InputField";
 import BookingFormDrawer from "../drawers/bookingForm/BookingFormDrawer";
 
 export const peopleCountToString = (peopleCount: PeopleCount) => {
@@ -119,7 +119,7 @@ function SearchWidget() {
                 Add booking code
               </Button>
             )}
-            {isBookingCodeInputVisible && <InputText name="bookingCode" id="bookingCode" label="Booking code" onChange={() => alert("Feature not available yet")} value={"Enter booking code"} />}
+            {isBookingCodeInputVisible && <InputField name="bookingCode" id="bookingCode" label="Booking code" onChange={() => alert("Feature not available yet")} value={"Enter booking code"} />}
 
             <Button color="charcoal" isFullWidth={true} isActive={selectedHotel && selectedPeopleCount && selectedStartDate && selectedEndDate ? true : false} onClick={handleSearch} styles="flex items-center justify-center gap-x-1 font-light">
               Search
