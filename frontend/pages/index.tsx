@@ -9,19 +9,36 @@ import ExperienceCard from "@/components/experienceCard/ExperienceCard";
 import Label from "@/components/label/Label";
 import Button from "@/components/button/Button";
 import Footer from "@/components/footer/Footer";
+import { Package } from "@/utils/package";
+import Spinner from "@/components/spinner/Spinner";
 
 function index() {
-  const [ref] = useKeenSlider<HTMLDivElement>({
-    breakpoints: {
-      "(min-width: 768px)": {
-        slides: { perView: 2, spacing: 5 },
+  const [arePkgLoading, setArePkgLoading] = useState(false);
+  const [packages, setPackages] = useState<Package[]>([]);
+  const [sliderRef, slider] = useKeenSlider(
+    {
+      breakpoints: {
+        "(min-width: 768px)": {
+          slides: { perView: 2, spacing: 5 },
+        },
+        "(min-width: 1000px)": {
+          slides: { perView: 3, spacing: 15 },
+        },
       },
-      "(min-width: 1000px)": {
-        slides: { perView: 3, spacing: 15 },
-      },
+      slides: { perView: 1 },
     },
-    slides: { perView: 1 },
-  });
+    []
+  );
+
+  useEffect(() => {
+    setArePkgLoading(true);
+    fetch("http://localhost:5000/packages")
+      .then((response) => response.json())
+      .then((data: Package[]) => {
+        setPackages(data);
+        setArePkgLoading(false);
+      });
+  }, []);
 
   return (
     <>
@@ -98,61 +115,32 @@ function index() {
           </div>
 
           <div className={`w-screen overflow-visible`}>
-            <div
-              ref={ref}
-              className={`keen-slider !overflow-visible max-w-[1600px] mx-auto px-8`}
-            >
-              <ExperienceCard
-                linkTo="/test"
-                image="/img/placeholder.webp"
-                title="Overnight stay with breakfast"
-                description="lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet"
-                tag="Overnight stay"
-                price={1000}
-                discount={0.5}
-                styles={"keen-slider__slide"}
-              />
-              <ExperienceCard
-                linkTo="/test"
-                image="/img/placeholder.webp"
-                title="Overnight stay with breakfast"
-                description="lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet"
-                tag="Overnight stay"
-                price={1000}
-                discount={0.5}
-                styles={"keen-slider__slide"}
-              />
-              <ExperienceCard
-                linkTo="/test"
-                image="/img/placeholder.webp"
-                title="Overnight stay with breakfast"
-                description="lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet"
-                tag="Overnight stay"
-                price={1000}
-                discount={0.5}
-                styles={"keen-slider__slide"}
-              />
-              <ExperienceCard
-                linkTo="/test"
-                image="/img/placeholder.webp"
-                title="Overnight stay with breakfast"
-                description="lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet"
-                tag="Overnight stay"
-                price={1000}
-                discount={0.5}
-                styles={"keen-slider__slide"}
-              />
-              <ExperienceCard
-                linkTo="/test"
-                image="/img/placeholder.webp"
-                title="Overnight stay with breakfast"
-                description="lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit amet"
-                tag="Overnight stay"
-                price={1000}
-                discount={0.5}
-                styles={"keen-slider__slide"}
-              />
-            </div>
+            {arePkgLoading && <Spinner />}
+            {packages.length > 0 && !arePkgLoading && (
+              <div
+                ref={sliderRef}
+                className={`keen-slider !overflow-visible max-w-[1600px] mx-auto px-8`}
+              >
+                {" "}
+                {packages.map((pkg, index) => {
+                  return (
+                    <ExperienceCard
+                      key={pkg._id}
+                      linkTo={`/packages/${pkg._id}`}
+                      image={pkg.image}
+                      title={pkg.name}
+                      description={pkg.description}
+                      tag={pkg.type.toUpperCase()}
+                      price={pkg.price}
+                      discount={
+                        pkg.discount && pkg.discount > 0 ? pkg.discount : 0
+                      }
+                      styles={`keen-slider__slide number-slide${index}`}
+                    />
+                  );
+                })}{" "}
+              </div>
+            )}
           </div>
         </section>
       </main>
