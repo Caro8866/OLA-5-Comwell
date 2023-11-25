@@ -19,8 +19,8 @@ export class HotelOffersCommand {
         'Some other deal',
         'Amazing description',
         'Even more amazing tag',
-        'https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/kampagner/b2b_efter%C3%A5r2023/b2b_kampagnefoto.jpg/dbae97959cf98e2e185d005176d3dc58.jpg',
         'amazing-link',
+        'https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/kampagner/b2b_efter%C3%A5r2023/b2b_kampagnefoto.jpg/dbae97959cf98e2e185d005176d3dc58.jpg',
       ),
     );
     const offer2 = await this.hotelOffersService.create(
@@ -28,8 +28,8 @@ export class HotelOffersCommand {
         'The Black Weekend is on!',
         'Get 30% off stays and 20% added value on giftcards',
         'Hot deals',
-        'https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/cro/events/comwell-roskilde-selskaber-fest-03.jpg/cd2338f549a479e738d42e58755fa896.jpg ',
         'hot-deals',
+        'https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/cro/events/comwell-roskilde-selskaber-fest-03.jpg/cd2338f549a479e738d42e58755fa896.jpg ',
       ),
     );
     const offer3 = await this.hotelOffersService.create(
@@ -37,8 +37,8 @@ export class HotelOffersCommand {
         'Let us help with your next meeting',
         'We offer meeting space, catering and professional meeting place',
         'See Venues and meeting packages',
-        'https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/kampagner/b2b_efter%C3%A5r2023/b2b_kampagnefoto.jpg/dbae97959cf98e2e185d005176d3dc58.jpg',
         'meeting-and-conference',
+        'https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/kampagner/b2b_efter%C3%A5r2023/b2b_kampagnefoto.jpg/dbae97959cf98e2e185d005176d3dc58.jpg',
       ),
     );
     const offer4 = await this.hotelOffersService.create(
@@ -46,8 +46,8 @@ export class HotelOffersCommand {
         'Christmas party with food and music',
         `Ready for your company's christmas party? Check out the hotels' Christmas deals`,
         'Mark your calendar',
-        `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/jul/jul-paa-hotellerne/comwell-centralvaerkstedet-julestemning.jpg/f9928fca562ac0bf77f27dc396273146.jpg`,
         'christmas',
+        `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/jul/jul-paa-hotellerne/comwell-centralvaerkstedet-julestemning.jpg/f9928fca562ac0bf77f27dc396273146.jpg`,
       ),
     );
 
