@@ -15,6 +15,7 @@ import Heading from "../text/heading/Heading";
 import SignUpForm from "./userForms/SignUpForm";
 import { Hotel } from "@/utils/Hotel.types";
 import HotelList from "../hotellist/HotelList";
+import SignInForm from "./userForms/SignInForm";
 
 type Props = {
   children?: React.ReactNode;
@@ -37,8 +38,7 @@ function Header(props: Props) {
   };
 
   const [windowPosition, setWindowPosition] = useState(0);
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+
   const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [headerStyle, setHeaderStyle] = useState<"transparent" | "white">(
     "transparent"
@@ -189,74 +189,11 @@ function Header(props: Props) {
                     ></path>
                   </svg>
                 </div>
-                <div
-                  className={`absolute flex flex-col bg-slate-50 rounded-lg right-0 top-16 ${
-                    isLoginVisible ? "" : "hidden"
-                  }`}
-                >
-                  <div className={`px-4 pt-6 pb-3 flex flex-col`}>
-                    <InputField
-                      onChange={(e) => {
-                        setLoginEmail(e.target.value);
-                      }}
-                      value={loginEmail}
-                      name="email"
-                      id="email"
-                      label="Email"
-                    ></InputField>
-                    <InputField
-                      onChange={(e) => {
-                        setLoginPassword(e.target.value);
-                      }}
-                      value={loginPassword}
-                      name="password"
-                      id="password"
-                      label="Password"
-                      type="password"
-                      styles="mt-2"
-                    ></InputField>
-                    <BodyText
-                      size={1}
-                      styles="text-charcoal-60 mt-2 font-regular"
-                    >
-                      Forgot your password?
-                    </BodyText>
-                    <span
-                      className={`text-sea-80 underline font-regular w-max cursor-pointer`}
-                    >
-                      Reset password
-                    </span>
-                    <BodyText
-                      size={1}
-                      styles="text-charcoal-60 mt-2 font-regular"
-                    >
-                      Don't have an account?
-                    </BodyText>
-                    <span
-                      onClick={toggleRegisterDrawer}
-                      className={`text-sea-80 underline font-regular w-max cursor-pointer`}
-                    >
-                      Sign up for Comwell club
-                    </span>
-                  </div>
-                  <span
-                    className={`pt-6 mt-2 border-t border-gray-300 px-6 pb-4`}
-                  >
-                    <Button
-                      color={"sea"}
-                      isActive={
-                        loginPassword.length && loginEmail.length ? true : false
-                      }
-                      onClick={() => {
-                        console.log("login handler");
-                      }}
-                      isFullWidth
-                      styles={`text-heading-xsmall-desktop mb-2`}
-                    >
-                      Log in
-                    </Button>
-                  </span>
-                </div>
+
+                <SignInForm
+                  isLoginVisible={isLoginVisible}
+                  toggleRegisterDrawer={toggleRegisterDrawer}
+                />
               </li>
               <li
                 className={`cursor-pointer`}

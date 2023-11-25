@@ -4,25 +4,11 @@ import BodyText from "@/components/text/bodyText/BodyText";
 import InputField from "@/components/formField/InputField";
 import { useState, useRef, FormEvent, useEffect } from "react";
 import InputError from "@/components/formField/InputError";
+import { SignUpValidators } from "./formTypes";
 
 type Props = {
   isRegisterDrawerOpen: boolean;
   toggleRegisterDrawer: () => void;
-};
-
-type ValidatorType = {
-  fieldName: string;
-  validationFunction: () => boolean;
-};
-
-type ValidatorsType = {
-  fullName: ValidatorType;
-  loginEmail: ValidatorType;
-  zipCode: ValidatorType;
-  phone: ValidatorType;
-  loginPassword: ValidatorType;
-  confirmPassword: ValidatorType;
-  dateOfBirth: ValidatorType;
 };
 
 export default function SignUpForm({
@@ -46,7 +32,7 @@ export default function SignUpForm({
   const ref = useRef<any>(null);
   const isFormSubmitted = useRef(false);
 
-  const validators: ValidatorsType = {
+  const validators: SignUpValidators = {
     fullName: {
       fieldName: "name",
       validationFunction: () => fullName.split(/\s+/).length >= 2,
