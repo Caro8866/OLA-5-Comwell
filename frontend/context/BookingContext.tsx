@@ -1,10 +1,11 @@
-import { HotelRoom } from "@/utils/types";
-import React, { createContext, useContext, useState } from "react";
+import { Hotel } from "@/utils/Hotel.types";
+import { HotelRoom } from "@/utils/HotelRoom.types";
+import React, { createContext, useState } from "react";
 
 // context shape
 type BookingContextType = {
   bookingData: {
-    hotel: string;
+    hotel: Hotel;
     peopleCount: { adults: number; children: number; infants: number };
     roomCount: number;
     startDate: Date | null;
@@ -17,13 +18,27 @@ type BookingContextType = {
 // context with default values
 export const BookingContext = createContext<BookingContextType>({
   bookingData: {
-    hotel: "",
+    hotel: {
+      id: 0,
+      name: "",
+      location: "",
+      region: "",
+      description: "",
+      image: "",
+      addons: [],
+      packages: [],
+      offers: [],
+      rooms: [],
+      roomsDescription: "",
+      isHotel: true,
+      isConferenceCenter: false,
+      isBanquet: false,
+    },
     peopleCount: { adults: 1, children: 0, infants: 0 },
     roomCount: 1,
     startDate: null,
     endDate: null,
     selectedRoom: {
-      id: 0,
       name: "",
       size: 0,
       description: "",
@@ -37,13 +52,27 @@ export const BookingContext = createContext<BookingContextType>({
 // context provider
 export const BookingContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [bookingData, setBookingData] = useState<BookingContextType["bookingData"]>({
-    hotel: "",
+    hotel: {
+      id: 0,
+      name: "",
+      location: "",
+      region: "",
+      description: "",
+      image: "",
+      addons: [],
+      packages: [],
+      offers: [],
+      rooms: [],
+      roomsDescription: "",
+      isHotel: true,
+      isConferenceCenter: false,
+      isBanquet: false,
+    },
     peopleCount: { adults: 1, children: 0, infants: 0 },
     roomCount: 1,
     startDate: null,
     endDate: null,
     selectedRoom: {
-      id: 0,
       name: "",
       size: 0,
       description: "",

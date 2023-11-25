@@ -1,8 +1,9 @@
 import "react-modern-drawer/dist/index.css";
 import Drawer from "react-modern-drawer";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BookingContext } from "@/context/BookingContext";
 import BookingInfoHeader from "./BookingInfoHeader";
+import RoomList from "./formSteps/roomList/RoomList";
 
 type BookingFormDrawerProps = {
   isOpen: boolean;
@@ -19,7 +20,7 @@ function BookingFormDrawer({ isOpen, onClose }: BookingFormDrawerProps) {
   let content;
   switch (bookingFormStep) {
     case 1:
-      //   content = <RoomList onNext={nextStep} bookingData={bookingData} />;
+      content = <RoomList onNext={nextStep} />;
       break;
     case 2:
       //   content = <RoomDetail onNext={nextStep} bookingData={bookingData} />;
@@ -46,8 +47,8 @@ function BookingFormDrawer({ isOpen, onClose }: BookingFormDrawerProps) {
   return (
     <Drawer open={isOpen} onClose={onClose} direction="right" size={700}>
       <div className="h-full flex flex-col">
-        <BookingInfoHeader bookingData={bookingData} onClick={prevStep} />
-        <div className="h-full w-full">{content}</div>
+        <BookingInfoHeader bookingData={bookingData} />
+        <div className="h-full w-full px-4 overflow-y-scroll">{content}</div>
       </div>
     </Drawer>
   );

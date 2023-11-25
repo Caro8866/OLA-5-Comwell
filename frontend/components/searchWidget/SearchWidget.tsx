@@ -5,14 +5,15 @@ import InputSelect from "../formField/InputSelect";
 import DualInputSelect from "../formField/DualInputSelect";
 import Button from "../button/Button";
 import TabGroup from "../tabGroup/TabGroup";
-import { Hotel, PeopleCount } from "@/utils/types";
+import { Hotel } from "@/utils/Hotel.types";
+import { PeopleCount } from "@/utils/PeopleCount.types";
 import HotelInputDrawer from "@/components/drawers/hotel/HotelInputDrawer";
 import PeopleCountInputDrawer from "../drawers/peopleCount/PeopleCountInputDrawer";
 import DateInputDrawer from "../drawers/date/DateInputDrawer";
 import InputText from "../formField/InputText";
 import BookingFormDrawer from "../drawers/bookingForm/BookingFormDrawer";
 
-export const peopleCountToString = (peopleCount: { adults: number; children: number; infants: number }) => {
+export const peopleCountToString = (peopleCount: PeopleCount) => {
   let totalPeople = peopleCount.adults + peopleCount.children + peopleCount.infants;
   let peopleCountString = `1 Room, ${totalPeople} ${totalPeople > 1 ? "Persons" : "Person"}`;
   return peopleCountString;
@@ -21,8 +22,9 @@ export const peopleCountToString = (peopleCount: { adults: number; children: num
 function SearchWidget() {
   const [bookingType, setBookingType] = useState("accomodation"); // ["accomodation", "conference", "banquet"]
 
-  const [selectedHotel, setSelectedHotel] = useState("");
-  const [selectedPeopleCount, setSelectedPeopleCount] = useState({ adults: 1, children: 0, infants: 0 });
+  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
+  const [selectedPeopleCount, setSelectedPeopleCount] = useState<PeopleCount>({ adults: 1, children: 0, infants: 0 });
+
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
 
@@ -43,9 +45,9 @@ function SearchWidget() {
   const handleHotelDrawerClose = () => {
     setHotelDrawerOpen(false);
   };
-  const handleHotelSelect = (selectedHotel: Hotel) => {
-    setSelectedHotel(selectedHotel.name);
-    setBookingData({ ...bookingData, hotel: selectedHotel.name });
+  const handleHotelSelect = (hotel: Hotel) => {
+    setSelectedHotel(hotel);
+    setBookingData({ ...bookingData, hotel: hotel });
   };
 
   const handlePeopleCountDrawerOpen = () => {
@@ -77,22 +79,16 @@ function SearchWidget() {
 
   const handleSearch = () => {
     console.log(bookingData);
-    setBookingData({
-      hotel: selectedHotel,
-      roomCount: 1,
-      peopleCount: selectedPeopleCount,
-      startDate: selectedStartDate,
-      endDate: selectedEndDate,
-      selectedRoom: {
-        id: 0,
-        name: "",
-        size: 0,
-        description: "",
-        image: "",
-        price: 0,
-      },
-    });
-    setBookingFormDrawerOpen(true);
+    if (selectedHotel) {
+      setBookingData({
+        ...bookingData,
+        hotel: selectedHotel,
+        peopleCount: selectedPeopleCount,
+        startDate: selectedStartDate,
+        endDate: selectedEndDate,
+      });
+      setBookingFormDrawerOpen(true);
+    }
   };
 
   return (
@@ -104,7 +100,7 @@ function SearchWidget() {
         <TabGroup activeTab={bookingType} onTabChange={setBookingType} tabs={["accomodation", "conference", "banquet"]} />
         {bookingType === "accomodation" && (
           <form className="flex flex-col space-y-2 ">
-            <InputSelect label="Hotel" onClick={handleHotelDrawerOpen} value={selectedHotel ? selectedHotel : "Choose hotel"} />
+            <InputSelect label="Hotel" onClick={handleHotelDrawerOpen} value={selectedHotel ? selectedHotel.name : "Choose hotel"} />
             <InputSelect label="Room" onClick={handlePeopleCountDrawerOpen} value={peopleCountToString(selectedPeopleCount)} />
             <DualInputSelect
               label1={"Check in"}

@@ -1,25 +1,27 @@
 import { peopleCountToString } from "@/components/searchWidget/SearchWidget";
 import BodyText from "@/components/text/bodyText/BodyText";
-import { HotelRoom } from "@/utils/types";
+import { Hotel } from "@/utils/Hotel.types";
+import { HotelRoom } from "@/utils/HotelRoom.types";
+import { PeopleCount } from "@/utils/PeopleCount.types";
 
 type BookingInfoHeaderProps = {
   bookingData: {
+    hotel: Hotel;
+    peopleCount: PeopleCount;
+    roomCount: number;
     startDate: Date | null;
     endDate: Date | null;
-    peopleCount: { adults: number; children: number; infants: number };
-    hotel: string;
     selectedRoom: HotelRoom;
   };
-  prevStep: () => void;
 };
 
-function BookingInfoHeader({ bookingData, prevStep }: BookingInfoHeaderProps) {
+function BookingInfoHeader({ bookingData }: BookingInfoHeaderProps) {
   const startDate = bookingData.startDate?.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
   const endDate = bookingData.endDate?.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
 
   return (
     <header className="flex flex-row justify-start items-center py-2 px-2 gap-4">
-      <button className="flex items-center rounded-full bg-charcoal-20 p-2 ml-2" onClick={prevStep}>
+      <button className="flex items-center rounded-full bg-charcoal-20 p-2 ml-2">
         <svg xmlns="http://www.w3.org/2000/svg" height="8" viewBox="0 -960 960 960" width="8">
           <path d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z" />
         </svg>
@@ -59,7 +61,7 @@ function BookingInfoHeader({ bookingData, prevStep }: BookingInfoHeaderProps) {
             </g>
           </svg>
           <BodyText color="black" styles="font-light text-xs" size={2}>
-            {bookingData.hotel}
+            {bookingData.hotel.name}
           </BodyText>
         </div>
       </div>
