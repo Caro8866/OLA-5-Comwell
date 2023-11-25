@@ -202,7 +202,7 @@ export default function SignUpForm({
             name="name"
             label="Full name"
             styles={`w-96`}
-            errorMessage="You need to fill in your last name"
+            errorMessage="You need to fill in your full name"
             validationCondition={() => validators.fullName.validationFunction()}
             validationOnSend={!validationErrors.includes("name")}
             setValidationErrors={setValidationErrors}
