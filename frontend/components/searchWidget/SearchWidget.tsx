@@ -1,19 +1,20 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
+import { BookingContext } from "@/context/BookingContext";
 import Heading from "../text/heading/Heading";
 import InputSelect from "../formField/InputSelect";
 import DualInputSelect from "../formField/DualInputSelect";
 import Button from "../button/Button";
 import TabGroup from "../tabGroup/TabGroup";
-import { BookingContext } from "@/context/BookingContext";
-import HotelInputDrawer from "@/components/drawers/hotel/HotelInputDrawer";
 import { Hotel } from "@/utils/types";
-import RoomInputDrawer from "../drawers/room/RoomInputDrawer";
+import HotelInputDrawer from "@/components/drawers/hotel/HotelInputDrawer";
+import RoomInputDrawer from "../drawers/peopleCount/RoomInputDrawer";
+import PeopleCountInputDrawer from "../drawers/peopleCount/PeopleCountInputDrawer";
 
 function SearchWidget() {
   const [bookingType, setBookingType] = useState("accomodation"); // ["accomodation", "conference", "banquet"]
 
   const [selectedHotel, setSelectedHotel] = useState("");
-  const [selectedRoom, setSelectedRoom] = useState({ adults: 1, children: 0, infants: 0 });
+  const [selectedPeopleCount, setSelectedPeopleCount] = useState({ adults: 1, children: 0, infants: 0 });
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
@@ -23,7 +24,7 @@ function SearchWidget() {
 
   // drawer states
   const [isHotelDrawerOpen, setHotelDrawerOpen] = useState(false);
-  const [isRoomDrawerOpen, setRoomDrawerOpen] = useState(false);
+  const [isPeopleCountDrawerOpen, setPeopleCountDrawerOpen] = useState(false);
   const [isDateDrawerOpen, setDateDrawerOpen] = useState(false);
 
   // drawer handlers
@@ -36,35 +37,36 @@ function SearchWidget() {
   const handleHotelSelect = (selectedHotel: Hotel) => {
     setSelectedHotel(selectedHotel.name);
     setBookingData({ ...bookingData, hotel: selectedHotel.name });
-    console.log(bookingData);
+    console.log(bookingData, selectedHotel);
   };
 
-  const handleRoomDrawerOpen = () => {
-    setRoomDrawerOpen(true);
+  const handlePeopleCountDrawerOpen = () => {
+    setPeopleCountDrawerOpen(true);
   };
 
-  const handleRoomDrawerClose = () => {
-    setRoomDrawerOpen(false);
+  const handlePeopleCountDrawerClose = () => {
+    setPeopleCountDrawerOpen(false);
   };
 
-  const handleRoomSelect = (room: { adults: number; children: number; infants: number }) => {
-    setSelectedRoom(room);
-    setBookingData({ ...bookingData, room: room });
-    console.log(bookingData);
+  const handlePeopleCountSelect = (selectedPeopleCount: { adults: number; children: number; infants: number }) => {
+    setSelectedPeopleCount(selectedPeopleCount);
+    setBookingData({ ...bookingData, peopleCount: selectedPeopleCount });
+    console.log(bookingData, selectedPeopleCount);
   };
 
   /* convert room object into string */
-  const roomToString = (room: { adults: number; children: number; infants: number }) => {
-    let totalPeople = room.adults + room.children + room.infants;
-    let roomString = `1 Room, ${totalPeople} ${totalPeople > 1 ? "Persons" : "Person"}`;
-    return roomString;
+  const peopleCountToString = (peopleCount: { adults: number; children: number; infants: number }) => {
+    let totalPeople = peopleCount.adults + peopleCount.children + peopleCount.infants;
+    let peopleCountString = `1 Room, ${totalPeople} ${totalPeople > 1 ? "Persons" : "Person"}`;
+    return peopleCountString;
   };
 
   const handleSearch = () => {
     console.log("Search");
     setBookingData({
       hotel: selectedHotel,
-      room: selectedRoom,
+      roomCount: 1,
+      peopleCount: selectedPeopleCount,
       startDate: startDate,
       endDate: endDate,
     });
@@ -80,7 +82,7 @@ function SearchWidget() {
         {bookingType === "accomodation" && (
           <form className="flex flex-col space-y-2 ">
             <InputSelect label="Hotel" onClick={handleHotelDrawerOpen} value={selectedHotel ? selectedHotel : "Choose hotel"} />
-            <InputSelect label="Room" onClick={handleRoomDrawerOpen} value={roomToString(selectedRoom)} />
+            <InputSelect label="Room" onClick={handlePeopleCountDrawerOpen} value={peopleCountToString(selectedPeopleCount)} />
             <DualInputSelect label1={"Check in"} value1={startDate ? startDate : "Choose Date"} label2={"Check out"} value2={endDate ? endDate : "Choose Date"} onClick={() => {}} />
             {!isBookingCodeInputVisible && (
               <Button color="blank" isFullWidth={false} isActive={true} styles="flex items-center justify-center gap-x-1 font-light text-sm self-center cursor-pointer" onClick={() => setIsBookingCodeInputVisible(true)}>
@@ -94,7 +96,7 @@ function SearchWidget() {
             )}
             {isBookingCodeInputVisible && <InputSelect label="Booking code" onClick={() => {}} value={"Enter booking code"} />}
 
-            <Button color="charcoal" isFullWidth={true} isActive={selectedHotel && selectedRoom && startDate && endDate ? true : false} onClick={handleSearch} styles="flex items-center justify-center gap-x-1 font-light">
+            <Button color="charcoal" isFullWidth={true} isActive={selectedHotel && selectedPeopleCount && startDate && endDate ? true : false} onClick={handleSearch} styles="flex items-center justify-center gap-x-1 font-light">
               Search
               <svg xmlns="http://www.w3.org/2000/svg" height="20q" viewBox="0 -960 960 960" width="20q" fill="#fff">
                 <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
@@ -132,7 +134,7 @@ function SearchWidget() {
         )}
       </div>
       <HotelInputDrawer isOpen={isHotelDrawerOpen} onClose={handleHotelDrawerClose} onSelect={handleHotelSelect} />
-      <RoomInputDrawer isOpen={isRoomDrawerOpen} onClose={handleRoomDrawerClose} onSelect={handleRoomSelect} />
+      <PeopleCountInputDrawer isOpen={isPeopleCountDrawerOpen} onClose={handlePeopleCountDrawerClose} onSelect={handlePeopleCountSelect} />
     </>
   );
 }
