@@ -11,9 +11,14 @@ export class HotelOffer {
   @Prop({ required: true })
   description: string;
 
+  @Prop({ required: true })
+  tag: string;
+
   @Prop()
-  icon: string;
-  // will be a 'magic string later' so it can easily be used in FE
+  image: string;
+
+  @Prop()
+  href: string;
 }
 
 export const HotelOfferSchema = SchemaFactory.createForClass(HotelOffer);

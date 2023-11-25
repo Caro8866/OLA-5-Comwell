@@ -21,6 +21,9 @@ export class HotelPackage {
   price: number;
   // price per person
 
+  @Prop()
+  image: string;
+
   @Prop({ default: 0 })
   discount: number;
 }

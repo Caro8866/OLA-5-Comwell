@@ -16,6 +16,9 @@ export class HotelRoom {
 
   @Prop()
   image: string;
+
+  @Prop({ required: true })
+  price: number;
 }
 
 export const HotelRoomSchema = SchemaFactory.createForClass(HotelRoom);
