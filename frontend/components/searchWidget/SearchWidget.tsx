@@ -99,7 +99,7 @@ function SearchWidget() {
         </Heading>
         <TabGroup activeTab={bookingType} onTabChange={setBookingType} tabs={["accomodation", "conference", "banquet"]} />
         {bookingType === "accomodation" && (
-          <form className="flex flex-col space-y-2 ">
+          <form className="flex flex-col space-y-2 " onSubmit={(e) => e.preventDefault()}>
             <InputSelect label="Hotel" onClick={handleHotelDrawerOpen} value={selectedHotel ? selectedHotel.name : "Choose hotel"} />
             <InputSelect label="Room" onClick={handlePeopleCountDrawerOpen} value={peopleCountToString(selectedPeopleCount)} />
             <DualInputSelect
@@ -130,7 +130,7 @@ function SearchWidget() {
           </form>
         )}
         {bookingType === "conference" && (
-          <form className="flex flex-col space-y-2 ">
+          <form className="flex flex-col space-y-2 " onSubmit={(e) => e.preventDefault()}>
             <InputSelect label="Amount of participants" onClick={() => alert("Feature not available yet")} value={"8"} />
             <InputSelect label="Hotel" onClick={() => alert("Feature not available yet")} value={"Choose hotel"} />
             <InputSelect label="Date" onClick={() => alert("Feature not available yet")} value={"25 Nov - 26 Nov"} />
@@ -144,7 +144,7 @@ function SearchWidget() {
           </form>
         )}
         {bookingType === "banquet" && (
-          <form className="flex flex-col space-y-2 ">
+          <form className="flex flex-col space-y-2 " onSubmit={(e) => e.preventDefault()}>
             <InputSelect label="Event type" onClick={() => alert("Feature not available yet")} value={"Choose tyle"} />
             <InputSelect label="Amount of participants" onClick={() => alert("Feature not available yet")} value={"25"} />
             <InputSelect label="Hotel" onClick={() => alert("Feature not available yet")} value={"Choose hotel"} />
