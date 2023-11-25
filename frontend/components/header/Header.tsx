@@ -147,7 +147,7 @@ function Header(props: Props) {
                     }
                   }}
                 >
-                  Profile
+                  <span className={`hidden md:flex`}>Profile</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -164,7 +164,7 @@ function Header(props: Props) {
                   </svg>
                 </div>
                 <div
-                  className={`absolute flex flex-col bg-slate-50 rounded-lg right-2/4 translate-x-2/4 top-16 ${
+                  className={`absolute flex flex-col bg-slate-50 rounded-lg right-0 top-16 ${
                     isLoginVisible ? "" : "hidden"
                   }`}
                 >
@@ -241,7 +241,7 @@ function Header(props: Props) {
                 <div
                   className={`flex flex-row gap-1.5 justify-center items-center`}
                 >
-                  Menu
+                  <span className={`hidden md:flex`}>Menu</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -373,7 +373,7 @@ function Header(props: Props) {
         <nav className={`flex flex-col pt-8 pb-4 pl-12 h-full`}>
           <section>{/*Section for searchbar */}</section>
           <section
-            className={`flex flex-col gap-4 py-8 mb-4 text-heading-huge-desktop font-semibold hover:text-charcoal-40`}
+            className={`flex flex-col gap-4 py-8 mb-4 px-2 text-heading-huge-mobile xl:text-heading-huge-desktop font-semibold hover:text-charcoal-40`}
           >
             <Link href="#" className={`transition hover:text-charcoal-100`}>
               Hotels
@@ -395,7 +395,7 @@ function Header(props: Props) {
             </Link>
           </section>
           <section
-            className={`flex flex-col gap-4 pb-8 pt-12  text-heading-small-desktop font-semibold hover:text-charcoal-40 border-t`}
+            className={`flex flex-col gap-4 pb-8 px-2 pt-12 text-heading-small-mobile xl:text-heading-small-desktop font-semibold hover:text-charcoal-40 border-t`}
           >
             <Link href="#" className={`transition hover:text-charcoal-100`}>
               To Comwell.com
