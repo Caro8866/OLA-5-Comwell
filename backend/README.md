@@ -47,4 +47,7 @@ $ npx nestjs-command create:hotel-rooms
 
 # create and link hotel packages
 $ npx nestjs-command create:packages
+
+# add comwell offers
+$ npx nestjs-command create:offers
 ```
