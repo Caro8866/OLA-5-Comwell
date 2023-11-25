@@ -14,7 +14,7 @@ function HotelCard({ hotel, onSelect, isSelected }: HotelCardProps) {
     onSelect(hotel);
   };
   return (
-    <div className={`flex items-center justify-between border ${isSelected ? "border-charcoal-80" : "border-charcoal-40"} rounded-lg shadow-sm m-2 cursor-pointer`} onClick={handleSelect}>
+    <div className={`flex items-center justify-between border ${isSelected ? "border-charcoal-80" : "border-charcoal-40"} rounded-lg shadow-sm cursor-pointer`} onClick={handleSelect}>
       <div className="flex flex-1 items-center space-x-4">
         <Image src={hotel.image} alt={hotel.name} objectFit="cover" width={100} height={100} />{" "}
         <div className="flex justify-between w-full items-center pr-2">
