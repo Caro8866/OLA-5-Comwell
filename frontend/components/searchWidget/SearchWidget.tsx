@@ -6,7 +6,8 @@ import Button from "../button/Button";
 import TabGroup from "../tabGroup/TabGroup";
 import { BookingContext } from "@/context/BookingContext";
 import HotelInputDrawer from "@/components/drawers/hotel/HotelInputDrawer";
-import { Hotel } from "@/utils/hotel";
+import { Hotel } from "@/utils/types";
+import RoomInputDrawer from "../drawers/room/RoomInputDrawer";
 
 function SearchWidget() {
   const [bookingType, setBookingType] = useState("accomodation"); // ["accomodation", "conference", "banquet"]
@@ -33,8 +34,22 @@ function SearchWidget() {
     setHotelDrawerOpen(false);
   };
   const handleHotelSelect = (selectedHotel: Hotel) => {
-    setSelectedHotel(selectedHotel.name); // Update the hotel name immediately
+    setSelectedHotel(selectedHotel.name);
     setBookingData({ ...bookingData, hotel: selectedHotel.name });
+    console.log(bookingData);
+  };
+
+  const handleRoomDrawerOpen = () => {
+    setRoomDrawerOpen(true);
+  };
+
+  const handleRoomDrawerClose = () => {
+    setRoomDrawerOpen(false);
+  };
+
+  const handleRoomSelect = (room: { adults: number; children: number; infants: number }) => {
+    setSelectedRoom(room);
+    setBookingData({ ...bookingData, room: room });
     console.log(bookingData);
   };
 
@@ -65,7 +80,7 @@ function SearchWidget() {
         {bookingType === "accomodation" && (
           <form className="flex flex-col space-y-2 ">
             <InputSelect label="Hotel" onClick={handleHotelDrawerOpen} value={selectedHotel ? selectedHotel : "Choose hotel"} />
-            <InputSelect label="Room" onClick={() => {}} value={roomToString(selectedRoom)} />
+            <InputSelect label="Room" onClick={handleRoomDrawerOpen} value={roomToString(selectedRoom)} />
             <DualInputSelect label1={"Check in"} value1={startDate ? startDate : "Choose Date"} label2={"Check out"} value2={endDate ? endDate : "Choose Date"} onClick={() => {}} />
             {!isBookingCodeInputVisible && (
               <Button color="blank" isFullWidth={false} isActive={true} styles="flex items-center justify-center gap-x-1 font-light text-sm self-center cursor-pointer" onClick={() => setIsBookingCodeInputVisible(true)}>
@@ -117,6 +132,7 @@ function SearchWidget() {
         )}
       </div>
       <HotelInputDrawer isOpen={isHotelDrawerOpen} onClose={handleHotelDrawerClose} onSelect={handleHotelSelect} />
+      <RoomInputDrawer isOpen={isRoomDrawerOpen} onClose={handleRoomDrawerClose} onSelect={handleRoomSelect} />
     </>
   );
 }
