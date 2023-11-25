@@ -191,7 +191,7 @@ export default function SignUpForm({
           // disable form default validation to not interfere with our custom validation
           noValidate
           onSubmit={handleSubmit}
-          className={`flex flex-col gap-4 mt-8 flex-grow h-full`}
+          className={`flex flex-col gap-4 mt-8 flex-grow`}
         >
           <InputField
             onChange={(e) => {
@@ -383,7 +383,6 @@ export default function SignUpForm({
               </BodyText>
             </label>
           </div>
-          <div className={`flex-grow`}></div>
           <button
             type="submit"
             className={`py-4 px-10 box-border block w-full text-center self-end my-8 justify-self-end bg-charcoal-80 text-slate-50 hover:brightness-150 rounded-full font-semibold font-sans tracking-wide cursor-pointer`}
