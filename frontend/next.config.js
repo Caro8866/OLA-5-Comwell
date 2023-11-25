@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["cdn.dwarf.dk"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.dwarf.dk",
+        port: "",
+      },
+    ],
   },
 };
 

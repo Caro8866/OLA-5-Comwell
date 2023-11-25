@@ -36,7 +36,7 @@ export class PackagesCommand {
         ['2-course dinner/buffet', 'Accomodation', 'Breakfast Buffet'],
         'Enjoy an overnight stay with a 2 course dinner at selected Comwell Hotels.',
         `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/ckg/rs20221_rs17728_comwell-kongebrogaarden-2018-019-original.jpg/2b695bb53aa5a89d509123e77bc8ab65.jpg`,
-        1.2,
+        1.15,
         0,
       ),
     );
@@ -48,7 +48,7 @@ export class PackagesCommand {
         ['Coffee and cake', 'Welcome drink', '3 course dinner/buffet'],
         'Cosy afternoon coffee with cake - and later 3-course dinner',
         `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/cbo/restaurant/comwell-borupgaard-restaurant-skaldyrsaften-01.jpg/23b9c51a7c7c4814eaa67769d713f2e1.jpg`,
-        1.25,
+        1.2,
         0,
       ),
     );
@@ -65,19 +65,47 @@ export class PackagesCommand {
       ),
     );
 
+    const package4 = await this.packagesService.create(
+      new CreatePackageDto(
+        'Overnight stay with seasonal dinner',
+        'GASTRONOMY',
+        ['2 course dinner', 'Accomodation', 'Breakfast buffet'],
+        'Enjoy an overnight stay with a 2 course dinner at selected Comwell Hotels.',
+        `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/ckg/rs20221_rs17728_comwell-kongebrogaarden-2018-019-original.jpg/369cc6f789a84b4f8902b97596f7be29.jpg`,
+        1.15,
+        0,
+      ),
+    );
+
+    const package5 = await this.packagesService.create(
+      new CreatePackageDto(
+        'Mini-break with seasonal dinner',
+        'MINI-BREAK',
+        ['2x 3 course dinner', 'Accomodation', 'Breakfast buffet'],
+        'Enjoy a mini-break with 3 days and 2 nights, and enjoy a delicious 3-course dinner both evenings.',
+        `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/chc/restaurant/comwell-hca-odense-mad.jpg/1a2878d3f388cd44a91a705667b6f2dc.jpg`,
+        1.1,
+        0,
+      ),
+    );
+
     await this.hotelsService.addPackage(aarhus._id.toString(), package1);
     await this.hotelsService.addPackage(aarhus._id.toString(), package2);
     await this.hotelsService.addPackage(aarhus._id.toString(), package3);
+    await this.hotelsService.addPackage(aarhus._id.toString(), package5);
 
     await this.hotelsService.addPackage(portside._id.toString(), package1);
     await this.hotelsService.addPackage(portside._id.toString(), package2);
     await this.hotelsService.addPackage(portside._id.toString(), package3);
+    await this.hotelsService.addPackage(portside._id.toString(), package4);
+    await this.hotelsService.addPackage(portside._id.toString(), package5);
 
     await this.hotelsService.addPackage(kolding._id.toString(), package1);
     await this.hotelsService.addPackage(kolding._id.toString(), package2);
 
     await this.hotelsService.addPackage(holte._id.toString(), package1);
     await this.hotelsService.addPackage(holte._id.toString(), package3);
+    await this.hotelsService.addPackage(holte._id.toString(), package5);
 
     await this.hotelsService.addPackage(
       kongebrogaarden._id.toString(),
@@ -87,8 +115,12 @@ export class PackagesCommand {
       kongebrogaarden._id.toString(),
       package3,
     );
+    await this.hotelsService.addPackage(
+      kongebrogaarden._id.toString(),
+      package4,
+    );
 
-    if (package1 && package2 && package3) {
+    if (package1 && package2 && package3 && package4 && package5) {
       console.log('Package seeding finished successfully.');
     }
   }

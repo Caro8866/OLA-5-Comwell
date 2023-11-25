@@ -40,7 +40,7 @@ function ExperienceCard({
               alt={title}
               width="450"
               height="450"
-              className={`w-full h-full flex transition-transform group-hover:scale-[1.05] ease-in duratioobject-cover`}
+              className={`w-full h-full flex transition-transform group-hover:scale-[1.05] ease-in object-cover`}
             />
           </div>
           <section className={`p-5 flex flex-col grow justify-between`}>
@@ -64,11 +64,15 @@ function ExperienceCard({
                       <span className={`text-earth-40 line-through mr-2`}>
                         {price}
                       </span>
-                      <span>{price - price * discount}</span>
+                      <span>
+                        {Math.round(
+                          991 * price - 991 * price * discount * 100
+                        ) / 100}
+                      </span>
                     </>
                   ) : (
-                    price
-                  )}{" "}
+                    Math.round(991 * price * 100) / 100
+                  )}
                   kr.
                 </h3>
                 <p className={`text-earth-80 text-body-small font-medium mt-2`}>
