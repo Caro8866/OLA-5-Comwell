@@ -1,4 +1,4 @@
-export type Hotel = {
+type Hotel = {
   id: number;
   name: string;
   location: string;
@@ -34,7 +34,7 @@ type Package = {
   discount: number;
 };
 
-type Room = {
+type HotelRoom = {
   id: number;
   name: string;
   size: number;
@@ -42,3 +42,11 @@ type Room = {
   image: string;
   price: number;
 };
+
+type PeopleCount = {
+  adults: number;
+  children: number;
+  infants: number;
+};
+
+export type { Hotel, Addon, Package, HotelRoom, PeopleCount };
