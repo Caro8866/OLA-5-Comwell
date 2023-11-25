@@ -10,8 +10,9 @@ import HotelInputDrawer from "@/components/drawers/hotel/HotelInputDrawer";
 import PeopleCountInputDrawer from "../drawers/peopleCount/PeopleCountInputDrawer";
 import DateInputDrawer from "../drawers/date/DateInputDrawer";
 import InputText from "../formField/InputText";
+import BookingFormDrawer from "../drawers/bookingForm/BookingFormDrawer";
 
-const peopleCountToString = (peopleCount: { adults: number; children: number; infants: number }) => {
+export const peopleCountToString = (peopleCount: { adults: number; children: number; infants: number }) => {
   let totalPeople = peopleCount.adults + peopleCount.children + peopleCount.infants;
   let peopleCountString = `1 Room, ${totalPeople} ${totalPeople > 1 ? "Persons" : "Person"}`;
   return peopleCountString;
@@ -156,9 +157,7 @@ function SearchWidget() {
       <HotelInputDrawer isOpen={isHotelDrawerOpen} onClose={handleHotelDrawerClose} onSelect={handleHotelSelect} />
       <PeopleCountInputDrawer isOpen={isPeopleCountDrawerOpen} onClose={handlePeopleCountDrawerClose} onSelect={handlePeopleCountSelect} />
       <DateInputDrawer isOpen={isDateDrawerOpen} onClose={handleDateDrawerClose} onSelect={handleDateSelect} />
-
-      {/* Booking form drawer */}
-      {/* <BookingFormDrawer */}
+      <BookingFormDrawer isOpen={isBookingFormDrawerOpen} onClose={() => setBookingFormDrawerOpen(false)} />
     </>
   );
 }
