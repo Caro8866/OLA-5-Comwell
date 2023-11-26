@@ -17,8 +17,6 @@ export class Guest {
   zipcode: number;
   @Prop()
   city: string;
-  @Prop()
-  country: string;
 }
 
 export const GuestSchema = SchemaFactory.createForClass(Guest);
