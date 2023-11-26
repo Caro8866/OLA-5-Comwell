@@ -21,7 +21,7 @@ function RoomDetail({ onNext }: RoomDetailProps) {
     <div className="flex flex-col gap-4">
       <div className="flex flex-row gap-4 h-36">
         <div className="flex flex-col relative h-36 w-full rounded-md overflow-hidden">
-          <Image src={bookingData.selectedRoom.image} alt="package image" width="350" height="144" objectFit="cover" />
+          <Image src={bookingData.selectedRoom.image} alt="package image" width="350" height="144" objectFit="cover" /> {/* css class instead */}
         </div>
         <div className="flex flex-col relative h-36 w-full rounded-md overflow-hidden">
           <Image src={bookingData.selectedRoom.image} alt="package image" width="350" height="144" objectFit="cover" />
