@@ -1,7 +1,7 @@
 import InputField from "@/components/formField/InputField";
 import BodyText from "@/components/text/bodyText/BodyText";
 import { useState, FormEvent } from "react";
-import { SignInValidators } from "./formTypes";
+import { SignInValidators } from "../../../utils/formTypes";
 import InputError from "@/components/formField/InputError";
 import { getCookie } from "cookies-next";
 

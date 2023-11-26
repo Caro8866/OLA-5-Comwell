@@ -4,7 +4,7 @@ import BodyText from "@/components/text/bodyText/BodyText";
 import InputField from "@/components/formField/InputField";
 import { useState, useRef, FormEvent, useEffect } from "react";
 import InputError from "@/components/formField/InputError";
-import { SignUpValidators } from "./formTypes";
+import { SignUpValidators } from "../../../utils/formTypes";
 
 type Props = {
   isRegisterDrawerOpen: boolean;
