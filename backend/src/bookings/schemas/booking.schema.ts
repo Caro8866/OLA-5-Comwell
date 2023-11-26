@@ -27,7 +27,12 @@ export class Booking {
   @Prop()
   package: HotelPackage;
 
-  // addons tbd not required
+  @Prop()
+  addons: {
+    name: string;
+    price: number;
+  };
+
   @Prop()
   guest: Guest;
 
@@ -37,7 +42,7 @@ export class Booking {
   @Prop()
   termsAccepted: boolean;
 
-  @Prop()
+  @Prop({ required: false })
   booker: Booker;
 
   @Prop()
