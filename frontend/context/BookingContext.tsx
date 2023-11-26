@@ -14,6 +14,12 @@ export type BookingContextType = {
     selectedRoom: HotelRoom;
     selectedPackage: HotelPackage;
     selectedAddons: { name: string; price: number; description?: string; image?: string }[];
+    guestInformation: {
+      fullName: string;
+      email: string;
+      phone: string;
+      address: string;
+    };
   };
   setBookingData: (data: BookingContextType["bookingData"]) => void;
 };
@@ -58,6 +64,12 @@ export const BookingContext = createContext<BookingContextType>({
       discount: 0,
     },
     selectedAddons: [],
+    guestInformation: {
+      fullName: "",
+      email: "",
+      phone: "",
+      address: "",
+    },
   },
   setBookingData: () => {},
 });
@@ -102,6 +114,12 @@ export const BookingContextProvider = ({ children }: { children: React.ReactNode
       discount: 0,
     },
     selectedAddons: [],
+    guestInformation: {
+      fullName: "",
+      email: "",
+      phone: "",
+      address: "",
+    },
   });
 
   return <BookingContext.Provider value={{ bookingData, setBookingData }}>{children}</BookingContext.Provider>;

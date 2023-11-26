@@ -6,6 +6,7 @@ import BookingInfoHeader from "./BookingInfoHeader";
 import RoomList from "./formSteps/roomList/RoomList";
 import RoomDetail from "./formSteps/roomDetail/RoomDetail";
 import Addons from "./formSteps/addons/Addons";
+import GuestInformation from "./formSteps/guestInformation/GuestInformation";
 
 type BookingFormDrawerProps = {
   isOpen: boolean;
@@ -37,7 +38,7 @@ function BookingFormDrawer({ isOpen, onClose }: BookingFormDrawerProps) {
       content = <Addons onNext={nextStep} />;
       break;
     case 4:
-      //   content = <GuestInformation onNext={nextStep} bookingData={bookingData} />;
+      content = <GuestInformation onNext={nextStep} />;
       break;
     case 5:
       // content = <OrderOverview onNext={nextStep} bookingData={bookingData} />;
