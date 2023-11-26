@@ -5,13 +5,15 @@ import InputSelect from "../formField/InputSelect";
 import DualInputSelect from "../formField/DualInputSelect";
 import Button from "../button/Button";
 import TabGroup from "../tabGroup/TabGroup";
-import { Hotel, PeopleCount } from "@/utils/types";
+import { Hotel } from "@/utils/Hotel.types";
+import { PeopleCount } from "@/utils/PeopleCount.types";
 import HotelInputDrawer from "@/components/drawers/hotel/HotelInputDrawer";
 import PeopleCountInputDrawer from "../drawers/peopleCount/PeopleCountInputDrawer";
 import DateInputDrawer from "../drawers/date/DateInputDrawer";
-import InputText from "../formField/InputText";
+import InputField from "../formField/InputField";
+import BookingFormDrawer from "../drawers/bookingForm/BookingFormDrawer";
 
-const peopleCountToString = (peopleCount: { adults: number; children: number; infants: number }) => {
+export const peopleCountToString = (peopleCount: PeopleCount) => {
   let totalPeople = peopleCount.adults + peopleCount.children + peopleCount.infants;
   let peopleCountString = `1 Room, ${totalPeople} ${totalPeople > 1 ? "Persons" : "Person"}`;
   return peopleCountString;
@@ -20,8 +22,9 @@ const peopleCountToString = (peopleCount: { adults: number; children: number; in
 function SearchWidget() {
   const [bookingType, setBookingType] = useState("accomodation"); // ["accomodation", "conference", "banquet"]
 
-  const [selectedHotel, setSelectedHotel] = useState("");
-  const [selectedPeopleCount, setSelectedPeopleCount] = useState({ adults: 1, children: 0, infants: 0 });
+  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
+  const [selectedPeopleCount, setSelectedPeopleCount] = useState<PeopleCount>({ adults: 1, children: 0, infants: 0 });
+
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
 
@@ -42,9 +45,9 @@ function SearchWidget() {
   const handleHotelDrawerClose = () => {
     setHotelDrawerOpen(false);
   };
-  const handleHotelSelect = (selectedHotel: Hotel) => {
-    setSelectedHotel(selectedHotel.name);
-    setBookingData({ ...bookingData, hotel: selectedHotel.name });
+  const handleHotelSelect = (hotel: Hotel) => {
+    setSelectedHotel(hotel);
+    setBookingData({ ...bookingData, hotel: hotel });
   };
 
   const handlePeopleCountDrawerOpen = () => {
@@ -76,14 +79,16 @@ function SearchWidget() {
 
   const handleSearch = () => {
     console.log(bookingData);
-    setBookingData({
-      hotel: selectedHotel,
-      roomCount: 1,
-      peopleCount: selectedPeopleCount,
-      startDate: selectedStartDate,
-      endDate: selectedEndDate,
-    });
-    setBookingFormDrawerOpen(true);
+    if (selectedHotel) {
+      setBookingData({
+        ...bookingData,
+        hotel: selectedHotel,
+        peopleCount: selectedPeopleCount,
+        startDate: selectedStartDate,
+        endDate: selectedEndDate,
+      });
+      setBookingFormDrawerOpen(true);
+    }
   };
 
   return (
@@ -94,8 +99,8 @@ function SearchWidget() {
         </Heading>
         <TabGroup activeTab={bookingType} onTabChange={setBookingType} tabs={["accomodation", "conference", "banquet"]} />
         {bookingType === "accomodation" && (
-          <form className="flex flex-col space-y-2 ">
-            <InputSelect label="Hotel" onClick={handleHotelDrawerOpen} value={selectedHotel ? selectedHotel : "Choose hotel"} />
+          <form className="flex flex-col space-y-2 " onSubmit={(e) => e.preventDefault()}>
+            <InputSelect label="Hotel" onClick={handleHotelDrawerOpen} value={selectedHotel ? selectedHotel.name : "Choose hotel"} />
             <InputSelect label="Room" onClick={handlePeopleCountDrawerOpen} value={peopleCountToString(selectedPeopleCount)} />
             <DualInputSelect
               label1={"Check in"}
@@ -114,7 +119,7 @@ function SearchWidget() {
                 Add booking code
               </Button>
             )}
-            {isBookingCodeInputVisible && <InputText name="bookingCode" id="bookingCode" label="Booking code" onChange={() => alert("Feature not available yet")} value={"Enter booking code"} />}
+            {isBookingCodeInputVisible && <InputField name="bookingCode" id="bookingCode" label="Booking code" onChange={() => alert("Feature not available yet")} value={"Enter booking code"} />}
 
             <Button color="charcoal" isFullWidth={true} isActive={selectedHotel && selectedPeopleCount && selectedStartDate && selectedEndDate ? true : false} onClick={handleSearch} styles="flex items-center justify-center gap-x-1 font-light">
               Search
@@ -125,7 +130,7 @@ function SearchWidget() {
           </form>
         )}
         {bookingType === "conference" && (
-          <form className="flex flex-col space-y-2 ">
+          <form className="flex flex-col space-y-2 " onSubmit={(e) => e.preventDefault()}>
             <InputSelect label="Amount of participants" onClick={() => alert("Feature not available yet")} value={"8"} />
             <InputSelect label="Hotel" onClick={() => alert("Feature not available yet")} value={"Choose hotel"} />
             <InputSelect label="Date" onClick={() => alert("Feature not available yet")} value={"25 Nov - 26 Nov"} />
@@ -139,7 +144,7 @@ function SearchWidget() {
           </form>
         )}
         {bookingType === "banquet" && (
-          <form className="flex flex-col space-y-2 ">
+          <form className="flex flex-col space-y-2 " onSubmit={(e) => e.preventDefault()}>
             <InputSelect label="Event type" onClick={() => alert("Feature not available yet")} value={"Choose tyle"} />
             <InputSelect label="Amount of participants" onClick={() => alert("Feature not available yet")} value={"25"} />
             <InputSelect label="Hotel" onClick={() => alert("Feature not available yet")} value={"Choose hotel"} />
@@ -156,9 +161,7 @@ function SearchWidget() {
       <HotelInputDrawer isOpen={isHotelDrawerOpen} onClose={handleHotelDrawerClose} onSelect={handleHotelSelect} />
       <PeopleCountInputDrawer isOpen={isPeopleCountDrawerOpen} onClose={handlePeopleCountDrawerClose} onSelect={handlePeopleCountSelect} />
       <DateInputDrawer isOpen={isDateDrawerOpen} onClose={handleDateDrawerClose} onSelect={handleDateSelect} />
-
-      {/* Booking form drawer */}
-      {/* <BookingFormDrawer */}
+      <BookingFormDrawer isOpen={isBookingFormDrawerOpen} onClose={() => setBookingFormDrawerOpen(false)} />
     </>
   );
 }

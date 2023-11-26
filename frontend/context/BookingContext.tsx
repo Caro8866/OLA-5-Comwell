@@ -1,13 +1,19 @@
-import React, { createContext, useContext, useState } from "react";
+import { Hotel } from "@/utils/Hotel.types";
+import { HotelPackage } from "@/utils/HotelPackage.types";
+import { HotelRoom } from "@/utils/HotelRoom.types";
+import React, { createContext, useState } from "react";
 
 // context shape
-type BookingContextType = {
+export type BookingContextType = {
   bookingData: {
-    hotel: string;
+    hotel: Hotel;
     peopleCount: { adults: number; children: number; infants: number };
     roomCount: number;
     startDate: Date | null;
     endDate: Date | null;
+    selectedRoom: HotelRoom;
+    selectedPackage: HotelPackage;
+    selectedAddons: { name: string; price: number; description?: string; image?: string }[];
   };
   setBookingData: (data: BookingContextType["bookingData"]) => void;
 };
@@ -15,11 +21,43 @@ type BookingContextType = {
 // context with default values
 export const BookingContext = createContext<BookingContextType>({
   bookingData: {
-    hotel: "",
+    hotel: {
+      id: 0,
+      name: "",
+      location: "",
+      region: "",
+      description: "",
+      image: "",
+      addons: [],
+      packages: [],
+      offers: [],
+      rooms: [],
+      roomsDescription: "",
+      isHotel: true,
+      isConferenceCenter: false,
+      isBanquet: false,
+    },
     peopleCount: { adults: 1, children: 0, infants: 0 },
     roomCount: 1,
     startDate: null,
     endDate: null,
+    selectedRoom: {
+      name: "",
+      size: 0,
+      description: "",
+      image: "",
+      price: 0,
+    },
+    selectedPackage: {
+      name: "",
+      type: "",
+      tags: [],
+      description: "",
+      price: 0,
+      image: "",
+      discount: 0,
+    },
+    selectedAddons: [],
   },
   setBookingData: () => {},
 });
@@ -27,11 +65,43 @@ export const BookingContext = createContext<BookingContextType>({
 // context provider
 export const BookingContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [bookingData, setBookingData] = useState<BookingContextType["bookingData"]>({
-    hotel: "",
+    hotel: {
+      id: 0,
+      name: "",
+      location: "",
+      region: "",
+      description: "",
+      image: "",
+      addons: [],
+      packages: [],
+      offers: [],
+      rooms: [],
+      roomsDescription: "",
+      isHotel: true,
+      isConferenceCenter: false,
+      isBanquet: false,
+    },
     peopleCount: { adults: 1, children: 0, infants: 0 },
     roomCount: 1,
     startDate: null,
     endDate: null,
+    selectedRoom: {
+      name: "",
+      size: 0,
+      description: "",
+      image: "",
+      price: 0,
+    },
+    selectedPackage: {
+      name: "",
+      type: "",
+      tags: [],
+      description: "",
+      price: 0,
+      image: "",
+      discount: 0,
+    },
+    selectedAddons: [],
   });
 
   return <BookingContext.Provider value={{ bookingData, setBookingData }}>{children}</BookingContext.Provider>;
