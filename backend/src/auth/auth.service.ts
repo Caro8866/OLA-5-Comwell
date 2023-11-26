@@ -7,6 +7,7 @@ import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -54,5 +55,17 @@ export class AuthService {
     return {
       access_token: await this.jwtService.signAsync(payload),
     };
+  }
+
+  signOut(response: Response) {
+    if (response.req.cookies.access_token) {
+      response.clearCookie('token').status(200).json({
+        message: 'You have logged out',
+      });
+    } else {
+      response.status(401).json({
+        error: 'Invalid jwt',
+      });
+    }
   }
 }

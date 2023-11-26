@@ -49,4 +49,10 @@ export class AuthController {
   getProfile(@Request() req) {
     return req.user;
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('logout')
+  logout(@Res() response: Response) {
+    this.authService.signOut(response);
+  }
 }
