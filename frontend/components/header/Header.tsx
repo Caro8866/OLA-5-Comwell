@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +16,7 @@ import SignUpForm from "./userForms/SignUpForm";
 import { Hotel } from "@/utils/Hotel.types";
 import HotelList from "../hotellist/HotelList";
 import SignInForm from "./userForms/SignInForm";
+import { AuthContext } from "@/context/AuthContext";
 
 type Props = {
   children?: React.ReactNode;
@@ -36,6 +37,8 @@ function Header(props: Props) {
     transparent: "text-slate-50",
     white: "text-charcoal-80",
   };
+
+  const { authState } = useContext(AuthContext);
 
   const [windowPosition, setWindowPosition] = useState(0);
 
@@ -173,7 +176,11 @@ function Header(props: Props) {
                     }
                   }}
                 >
-                  <span className={`hidden md:flex`}>Profile</span>
+                  <span className={`hidden md:flex`}>
+                    {authState.isAuthenticated
+                      ? authState.userData?.fullName.split(" ")[0]
+                      : "Profile"}
+                  </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

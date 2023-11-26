@@ -156,7 +156,7 @@ export default function SignInForm({
           type="submit"
           className={`text-heading-xsmall-desktop mb-2 py-4 w-full text-center bg-sea-80 text-slate-50 hover:brightness-150 rounded-full font-semibold font-sans tracking-wide`}
         >
-          Sign up
+          Sign in
         </button>
       </span>
     </form>
