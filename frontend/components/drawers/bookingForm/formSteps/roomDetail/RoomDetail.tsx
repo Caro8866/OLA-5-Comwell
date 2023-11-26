@@ -4,6 +4,7 @@ import Image from "next/image";
 import Heading from "@/components/text/heading/Heading";
 import BodyText from "@/components/text/bodyText/BodyText";
 import Label from "@/components/label/Label";
+import { HotelPackage } from "@/utils/HotelPackage.types";
 
 type RoomDetailProps = {
   onNext: () => void;
@@ -11,12 +12,8 @@ type RoomDetailProps = {
 
 function RoomDetail({ onNext }: RoomDetailProps) {
   const { bookingData, setBookingData } = useContext(BookingContext);
-  const selectPackage = () => {
-    bookingData.hotel &&
-      setBookingData({
-        ...bookingData,
-        selectedPackage: bookingData.hotel.packages[0],
-      });
+  const selectPackage = (selectedPackage: HotelPackage) => {
+     bookingData.hotel && setBookingData({ ...bookingData, selectedPackage: selectedPackage });
     onNext();
   };
 
@@ -77,7 +74,7 @@ function RoomDetail({ onNext }: RoomDetailProps) {
                     ? "border-charcoal-80"
                     : ""
                 }`}
-                onClick={selectPackage}
+                onClick={() => selectPackage(roomPackage)}
               >
                 <span
                   className={`w-6 h-6 rounded-full border border-charcoal-50 absolute top-1.5 right-1.5 group-hover:border-charcoal-80 flex justify-center ${
@@ -103,7 +100,6 @@ function RoomDetail({ onNext }: RoomDetailProps) {
                 <Heading size={7} color="black" styles="font-light mb-2">
                   {roomPackage.name}
                 </Heading>
-
                 <BodyText
                   size={2}
                   color="black"

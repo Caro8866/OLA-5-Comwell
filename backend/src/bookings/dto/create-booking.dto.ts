@@ -1,15 +1,13 @@
 import {
   IsBoolean,
-  IsDate,
+  IsDateString,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsPositive,
   IsString,
 } from 'class-validator';
-import { HotelPackage } from 'src/hotel-packages/schemas/package.schema';
 import { HotelRoom } from 'src/hotel-rooms/schemas/hotel-room.schema';
-import { Hotel } from 'src/hotels/schemas/hotel.schema';
 import { Guest } from '../schemas/guest.schema';
 import { Booker } from '../schemas/booker.schema';
 
@@ -19,21 +17,21 @@ export class CreateBookingDto {
   bookingType: string;
 
   @IsNotEmpty({ message: 'Hotel must be selected' })
-  hotel: Hotel;
+  hotelId: string;
 
   @IsNotEmpty({ message: 'Hotel room must be selected' })
   rooms: HotelRoom[];
 
   @IsNotEmpty({ message: 'Check in date must be selected' })
-  @IsDate()
+  @IsDateString()
   checkInDate: Date;
 
   @IsNotEmpty({ message: 'Check out date must be selected' })
-  @IsDate()
+  @IsDateString()
   checkOutDate: Date;
 
   @IsNotEmpty({ message: 'Hotel package must be selected' })
-  hotelPackage: HotelPackage;
+  hotelPackageId: string;
 
   @IsOptional()
   addons: {
@@ -63,11 +61,11 @@ export class CreateBookingDto {
 
   constructor(
     bookingType: string,
-    hotel: Hotel,
+    hotelId: string,
     rooms: HotelRoom[],
     checkInDate: Date,
     checkOutDate: Date,
-    hotelPackage: HotelPackage,
+    hotelPackageId: string,
     addons: {
       name: string;
       price: number;
@@ -80,11 +78,11 @@ export class CreateBookingDto {
     discount?: number,
   ) {
     this.bookingType = bookingType;
-    this.hotel = hotel;
+    this.hotelId = hotelId;
     this.rooms = rooms;
     this.checkInDate = checkInDate;
     this.checkOutDate = checkOutDate;
-    this.hotelPackage = hotelPackage;
+    this.hotelPackageId = hotelPackageId;
     this.addons = addons;
     this.guest = guest;
     this.price = price;

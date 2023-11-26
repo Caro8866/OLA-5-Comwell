@@ -69,6 +69,7 @@ export const BookingContext = createContext<BookingContextType>({
       price: 0,
       image: "",
       discount: 0,
+      _id: "",
     },
     selectedAddons: [],
     guestInformation: {
@@ -127,6 +128,7 @@ export const BookingContextProvider = ({
       price: 0,
       image: "",
       discount: 0,
+      _id: "",
     },
     selectedAddons: [],
     guestInformation: {

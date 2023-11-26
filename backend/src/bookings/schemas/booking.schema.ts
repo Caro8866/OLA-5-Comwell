@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { HotelPackage } from 'src/hotel-packages/schemas/package.schema';
 import { HotelRoom } from 'src/hotel-rooms/schemas/hotel-room.schema';
-import { Hotel } from 'src/hotels/schemas/hotel.schema';
 import { Guest } from './guest.schema';
 import { Booker } from './booker.schema';
+import { Hotel } from 'src/hotels/schemas/hotel.schema';
+import { HotelPackage } from 'src/hotel-packages/schemas/package.schema';
 export type BookingDocument = HydratedDocument<Booking>;
 
 @Schema()
@@ -25,7 +25,7 @@ export class Booking {
   checkOutDate: Date;
 
   @Prop()
-  package: HotelPackage;
+  hotelPackage: HotelPackage;
 
   @Prop({ type: Array })
   addons: {
