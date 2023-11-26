@@ -36,7 +36,7 @@ function Addons({ onNext }: AddonsProps) {
   };
 
   return (
-    <div className={`h-full flex flex-col`}>
+    <div className={`h-full flex flex-col pr-4`}>
       <Heading size={3} color="black" styles="font-light mb-6">
         Select Addons
       </Heading>

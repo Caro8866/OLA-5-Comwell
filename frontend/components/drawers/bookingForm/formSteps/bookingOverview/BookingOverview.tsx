@@ -24,7 +24,7 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
       {/* hotel information */}
       <div>
         <h2>{bookingData.hotel.name}</h2>
-        <p>{bookingData.hotel.area}</p>
+        <p>{bookingData.hotel.location}</p>
         <p>{bookingData.hotel.region}</p>
         <p>Denmark</p>
       </div>
@@ -46,7 +46,16 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
         {/* Optional comment section  */}
         <h1>Add Optional Comment</h1>
         <form onSubmit={(e) => e.preventDefault()}>
-          <InputField label="Write comment..." name="comment" id="comment" type="text" value={bookingData.comment} onChange={(e) => setBookingData({ ...bookingData, comment: e.target.value })} />
+          <InputField
+            label="Write comment..."
+            name="comment"
+            id="comment"
+            type="text"
+            value={bookingData.comment}
+            onChange={(e) =>
+              setBookingData({ ...bookingData, comment: e.target.value })
+            }
+          />
         </form>
         {/* textfielf for user to add a commment  */}
       </div>
@@ -55,10 +64,21 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
         <h1>Payment terms</h1>
         <ul>
           {/* list of payment terms details  */}
-          <li>To guarantee your booking we will ask for your credit card information</li>
-          <li>At reservation time we reserve the up to dkk. 500,- on your card</li>
-          <li>You will only be charged, if you do not show up for your booking at the hotel</li>
-          <li>You will not get charged unless otherwise stated. You will pay for your stay at the hotel</li>
+          <li>
+            To guarantee your booking we will ask for your credit card
+            information
+          </li>
+          <li>
+            At reservation time we reserve the up to dkk. 500,- on your card
+          </li>
+          <li>
+            You will only be charged, if you do not show up for your booking at
+            the hotel
+          </li>
+          <li>
+            You will not get charged unless otherwise stated. You will pay for
+            your stay at the hotel
+          </li>
         </ul>
       </div>
       <div>
@@ -68,17 +88,26 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
         <div onClick={() => alert("Feature not available yet")}>
           {/* pay with card  */}
           <p>Pay with card</p>
-          <input type="checkbox" onChange={() => alert("Feature not available yet")} />
+          <input
+            type="checkbox"
+            onChange={() => alert("Feature not available yet")}
+          />
         </div>
         <div onClick={() => alert("Feature not available yet")}>
           {/* pay with mobile pay  */}
           <p>Pay with moile pay</p>
-          <input type="checkbox" onChange={() => alert("Feature not available yet")} />
+          <input
+            type="checkbox"
+            onChange={() => alert("Feature not available yet")}
+          />
         </div>
         <div onClick={() => alert("Feature not available yet")}>
           {/* the one we will do is pay at check in (doesnt exist on website but i think it makes logic sense) or card payment */}
           <p>Pay at check in</p>
-          <input type="checkbox" onChange={(e) => handlePaymentSelection(e.target.checked)} />
+          <input
+            type="checkbox"
+            onChange={(e) => handlePaymentSelection(e.target.checked)}
+          />
         </div>
       </div>
 
