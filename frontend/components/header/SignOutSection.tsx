@@ -8,6 +8,22 @@ export default function SignOutSection({
   isLoginVisible: boolean;
 }) {
   const { onSignOutSuccess } = useContext(AuthContext);
+
+  async function handleSignOut() {
+    const response = await fetch("http://localhost:5000/auth/logout", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    if (!response.ok) {
+      return false;
+    } else {
+      onSignOutSuccess();
+    }
+  }
+
   return (
     <section
       className={`absolute flex flex-col px-4 pt-6 pb-3 bg-slate-50 rounded-lg right-0 top-16 w-64 gap-4 ${
@@ -33,20 +49,7 @@ export default function SignOutSection({
       <div className="py-5 px-8 flex items-center justify-center w-full">
         <button
           className="bg-white rounded-full border border-gray-200 w-full py-4"
-          onClick={async () => {
-            const response = await fetch("http://localhost:5000/auth/logout", {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              credentials: "include",
-            });
-            if (!response.ok) {
-              return false;
-            } else {
-              onSignOutSuccess();
-            }
-          }}
+          onClick={handleSignOut}
         >
           Sign out
         </button>
@@ -54,5 +57,3 @@ export default function SignOutSection({
     </section>
   );
 }
-
-//   <div className={`px-4 pt-6 pb-3 flex flex-col gap-4`}></div>

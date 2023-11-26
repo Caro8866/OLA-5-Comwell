@@ -39,7 +39,7 @@ export class AuthController {
       await this.authService.signIn(signInDto.email, signInDto.password)
     ).access_token;
     if (token) {
-      response.cookie('token', token, { secure: true });
+      response.cookie('token', token, { secure: true, sameSite: 'none' });
       return this.authService.signIn(signInDto.email, signInDto.password);
     }
   }

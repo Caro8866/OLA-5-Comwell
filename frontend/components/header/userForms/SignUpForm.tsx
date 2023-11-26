@@ -2,9 +2,10 @@ import Drawer from "react-modern-drawer";
 import Heading from "@/components/text/heading/Heading";
 import BodyText from "@/components/text/bodyText/BodyText";
 import InputField from "@/components/formField/InputField";
-import { useState, useRef, FormEvent, useEffect } from "react";
+import { useState, useRef, FormEvent, useEffect, useContext } from "react";
 import InputError from "@/components/formField/InputError";
 import { SignUpValidators } from "../../../utils/formTypes";
+import { AuthContext } from "@/context/AuthContext";
 
 type Props = {
   isRegisterDrawerOpen: boolean;
@@ -28,6 +29,8 @@ export default function SignUpForm({
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [userExists, setUsersExists] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+
+  const { onSignInSuccess } = useContext(AuthContext);
 
   const ref = useRef<any>(null);
   const isFormSubmitted = useRef(false);
@@ -144,7 +147,47 @@ export default function SignUpForm({
           return response.json();
         })
         .then((data) => {
-          console.log("Response:", data);
+          fetch("http://localhost:5000/auth/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({
+              email: loginEmail,
+              password: loginPassword,
+            }),
+          })
+            .then(async (response) => {
+              if (!response.ok) {
+                return response.json().then((errorData) => {
+                  // Display an error if the user doesn't exist or the password is wrong
+                  throw new Error(
+                    `Server error! Message: ${errorData.message}`
+                  );
+                });
+              }
+              // Run the callback from the auth context to check if the cookie token in still valid
+              onSignInSuccess();
+              return response.json();
+            })
+            .then(() => {
+              // remove error if the login was successful
+              console.log("Response:", "login was successful");
+            })
+            .catch((error) => {
+              console.error("Error:", error.message);
+            });
+
+          setFullName("");
+          setLoginEmail("");
+          setZipCode("");
+          setPhone("");
+          setDateOfBirth("mm / dd / yyyy");
+          setLoginPassword("");
+          setConfirmPassword("");
+          setSelectedGender("Prefer not to say");
+          toggleRegisterDrawer();
         })
         .catch((error) => {
           console.error("Error:", error.message);
