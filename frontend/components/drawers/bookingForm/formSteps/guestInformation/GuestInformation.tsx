@@ -40,7 +40,7 @@ function GuestInformation({ onNext }: GuestInformationProps) {
           onChange={(e) => setBookingData({ ...bookingData, guestInformation: { ...bookingData.guestInformation, address: e.target.value } })}
         />
       </form>
-      {/* overview section */}
+      {/* overview section should be a seperate componenet as it is used on many booking form steps*/}
       <p>{bookingData.selectedRoom.name}</p>
       <p>{bookingData.selectedRoom.price}</p>
       <p>{bookingData.selectedPackage.description}</p>
