@@ -17,7 +17,7 @@ export type BookingContextType = {
     guestInformation: {
       fullName: string;
       email: string;
-      phone: string;
+      phone: string | number;
       address: string; // add zip code and city
     };
     comment: string;
