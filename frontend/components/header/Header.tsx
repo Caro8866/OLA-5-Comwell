@@ -17,6 +17,7 @@ import { Hotel } from "@/utils/Hotel.types";
 import HotelList from "../hotellist/HotelList";
 import SignInForm from "./userForms/SignInForm";
 import { AuthContext } from "@/context/AuthContext";
+import SignOutSection from "./SignOutSection";
 
 type Props = {
   children?: React.ReactNode;
@@ -197,10 +198,14 @@ function Header(props: Props) {
                   </svg>
                 </div>
 
-                <SignInForm
-                  isLoginVisible={isLoginVisible}
-                  toggleRegisterDrawer={toggleRegisterDrawer}
-                />
+                {authState.isAuthenticated ? (
+                  <SignOutSection isLoginVisible={isLoginVisible} />
+                ) : (
+                  <SignInForm
+                    isLoginVisible={isLoginVisible}
+                    toggleRegisterDrawer={toggleRegisterDrawer}
+                  />
+                )}
               </li>
               <li
                 className={`cursor-pointer`}

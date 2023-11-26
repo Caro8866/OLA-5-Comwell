@@ -10,7 +10,7 @@ export default async function verifyAuth() {
     credentials: "include",
   });
   if (!response.ok) {
-    return false;
+    return { isAuthenticated: false, userData: null };
   }
 
   const userData = await response.json();
