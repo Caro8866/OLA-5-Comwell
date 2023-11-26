@@ -81,6 +81,9 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
           <input type="checkbox" onChange={(e) => handlePaymentSelection(e.target.checked)} />
         </div>
       </div>
+
+      {/* add checkbox for temrs and conditions */}
+
       {/* also uses the overview section from guestinformatioon */}
     </>
   );

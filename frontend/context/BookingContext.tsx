@@ -6,7 +6,7 @@ import React, { createContext, useState } from "react";
 // context shape
 export type BookingContextType = {
   bookingData: {
-    hotel: Hotel;
+    hotel?: Hotel;
     peopleCount: { adults: number; children: number; infants: number };
     roomCount: number;
     startDate: Date | null;
@@ -18,7 +18,7 @@ export type BookingContextType = {
       fullName: string;
       email: string;
       phone: string;
-      address: string;
+      address: string; // add zip code and city
     };
     comment: string;
   };
@@ -29,9 +29,9 @@ export type BookingContextType = {
 export const BookingContext = createContext<BookingContextType>({
   bookingData: {
     hotel: {
-      id: 0,
+      _id: "",
       name: "",
-      area: 
+      location: "",
       region: "",
       description: "",
       image: "",
@@ -80,9 +80,9 @@ export const BookingContext = createContext<BookingContextType>({
 export const BookingContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [bookingData, setBookingData] = useState<BookingContextType["bookingData"]>({
     hotel: {
-      id: 0,
+      _id: "",
       name: "",
-      area: "",
+      location: "",
       region: "",
       description: "",
       image: "",
@@ -122,6 +122,7 @@ export const BookingContextProvider = ({ children }: { children: React.ReactNode
       phone: "",
       address: "",
     },
+    comment: "",
   });
 
   return <BookingContext.Provider value={{ bookingData, setBookingData }}>{children}</BookingContext.Provider>;
