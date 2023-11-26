@@ -1,1 +1,1 @@
-export type Region = 'Zealand' | 'Funen' | 'Jutland' | 'Sweden';
+export type Region = "Zealand" | "Funen" | "Jutland" | "Sweden" | "";
