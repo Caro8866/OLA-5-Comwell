@@ -39,7 +39,7 @@ export class CreateBookingDto {
   addons: {
     name: string;
     price: number;
-  };
+  }[];
 
   @IsNotEmpty({ message: 'Guest information must be provided' })
   guest: Guest;
@@ -71,7 +71,7 @@ export class CreateBookingDto {
     addons: {
       name: string;
       price: number;
-    },
+    }[],
     guest: Guest,
     termsAccepted: boolean,
     price: number,

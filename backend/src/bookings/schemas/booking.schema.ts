@@ -27,11 +27,11 @@ export class Booking {
   @Prop()
   package: HotelPackage;
 
-  @Prop()
+  @Prop({ type: Array })
   addons: {
     name: string;
     price: number;
-  };
+  }[];
 
   @Prop()
   guest: Guest;
