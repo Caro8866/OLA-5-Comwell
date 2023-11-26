@@ -17,7 +17,7 @@ import { Hotel } from "@/utils/Hotel.types";
 import HotelList from "../hotellist/HotelList";
 import SignInForm from "./userForms/SignInForm";
 import { AuthContext } from "@/context/AuthContext";
-import { getCookie } from "cookies-next";
+import SignOutSection from "./SignOutSection";
 
 type Props = {
   children?: React.ReactNode;
@@ -39,7 +39,7 @@ function Header(props: Props) {
     white: "text-charcoal-80",
   };
 
-  const { authState, onSignOutSuccess } = useContext(AuthContext);
+  const { authState } = useContext(AuthContext);
 
   const [windowPosition, setWindowPosition] = useState(0);
 
@@ -199,38 +199,7 @@ function Header(props: Props) {
                 </div>
 
                 {authState.isAuthenticated ? (
-                  <div
-                    className={`absolute flex flex-col bg-slate-50 rounded-lg right-0 top-16 ${
-                      isLoginVisible ? "" : "hidden"
-                    }`}
-                  >
-                    <div className={`px-4 pt-6 pb-3 flex flex-col gap-4`}>
-                      <button
-                        onClick={async () => {
-                          const token = getCookie("token");
-                          console.log(token);
-                          const response = await fetch(
-                            "http://localhost:5000/auth/logout",
-                            {
-                              method: "GET",
-                              headers: {
-                                "Content-Type": "application/json",
-                                Authorization: `Bearer ${token}`,
-                              },
-                              credentials: "include",
-                            }
-                          );
-                          if (!response.ok) {
-                            return false;
-                          } else {
-                            onSignOutSuccess();
-                          }
-                        }}
-                      >
-                        Sign out
-                      </button>
-                    </div>
-                  </div>
+                  <SignOutSection isLoginVisible={isLoginVisible} />
                 ) : (
                   <SignInForm
                     isLoginVisible={isLoginVisible}
