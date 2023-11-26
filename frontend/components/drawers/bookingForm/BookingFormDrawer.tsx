@@ -60,11 +60,11 @@ function BookingFormDrawer({ isOpen, onClose }: BookingFormDrawerProps) {
       open={isOpen}
       onClose={onClose}
       direction="right"
-      className={`rounded-l-xl relative !w-screen lg:!w-[60vw] 2xl:!w-[45vw] overflow-hidden`}
+      className={`rounded-l-xl relative !w-screen lg:!w-[60vw] 2xl:!w-[55vw] overflow-hidden`}
     >
       <div className="h-full flex flex-col">
         <BookingInfoHeader bookingData={bookingData} prevStep={prevStep} />
-        <div className="h-full w-full px-4 overflow-y-scroll">{content}</div>
+        <div className="h-full w-full pl-4 overflow-y-scroll">{content}</div>
       </div>
     </Drawer>
   );

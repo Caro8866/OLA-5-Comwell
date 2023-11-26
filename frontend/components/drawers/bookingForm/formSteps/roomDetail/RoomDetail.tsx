@@ -22,7 +22,7 @@ function RoomDetail({ onNext }: RoomDetailProps) {
 
   return (
     /* flex col */
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 pr-4">
       <div className="flex flex-row gap-4 h-36">
         <div className="flex flex-col relative h-36 w-full rounded-md overflow-hidden justify-center">
           <Image

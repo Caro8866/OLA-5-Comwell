@@ -6,14 +6,19 @@ import React, { createContext, useState } from "react";
 // context shape
 export type BookingContextType = {
   bookingData: {
-    hotel?: Hotel;
+    hotel: Hotel;
     peopleCount: { adults: number; children: number; infants: number };
     roomCount: number;
     startDate: Date | null;
     endDate: Date | null;
     selectedRoom: HotelRoom;
     selectedPackage: HotelPackage;
-    selectedAddons: { name: string; price: number; description?: string; image?: string }[];
+    selectedAddons: {
+      name: string;
+      price: number;
+      description?: string;
+      image?: string;
+    }[];
     guestInformation: {
       fullName: string;
       email: string;
@@ -21,6 +26,7 @@ export type BookingContextType = {
       address: string; // add zip code and city
     };
     comment: string;
+    paymentMethod: string;
   };
   setBookingData: (data: BookingContextType["bookingData"]) => void;
 };
@@ -72,13 +78,20 @@ export const BookingContext = createContext<BookingContextType>({
       address: "",
     },
     comment: "",
+    paymentMethod: "",
   },
   setBookingData: () => {},
 });
 
 // context provider
-export const BookingContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [bookingData, setBookingData] = useState<BookingContextType["bookingData"]>({
+export const BookingContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [bookingData, setBookingData] = useState<
+    BookingContextType["bookingData"]
+  >({
     hotel: {
       _id: "",
       name: "",
@@ -123,7 +136,12 @@ export const BookingContextProvider = ({ children }: { children: React.ReactNode
       address: "",
     },
     comment: "",
+    paymentMethod: "",
   });
 
-  return <BookingContext.Provider value={{ bookingData, setBookingData }}>{children}</BookingContext.Provider>;
+  return (
+    <BookingContext.Provider value={{ bookingData, setBookingData }}>
+      {children}
+    </BookingContext.Provider>
+  );
 };
