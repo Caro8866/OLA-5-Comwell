@@ -28,18 +28,18 @@ function RoomDetail({ onNext }: RoomDetailProps) {
           <Image
             src={bookingData.selectedRoom.image}
             alt="package image"
-            width="350"
+            width="400"
             height="144"
-            className={`object-cover object-center`}
+            className={`object-cover object-center w-full`}
           />
         </div>
         <div className="flex flex-col relative h-36 w-full rounded-md overflow-hidden justify-center">
           <Image
             src={bookingData.selectedRoom.image}
             alt="package image"
-            width="350"
+            width="400"
             height="144"
-            className={`object-cover object-center`}
+            className={`object-cover object-center w-full`}
           />
         </div>
       </div>
