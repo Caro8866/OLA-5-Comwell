@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { getCookie } from "cookies-next";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 
@@ -32,17 +31,13 @@ export default function SignOutSection({
       </Link>
 
       <div className="py-5 px-8 flex items-center justify-center w-full">
-        {" "}
         <button
           className="bg-white rounded-full border border-gray-200 w-full py-4"
           onClick={async () => {
-            const token = getCookie("token");
-            console.log(token);
             const response = await fetch("http://localhost:5000/auth/logout", {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
               },
               credentials: "include",
             });
