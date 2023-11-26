@@ -1,7 +1,7 @@
 import { Area } from "./Area.types";
 import { HotelRoom } from "./HotelRoom.types";
 import { HotelPackage } from "./HotelPackage.types";
-import { Offer } from "./Offer.types";
+import { Offer } from "./offer.types";
 import { Region } from "./Region.types";
 
 export type Hotel = {
