@@ -345,7 +345,7 @@ function Header(props: Props) {
       >
         <button
           onClick={toggleLocationsDrawer}
-          className="flex items-center rounded-full bg-charcoal-20 p-2 absolute  right-4 top-4 md:right-6 md:top-6"
+          className="flex items-center rounded-full bg-charcoal-20 p-2 absolute z-40 right-4 top-4 md:right-6 md:top-6"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

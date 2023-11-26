@@ -14,9 +14,11 @@ function HotelList(props: Props) {
   return (
     <section className={`w-min-screen xl:min-w-[600px]`}>
       <nav
-        className={`z-20 relative flex px-8 py-12 text-heading-medium-mobile xl:text-heading-medium-desktop font-semibold hover:text-charcoal-40 ease duration-300`}
+        className={`z-20 relative flex px-8 py-12 text-heading-medium-mobile xl:text-heading-medium-desktop font-semibold`}
       >
-        <ul className={`flex flex-col w-full`}>
+        <ul
+          className={`flex flex-col w-full xl:w-[66%] hover:text-charcoal-40 ease duration-300`}
+        >
           {props.hotels && props.hotels.length ? (
             props.hotels.map((hotel) => (
               <Link
@@ -24,7 +26,7 @@ function HotelList(props: Props) {
                 key={hotel._id}
                 onMouseEnter={() => setVisible(hotel._id)}
                 onMouseLeave={() => setVisible("")}
-                className={`hover:text-slate-50 w-full xl:w-[66%] flex flex-row justify-between items-center py-2`}
+                className={`hover:text-slate-50 flex w-full flex-row justify-between items-center py-2`}
               >
                 <span>{hotel.name}</span>
                 <span>{hotel.region}</span>
