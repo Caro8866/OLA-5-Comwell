@@ -15,6 +15,7 @@ type AuthContextType = {
     } | null;
   };
   onSignInSuccess: () => void;
+  onSignOutSuccess: () => void;
 };
 
 export const AuthContext = createContext<AuthContextType>({
@@ -23,6 +24,7 @@ export const AuthContext = createContext<AuthContextType>({
     userData: null,
   },
   onSignInSuccess: () => {},
+  onSignOutSuccess: () => {},
 });
 
 export const AuthContextProvider = ({
@@ -54,9 +56,17 @@ export const AuthContextProvider = ({
     setSignInCompleted(true);
   };
 
+  const handleSignOutSuccess = () => {
+    setSignInCompleted(false);
+  };
+
   return (
     <AuthContext.Provider
-      value={{ authState, onSignInSuccess: handleSignInSuccess }}
+      value={{
+        authState,
+        onSignInSuccess: handleSignInSuccess,
+        onSignOutSuccess: handleSignOutSuccess,
+      }}
     >
       {children}
     </AuthContext.Provider>
