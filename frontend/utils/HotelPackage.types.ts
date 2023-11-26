@@ -12,4 +12,6 @@ export type HotelPackage = {
   image: string;
 
   discount: number;
+
+  _id: string;
 };

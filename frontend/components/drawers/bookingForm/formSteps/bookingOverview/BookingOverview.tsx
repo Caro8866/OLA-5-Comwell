@@ -82,6 +82,8 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
         </div>
       </div>
 
+      <button onClick={onNext}>Confirm</button>
+
       {/* add checkbox for temrs and conditions */}
 
       {/* also uses the overview section from guestinformatioon */}

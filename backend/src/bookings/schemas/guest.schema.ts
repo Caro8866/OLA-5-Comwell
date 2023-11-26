@@ -11,12 +11,8 @@ export class Guest {
   email: string;
   @Prop({ required: true })
   phone: number;
-  @Prop()
+  @Prop({ required: true })
   address: string;
-  @Prop()
-  zipcode: number;
-  @Prop()
-  city: string;
 }
 
 export const GuestSchema = SchemaFactory.createForClass(Guest);

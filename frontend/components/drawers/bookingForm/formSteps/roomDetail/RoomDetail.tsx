@@ -4,6 +4,7 @@ import Image from "next/image";
 import Heading from "@/components/text/heading/Heading";
 import BodyText from "@/components/text/bodyText/BodyText";
 import Label from "@/components/label/Label";
+import { HotelPackage } from "@/utils/HotelPackage.types";
 
 type RoomDetailProps = {
   onNext: () => void;
@@ -11,8 +12,8 @@ type RoomDetailProps = {
 
 function RoomDetail({ onNext }: RoomDetailProps) {
   const { bookingData, setBookingData } = useContext(BookingContext);
-  const selectPackage = () => {
-    setBookingData({ ...bookingData, selectedPackage: bookingData.hotel.packages[0] });
+  const selectPackage = (selectedPackage: HotelPackage) => {
+    setBookingData({ ...bookingData, selectedPackage: selectedPackage });
     onNext();
   };
 
@@ -50,7 +51,7 @@ function RoomDetail({ onNext }: RoomDetailProps) {
         </Heading>
         <div className="grid grid-cols-2 gap-4">
           {bookingData.hotel.packages.map((roomPackage) => (
-            <div className="flex flex-col justify-start border border-charcoal-100 rounded-md p-4 h-28 g-4" onClick={selectPackage}>
+            <div className="flex flex-col justify-start border border-charcoal-100 rounded-md p-4 h-28 g-4" onClick={() => selectPackage(roomPackage)}>
               <Heading size={7} color="black" styles="font-light">
                 {roomPackage.name}
               </Heading>

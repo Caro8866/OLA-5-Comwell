@@ -5,7 +5,7 @@ export type HotelPackageDocument = HydratedDocument<HotelPackage>;
 
 @Schema()
 export class HotelPackage {
-  @Prop({ unique: true })
+  @Prop()
   name: string;
 
   @Prop()
