@@ -4,7 +4,7 @@ import { HotelRoom } from "@/utils/HotelRoom.types";
 import React, { createContext, useState } from "react";
 
 // context shape
-type BookingContextType = {
+export type BookingContextType = {
   bookingData: {
     hotel: Hotel;
     peopleCount: { adults: number; children: number; infants: number };
@@ -13,6 +13,7 @@ type BookingContextType = {
     endDate: Date | null;
     selectedRoom: HotelRoom;
     selectedPackage: HotelPackage;
+    selectedAddons: { name: string; price: number; description?: string; image?: string }[];
   };
   setBookingData: (data: BookingContextType["bookingData"]) => void;
 };
@@ -56,6 +57,7 @@ export const BookingContext = createContext<BookingContextType>({
       image: "",
       discount: 0,
     },
+    selectedAddons: [],
   },
   setBookingData: () => {},
 });
@@ -99,6 +101,7 @@ export const BookingContextProvider = ({ children }: { children: React.ReactNode
       image: "",
       discount: 0,
     },
+    selectedAddons: [],
   });
 
   return <BookingContext.Provider value={{ bookingData, setBookingData }}>{children}</BookingContext.Provider>;
