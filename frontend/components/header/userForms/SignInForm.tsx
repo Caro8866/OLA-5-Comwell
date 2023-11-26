@@ -1,9 +1,9 @@
 import InputField from "@/components/formField/InputField";
 import BodyText from "@/components/text/bodyText/BodyText";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useContext } from "react";
 import { SignInValidators } from "../../../utils/formTypes";
 import InputError from "@/components/formField/InputError";
-import { getCookie } from "cookies-next";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function SignInForm({
   toggleRegisterDrawer,
@@ -16,7 +16,10 @@ export default function SignInForm({
   const [loginPassword, setLoginPassword] = useState("");
   const [unauthorizedError, setUnauthorizedError] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
-  console.log(getCookie("token"));
+
+  const { onSignInSuccess, authState } = useContext(AuthContext);
+
+  authState.isAuthenticated && console.log(authState.userData);
 
   const validators: SignInValidators = {
     loginEmail: {
@@ -32,7 +35,6 @@ export default function SignInForm({
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    console.log("da");
     Object.entries(validators).forEach(([key, value]) => {
       if (!value.validationFunction()) {
         setValidationErrors((prev) =>
@@ -68,7 +70,8 @@ export default function SignInForm({
               throw new Error(`Server error! Message: ${errorData.message}`);
             });
           }
-          // Parse the response data as needed
+          // Run the callback from the auth context to check if the cookie token in still valid
+          onSignInSuccess();
           return response.json();
         })
         .then((data) => {
@@ -126,7 +129,7 @@ export default function SignInForm({
         />
 
         <InputError
-          message="Something went wrong. Try again"
+          message="Email or password are wrong. Please try again"
           showError={unauthorizedError}
         />
 
