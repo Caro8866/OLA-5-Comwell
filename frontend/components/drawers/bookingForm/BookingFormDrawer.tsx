@@ -7,6 +7,7 @@ import RoomList from "./formSteps/roomList/RoomList";
 import RoomDetail from "./formSteps/roomDetail/RoomDetail";
 import Addons from "./formSteps/addons/Addons";
 import GuestInformation from "./formSteps/guestInformation/GuestInformation";
+import BookingOverview from "./formSteps/bookingOverview/BookingOverview";
 
 type BookingFormDrawerProps = {
   isOpen: boolean;
@@ -41,7 +42,7 @@ function BookingFormDrawer({ isOpen, onClose }: BookingFormDrawerProps) {
       content = <GuestInformation onNext={nextStep} />;
       break;
     case 5:
-      // content = <OrderOverview onNext={nextStep} bookingData={bookingData} />;
+      content = <BookingOverview onNext={nextStep} onPrev={prevStep} />;
       break;
     case 6:
       // content = <FinalBooking onConfirm={nextStep}  bookingData={bookingData} />;

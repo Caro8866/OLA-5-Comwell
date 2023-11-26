@@ -20,6 +20,7 @@ export type BookingContextType = {
       phone: string;
       address: string;
     };
+    comment: string;
   };
   setBookingData: (data: BookingContextType["bookingData"]) => void;
 };
@@ -30,7 +31,7 @@ export const BookingContext = createContext<BookingContextType>({
     hotel: {
       id: 0,
       name: "",
-      location: "",
+      area: 
       region: "",
       description: "",
       image: "",
@@ -70,6 +71,7 @@ export const BookingContext = createContext<BookingContextType>({
       phone: "",
       address: "",
     },
+    comment: "",
   },
   setBookingData: () => {},
 });
@@ -80,7 +82,7 @@ export const BookingContextProvider = ({ children }: { children: React.ReactNode
     hotel: {
       id: 0,
       name: "",
-      location: "",
+      area: "",
       region: "",
       description: "",
       image: "",
