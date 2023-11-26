@@ -3,6 +3,7 @@ import BodyText from "@/components/text/bodyText/BodyText";
 import { useState, FormEvent } from "react";
 import { SignInValidators } from "./formTypes";
 import InputError from "@/components/formField/InputError";
+import { getCookie } from "cookies-next";
 
 export default function SignInForm({
   toggleRegisterDrawer,
@@ -15,6 +16,7 @@ export default function SignInForm({
   const [loginPassword, setLoginPassword] = useState("");
   const [unauthorizedError, setUnauthorizedError] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  console.log(getCookie("token"));
 
   const validators: SignInValidators = {
     loginEmail: {
@@ -52,6 +54,7 @@ export default function SignInForm({
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           email: loginEmail,
           password: loginPassword,

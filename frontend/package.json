@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "cookies-next": "^4.1.0",
     "keen-slider": "^6.8.6",
     "next": "14.0.1",
     "react": "^18",
