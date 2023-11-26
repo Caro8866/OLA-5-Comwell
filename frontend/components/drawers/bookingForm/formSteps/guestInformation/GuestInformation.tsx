@@ -9,7 +9,7 @@ type GuestInformationProps = {
 
 function GuestInformation({ onNext }: GuestInformationProps) {
   const { bookingData, setBookingData } = useContext(BookingContext);
-
+  const totalPrice = Math.round(bookingData.selectedRoom.price * bookingData.selectedPackage.price + bookingData.selectedAddons.reduce((a, b) => a + b.price, 0));
   return (
     <div>
       <Heading size={2} color="black" styles="font-light">
@@ -47,7 +47,7 @@ function GuestInformation({ onNext }: GuestInformationProps) {
       <p>{bookingData.selectedPackage.name}</p>
       <p>{bookingData.selectedAddons.map((a) => a.name)}</p>
       <p>{bookingData.selectedAddons.map((a) => a.price)}</p>
-
+      <p>{totalPrice}</p> {/* with room price * package price + addons price */}
       <button onClick={onNext}>Next</button>
     </div>
   );
