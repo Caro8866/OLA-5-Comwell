@@ -93,7 +93,7 @@ function SearchWidget() {
 
   return (
     <>
-      <div className="bg-white p-6 max-w-[450px] rounded-lg shadow-md">
+      <div className="bg-white p-6 max-w-[450px] rounded-lg shadow-md z-100">
         <Heading size={3} color="black" styles="font-light">
           Check in at Comwell and discover Denmark
         </Heading>

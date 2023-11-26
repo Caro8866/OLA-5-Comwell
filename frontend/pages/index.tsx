@@ -64,13 +64,14 @@ function index() {
     <>
       <AuthContextProvider>
         <Header />
+        <div className={`w-fit h-[calc(100vh-204px)] absolute pt-[86px] pl-[100px] top-[86px] left-0 z-50`}>
+          <BookingContextProvider>
+            <SearchWidget />
+          </BookingContextProvider>
+        </div>
         <main className={`max-w-screen overflow-hidden`}>
-          <section id="hero" className={`w-full h-[calc(100vh-118px)] relative pt-[86px]`}>
-            <div className={`w-full h-full z-20 relative max-w-2xl 2xl:max-w-[1600px] mx-auto`}>
-              <BookingContextProvider>
-                <SearchWidget />
-              </BookingContextProvider>
-            </div>
+          <section id="hero" className={`w-full h-[calc(100vh-118px)] relative pt-[86px] z-20`}>
+            <div className={`w-full h-full z-20 relative max-w-2xl 2xl:max-w-[1600px] mx-auto`}></div>
             <Image src="/img/hero.jpg" alt="placeholder" height={1000} width={1920} className={"w-full brightness-90 contrast-[1.1] h-[calc(100vh-118px)] object-cover absolute top-0 left-0"} />
           </section>
           <section id="" className={`max-w-screen-2xl 2xl:max-w-[1600px] grid sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 py-20 px-8 mx-auto`}>

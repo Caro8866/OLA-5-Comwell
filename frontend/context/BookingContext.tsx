@@ -85,14 +85,8 @@ export const BookingContext = createContext<BookingContextType>({
 });
 
 // context provider
-export const BookingContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const [bookingData, setBookingData] = useState<
-    BookingContextType["bookingData"]
-  >({
+export const BookingContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const [bookingData, setBookingData] = useState<BookingContextType["bookingData"]>({
     hotel: {
       _id: "",
       name: "",
@@ -141,9 +135,5 @@ export const BookingContextProvider = ({
     paymentMethod: "",
   });
 
-  return (
-    <BookingContext.Provider value={{ bookingData, setBookingData }}>
-      {children}
-    </BookingContext.Provider>
-  );
+  return <BookingContext.Provider value={{ bookingData, setBookingData }}>{children}</BookingContext.Provider>;
 };
