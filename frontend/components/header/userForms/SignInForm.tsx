@@ -77,7 +77,7 @@ export default function SignInForm({
         .then((data) => {
           // remove error if the login was successful
           setUnauthorizedError(false);
-          console.log("Response:", data);
+          console.log("Response:", "login was successful");
         })
         .catch((error) => {
           console.error("Error:", error.message);
