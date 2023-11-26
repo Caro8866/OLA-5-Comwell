@@ -7,7 +7,6 @@ import RoomList from "./formSteps/roomList/RoomList";
 import RoomDetail from "./formSteps/roomDetail/RoomDetail";
 import Addons from "./formSteps/addons/Addons";
 import GuestInformation from "./formSteps/guestInformation/GuestInformation";
-import TestComp from "./formSteps/TestComp";
 
 type BookingFormDrawerProps = {
   isOpen: boolean;
