@@ -41,7 +41,7 @@ function RoomList({ onNext }: RoomListProps) {
   }, [bookingData]);
 
   return (
-    <div className="flex flex-col gap-4 mb-8">
+    <div className="flex flex-col gap-4 mb-8 pr-4">
       <h1 className="text-2xl font-semibold">Select a room</h1>
       {loading ? (
         <div className="flex justify-center items-center">
@@ -51,11 +51,19 @@ function RoomList({ onNext }: RoomListProps) {
         <p className="text-red-500">{error}</p>
       ) : (
         <>
-          <TabGroup activeTab={bookingType} onTabChange={setBookingType} tabs={["rooms", "packages"]} />
+          <TabGroup
+            activeTab={bookingType}
+            onTabChange={setBookingType}
+            tabs={["rooms", "packages"]}
+          />
           {bookingType === "rooms" && (
             <div className="flex flex-col gap-2">
               {rooms.map((room) => (
-                <RoomCard key={room.name} room={room} onSelect={() => handleRoomSelect(room)} />
+                <RoomCard
+                  key={room.name}
+                  room={room}
+                  onSelect={() => handleRoomSelect(room)}
+                />
               ))}
             </div>
           )}

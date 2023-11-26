@@ -27,7 +27,7 @@ export class Booking {
   @Prop()
   hotelPackage: HotelPackage;
 
-  @Prop()
+  @Prop({ type: Array })
   addons: {
     name: string;
     price: number;

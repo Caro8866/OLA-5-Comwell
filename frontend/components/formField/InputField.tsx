@@ -23,19 +23,7 @@ type Props = {
   errorMessage?: string;
 };
 
-function InputField({
-  label,
-  value,
-  onChange,
-  name,
-  id,
-  type = "text",
-  styles,
-  validationCondition,
-  setValidationErrors,
-  validationOnSend,
-  errorMessage,
-}: Props) {
+function InputField({ label, value, onChange, name, id, type = "text", styles, validationCondition, setValidationErrors, validationOnSend, errorMessage }: Props) {
   const [isFocused, setIsFocused] = useState(false);
   const [conditionPassed, setConditionPassed] = useState(true);
   const ref = useRef<any>(null);
@@ -47,48 +35,24 @@ function InputField({
   return (
     <>
       <div
-        className={`flex max-content flex-col border-2 rounded border-gray-300 px-3 py-4 relative transition hover:border-gray-400 ${
-          isFocused && "border-gray-800 hover:border-gray-800"
-        }  ${styles}`}
+        className={`flex max-content flex-col border-2 rounded border-gray-300 px-3 py-4 relative transition hover:border-gray-400 ${isFocused && "border-gray-800 hover:border-gray-800"}  ${styles}`}
         onClick={handleClick}
         onBlur={() => {
           setIsFocused(false);
 
           // if there are validation rules check if they pass
           // and display an error message accordingly
-          setValidationErrors &&
-            setValidationErrors((prev) => prev.filter((e) => e !== name));
-          validationCondition && value
-            ? setConditionPassed(validationCondition())
-            : setConditionPassed(true);
+          setValidationErrors && setValidationErrors((prev) => prev.filter((e) => e !== name));
+          validationCondition && value ? setConditionPassed(validationCondition()) : setConditionPassed(true);
         }}
       >
-        <label
-          htmlFor={id}
-          className={`font-sans font-semibold absolute bottom-2/4 translate-y-2/4 transition ${
-            isFocused || value
-              ? " translate-y-[-15%] text-gray-600 font-medium"
-              : "translate-y-2/4 text-charcoal-80"
-          } `}
-        >
+        <label htmlFor={id} className={`font-sans font-semibold absolute bottom-2/4 translate-y-2/4 transition ${isFocused || value ? " translate-y-[-15%] text-gray-600 font-medium" : "translate-y-2/4 text-charcoal-80"} `}>
           {label}
         </label>
-        <input
-          id={id}
-          name={name}
-          ref={ref}
-          autoFocus={isFocused ? true : false}
-          type={type}
-          value={value}
-          onChange={onChange}
-          className={`font-semibold text-lg translate-y-1/4 bg-transparent focus:outline-none text-charcoal-80`}
-        />
+        <input id={id} name={name} ref={ref} autoFocus={isFocused ? true : false} type={type} value={value} onChange={onChange} className={`font-semibold text-lg translate-y-1/4 bg-transparent focus:outline-none text-charcoal-80`} />
       </div>
 
-      <InputError
-        message={errorMessage}
-        showError={!validationOnSend || !conditionPassed ? true : false}
-      />
+      <InputError message={errorMessage} showError={!validationOnSend || !conditionPassed ? true : false} />
     </>
   );
 }
