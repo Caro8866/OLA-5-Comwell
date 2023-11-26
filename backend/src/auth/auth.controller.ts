@@ -8,11 +8,13 @@ import {
   Get,
   UseGuards,
   Request,
+  Res,
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { SignInDto } from './dto/signIn.dto';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -29,8 +31,17 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: SignInDto) {
-    return this.authService.signIn(signInDto.email, signInDto.password);
+  async signIn(
+    @Body() signInDto: SignInDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const token = (
+      await this.authService.signIn(signInDto.email, signInDto.password)
+    ).access_token;
+    if (token) {
+      response.cookie('token', token, { secure: true });
+      return this.authService.signIn(signInDto.email, signInDto.password);
+    }
   }
 
   @UseGuards(JwtAuthGuard)
