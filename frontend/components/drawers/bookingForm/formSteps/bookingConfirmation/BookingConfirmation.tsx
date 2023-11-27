@@ -2,15 +2,16 @@ import { peopleCountToString } from "@/components/searchWidget/SearchWidget";
 import BodyText from "@/components/text/bodyText/BodyText";
 import Heading from "@/components/text/heading/Heading";
 import { BookingContext } from "@/context/BookingContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import Button from "@/components/button/Button";
 
 type bookingConfirmationProps = {
   onClose: () => void;
+  setBookingFormStep: Dispatch<SetStateAction<number>>;
 };
 
-function bookingConfirmation({ onClose }: bookingConfirmationProps) {
+function bookingConfirmation({ onClose, setBookingFormStep }: bookingConfirmationProps) {
   const { bookingData, setBookingData } = useContext(BookingContext);
   const [bookingReferenceNumber, setBookingReferenceNumber] = useState<string | null>(null);
 
@@ -127,7 +128,63 @@ function bookingConfirmation({ onClose }: bookingConfirmationProps) {
           </BodyText>
         </div>
 
-        <Button onClick={() => onClose()} color={"sea"} isActive={bookingData ? true : false} styles={`py-1 px-5 mt-4`}>
+        <Button
+          onClick={() => {
+            setBookingData({
+              hotel: {
+                _id: "",
+                name: "",
+                location: "",
+                region: "",
+                description: "",
+                image: "",
+                addons: [],
+                packages: [],
+                offers: [],
+                rooms: [],
+                roomsDescription: "",
+                isHotel: true,
+                isConferenceCenter: false,
+                isBanquet: false,
+              },
+              peopleCount: { adults: 1, children: 0, infants: 0 },
+              roomCount: 1,
+              startDate: null,
+              endDate: null,
+              selectedRoom: {
+                name: "",
+                size: 0,
+                description: "",
+                image: "",
+                price: 0,
+              },
+              selectedPackage: {
+                name: "",
+                type: "",
+                tags: [],
+                description: "",
+                price: 0,
+                image: "",
+                discount: 0,
+                _id: "",
+              },
+              selectedAddons: [],
+              guestInformation: {
+                fullName: "",
+                email: "",
+                phone: "",
+                address: "",
+              },
+              comment: "",
+              paymentMethod: "",
+            });
+            setBookingFormStep(1);
+            onClose();
+          }}
+          color={"sea"}
+          isActive={bookingData ? true : false}
+          styles={`py-1 px-5 mt-4`}
+        >
           Complete booking
         </Button>
       </section>
