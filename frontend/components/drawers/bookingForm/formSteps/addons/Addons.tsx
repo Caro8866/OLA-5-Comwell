@@ -67,13 +67,17 @@ function Addons({ onNext }: AddonsProps) {
                   type="checkbox"
                   onChange={(e) => handleAddonChange(addon, e.target.checked)}
                 /> */}
-                <div className={`flex flex-row justify-between mb-2 gap-4`}>
-                  <div className={`flex flex-row justify-between w-full`}>
+                <div
+                  className={`flex flex-row justify-between mb-2 gap-4 relative`}
+                >
+                  <div
+                    className={`flex flex-col md:flex-row justify-between w-full md:mr-12`}
+                  >
                     <Heading size={5}>{addon.name}</Heading>{" "}
                     <Heading size={5}>{`${addon.price} kr.`}</Heading>
                   </div>
                   <span
-                    className={`min-w-[24px] min-h-[24px] border-box border rounded-full group-hover:border-charcoal-80 flex justify-center items-center p-[1px] ${
+                    className={`min-w-[24px] min-h-[24px] border-box border rounded-full group-hover:border-charcoal-80 flex justify-center items-center p-[1px] absolute right-0 top-0 ${
                       bookingData.selectedAddons.includes(addon)
                         ? `!bg-charcoal-80 border-charcoal-80`
                         : ""
