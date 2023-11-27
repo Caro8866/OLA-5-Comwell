@@ -76,7 +76,7 @@ function bookingConfirmation({ onClose, setBookingFormStep }: bookingConfirmatio
       <section className={`col-span-4 p-6 h-full min-h-[calc(100vh-40px)] flex gap-4 flex-col`}>
         <div className="flex gap-3 items-center">
           <svg width="30" height="31" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_2_20691)">
+            <g clipPath="url(#clip0_2_20691)">
               <circle cx="15.5346" cy="16.4174" r="14.4643" fill="black" />
               <path fillRule="evenodd" clipRule="evenodd" d="M13.2182 19.3644L8.48605 14.6323L7.50391 15.5251L12.236 20.2573L13.2182 21.2394L22.6825 11.7751L21.7003 10.793L13.2182 19.3644Z" fill="white" />
             </g>
