@@ -47,7 +47,7 @@ function BookingFormDrawer({ isOpen, onClose }: BookingFormDrawerProps) {
       break;
     // content = <FinalBooking onConfirm={nextStep}  bookingData={bookingData} />; // not needed??
     case 6:
-      content = <BookingConfirmation />;
+      content = <BookingConfirmation onClose={onClose} />;
       break;
     case 7:
       break;
