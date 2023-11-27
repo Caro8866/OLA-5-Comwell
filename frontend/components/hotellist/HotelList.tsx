@@ -41,6 +41,7 @@ function HotelList(props: Props) {
         props.hotels.map((hotel) => {
           return (
             <Image
+              key={hotel._id}
               width={1920}
               height={1080}
               className={`w-full h-full absolute pointer-events-none z-0 object-cover top-0 left-0 transition ease brightness-[0.8] duration-300 ${

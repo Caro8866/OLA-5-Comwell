@@ -43,12 +43,15 @@ function Addons({ onNext }: AddonsProps) {
       <section className={`grid grid-cols-2 gap-4`}>
         {bookingData.hotel &&
           bookingData.hotel.addons.map(
-            (addon: {
-              name: string;
-              price: number;
-              description?: string;
-              image?: string;
-            }) => (
+            (
+              addon: {
+                name: string;
+                price: number;
+                description?: string;
+                image?: string;
+              },
+              index
+            ) => (
               <div
                 className={`border rounded-lg flex flex-col p-4 group hover:border-charcoal-80 ${
                   bookingData.selectedAddons.includes(addon)
@@ -62,6 +65,7 @@ function Addons({ onNext }: AddonsProps) {
                   }
                   handleAddonChange(addon, !isAlreadySelected);
                 }}
+                key={index}
               >
                 {/* <input
                   type="checkbox"

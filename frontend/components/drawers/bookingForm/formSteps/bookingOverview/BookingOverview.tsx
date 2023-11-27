@@ -56,9 +56,9 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
             >
               <path
                 fill="currentColor"
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M21 10.5V21h1.5v1.5h-21V21H3V3a1.5 1.5 0 0 1 1.5-1.5H15A1.5 1.5 0 0 1 16.5 3v6h3a1.5 1.5 0 0 1 1.5 1.5zm-12-3h1.5v3H9zM9 12h1.5v3H9zm4.5-4.5H12v3h1.5zM12 12h1.5v3H12zm-1.5 4.5H9v3h1.5zm1.5 0h1.5v3H12zM4.5 3H15v18H4.5zm12 7.5V21h3V10.5z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
           </span>
@@ -91,9 +91,9 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
             >
               <path
                 fill="currentColor"
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M8.334.75a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5ZM6.743 2.909a2.25 2.25 0 1 1 3.181 3.182 2.25 2.25 0 0 1-3.181-3.182Zm.09 5.841a3.75 3.75 0 0 0-3.75 3.75v2.75h10.501V12.5a3.75 3.75 0 0 0-3.75-3.75h-3Zm5.25 5V12.5a2.249 2.249 0 0 0-2.25-2.25h-3a2.25 2.25 0 0 0-2.25 2.25v1.25h7.5Z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
           </span>
@@ -228,9 +228,9 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
                   ></rect>
                   <path
                     fill="#172B85"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M12 18.43H9.577L7.76 11.448c-.086-.321-.27-.605-.539-.739A7.848 7.848 0 0 0 5 9.97v-.269h3.904c.538 0 .942.404 1.01.873l.943 5.036 2.422-5.909h2.355L12 18.43Zm4.98 0H14.69l1.885-8.729h2.288L16.98 18.43Zm4.846-6.31c.067-.47.471-.74.942-.74a4.238 4.238 0 0 1 2.222.403l.404-1.88a5.757 5.757 0 0 0-2.087-.403c-2.221 0-3.837 1.209-3.837 2.887 0 1.277 1.145 1.947 1.953 2.35.874.403 1.21.672 1.143 1.075 0 .604-.673.872-1.345.872-.808 0-1.617-.2-2.356-.537l-.404 1.88c.808.335 1.682.47 2.49.47 2.49.067 4.039-1.141 4.039-2.954 0-2.283-3.164-2.417-3.164-3.424Zm11.172 6.31-1.817-8.729H29.23c-.404 0-.809.27-.943.672l-3.365 8.057h2.356l.47-1.275h2.895l.269 1.275h2.087Zm-3.43-6.378.672 3.29h-1.884l1.212-3.29Z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                   <rect
                     width="39"
@@ -259,21 +259,21 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
                   ></rect>
                   <path
                     fill="#ED0006"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M20 19.517a7.266 7.266 0 0 1-4.722 1.733C11.258 21.25 8 18.004 8 14s3.258-7.25 7.278-7.25c1.802 0 3.452.653 4.723 1.733a7.266 7.266 0 0 1 4.722-1.733c4.02 0 7.278 3.246 7.278 7.25s-3.258 7.25-7.278 7.25a7.266 7.266 0 0 1-4.722-1.733Z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                   <path
                     fill="#F9A000"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M20 19.517A7.223 7.223 0 0 0 22.555 14 7.223 7.223 0 0 0 20 8.483a7.266 7.266 0 0 1 4.723-1.733C28.743 6.75 32 9.996 32 14s-3.259 7.25-7.278 7.25A7.266 7.266 0 0 1 20 19.517Z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                   <path
                     fill="#FF5E00"
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M19.993 19.517a7.223 7.223 0 0 0 2.555-5.516 7.223 7.223 0 0 0-2.555-5.517 7.222 7.222 0 0 0-2.555 5.517c0 2.209.991 4.187 2.555 5.516Z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                   <rect
                     width="39"
@@ -411,7 +411,10 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
         <section className={`flex flex-col justify-between mb-6 mt-4`}>
           {bookingData.selectedAddons.map((addon) => {
             return (
-              <div className={`flex flex-row justify-between w-full`}>
+              <div
+                className={`flex flex-row justify-between w-full`}
+                key={addon.name}
+              >
                 <BodyText size={1} isBold>
                   {addon.name}
                 </BodyText>
