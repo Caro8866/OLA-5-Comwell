@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TabGroup from "@/components/tabGroup/TabGroup";
 import HotelCard from "./HotelCard";
 import { Hotel } from "@/utils/Hotel.types";
 import SelectionDrawer from "../SelectionDrawer";
 import { BeatLoader } from "react-spinners";
+import { BookingContext } from "@/context/BookingContext";
 
 type HotelInputDrawerProps = {
   isOpen: boolean;
@@ -16,6 +17,8 @@ function HotelInputDrawer({ isOpen, onClose, onSelect }: HotelInputDrawerProps) 
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const { bookingData, setBookingData } = useContext(BookingContext);
 
   useEffect(() => {
     if (isOpen) {
@@ -50,12 +53,14 @@ function HotelInputDrawer({ isOpen, onClose, onSelect }: HotelInputDrawerProps) 
   const handleHotelSelect = (hotel: Hotel) => {
     setSelectedHotel(hotel);
     onSelect(hotel);
+    setBookingData({ ...bookingData, hotel: hotel });
   };
 
   const handleConfirmSelect = () => {
     if (selectedHotel) {
       onSelect(selectedHotel);
       onClose();
+      setBookingData({ ...bookingData, hotel: selectedHotel });
     }
   };
 
