@@ -1,8 +1,16 @@
 # Comwell Next.js Frontend
 
-This project is based on [Next.js](https://nextjs.org/), initialised with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Description
+The frontend is built using Next.js, TypeScript, and Tailwind CSS.
 
-## Getting Started
+## Prerequisites
+Before you begin, ensure you have the following installed:
+- Node.js
+
+## Installation
+```bash
+$ npm install
+```
 
 ### Running the Development Server
 
