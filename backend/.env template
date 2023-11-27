@@ -1,0 +1,1 @@
+JWT_SECRET="" # Replace with a secure, randomly generated 64-byte string. This is used for JWT authentication.
