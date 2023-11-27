@@ -20,10 +20,10 @@ function Button({
   styles,
 }: Props) {
   const variants = {
-    charcoal: "bg-charcoal-80 text-slate-50 hover:brightness-150",
-    earth: "bg-earth-80 text-slate-50 hover:brightness-150",
-    sea: "bg-sea-80 text-slate-50 hover:brightness-150",
-    sand: "bg-sand-80 text-slate-50 hover:brightness-150",
+    charcoal: "bg-charcoal-100 text-slate-50 hover:bg-charcoal-80 ",
+    earth: "bg-earth-100 text-slate-50 hover:bg-earth-80 ",
+    sea: "bg-sea-100 text-slate-50 hover:bg-sea-80 ",
+    sand: "bg-sand-100 text-slate-50 hover:bg-sand-80 ",
     blank: "bg-transparent text-charcoal-100",
     outline:
       "bg-transparent text-charcoal-100 border-2 hover:bg-sea-100 hover:text-slate-50 hover:border-sea-100",

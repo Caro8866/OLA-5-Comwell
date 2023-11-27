@@ -33,12 +33,8 @@ function RoomList({ onNext }: RoomListProps) {
   const handleRoomSelect = (seletedRoom: HotelRoom) => {
     setSelectedRoom(seletedRoom);
     setBookingData({ ...bookingData, selectedRoom: seletedRoom });
-    console.log(bookingData, "bookingData with selected room");
     onNext();
   };
-  useEffect(() => {
-    console.log(bookingData, "bookingData with selected room");
-  }, [bookingData]);
 
   return (
     <div className="flex flex-col gap-4 mb-8 pr-4">

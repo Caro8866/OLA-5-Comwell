@@ -13,7 +13,8 @@ type RoomDetailProps = {
 function RoomDetail({ onNext }: RoomDetailProps) {
   const { bookingData, setBookingData } = useContext(BookingContext);
   const selectPackage = (selectedPackage: HotelPackage) => {
-     bookingData.hotel && setBookingData({ ...bookingData, selectedPackage: selectedPackage });
+    bookingData.hotel &&
+      setBookingData({ ...bookingData, selectedPackage: selectedPackage });
     onNext();
   };
 
@@ -69,6 +70,7 @@ function RoomDetail({ onNext }: RoomDetailProps) {
           {bookingData.hotel &&
             bookingData.hotel.packages.map((roomPackage) => (
               <div
+                key={roomPackage._id}
                 className={`flex flex-col justify-start border border-charcoal-50 rounded-md p-4 min-h-28 g-4 relative group hover:border-charcoal-80  ${
                   bookingData.selectedPackage === roomPackage
                     ? "border-charcoal-80"

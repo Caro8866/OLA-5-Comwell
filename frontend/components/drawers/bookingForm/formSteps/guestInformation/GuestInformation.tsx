@@ -95,7 +95,6 @@ function GuestInformation({ onNext }: GuestInformationProps) {
     }
   }, [validationErrors]);
 
-  console.log(bookingData);
   return (
     <div className={`grid lg:grid-cols-7 relative`}>
       <section className={`col-span-4 p-6 h-[calc(100vh-40px)]`}>
@@ -166,7 +165,9 @@ function GuestInformation({ onNext }: GuestInformationProps) {
           Overview
         </Heading>
         <div className={`flex`}>
-          <BodyText size={2}>Room 1</BodyText>
+          <BodyText size={2} styles="mb-2">
+            Room 1
+          </BodyText>
         </div>
         <section className={`flex flex-row gap-2 justify-between`}>
           <Image
@@ -193,7 +194,10 @@ function GuestInformation({ onNext }: GuestInformationProps) {
         <section className={`flex flex-col justify-between mb-6 mt-4`}>
           {bookingData.selectedAddons.map((addon) => {
             return (
-              <div className={`flex flex-row justify-between w-full`}>
+              <div
+                className={`flex flex-row justify-between w-full`}
+                key={addon.name}
+              >
                 <BodyText size={1} isBold>
                   {addon.name}
                 </BodyText>
@@ -218,7 +222,7 @@ function GuestInformation({ onNext }: GuestInformationProps) {
           isActive
           color={"sea"}
           onClick={() => {
-            console.log(validationErrors);
+            // console.log(validationErrors);
             isFormSubmitted.current = true;
             Object.entries(validators).forEach(([key, value]) => {
               if (!value.validationFunction()) {

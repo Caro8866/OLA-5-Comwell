@@ -6,7 +6,7 @@ type Props = {
 };
 
 function Heading({ size, color, styles, children }: Props) {
-  const HeadingLevel: any = `h${size}`;
+  const HeadingLevel: any = `h${size > 6 ? 6 : size}`;
   const HeadingSize = {
     1: "text-heading-huge-mobile xl:text-heading-huge-desktop",
     2: "text-heading-xlarge-mobile xl:text-heading-xlarge-desktop",
