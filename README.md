@@ -1,17 +1,17 @@
 # OLA-5-Comwell
 
-OLA 5 Comwell is a project developed as part of our educational curriculum, assigned by Dwarf. The goal is to recreate specific features of the Comwell website, with a focus on the login and booking form functionalities. This project is structured as a monorepo, featuring a frontend built with Next.js, TypeScript, and Tailwind CSS, and a backend developed using Nest.js, Mongoose, TypeScript, and MongoDB as the database.
+OLA 5 Comwell is a project developed as part of our studies in Web Development @Cph Business, case by Dwarf. The goal is to recreate specific features of the Comwell website, with a focus on the login and booking form functionalities. This project is structured as a monorepo, featuring a frontend built with Next.js, TypeScript, and Tailwind CSS, and a backend developed using Nest.js, Mongoose, TypeScript, and MongoDB as the database.
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/Caro8866/OLA-5-Comwell.git
 
 2. Navigate to the project directory: `cd OLA-5-Comwell
 
-3. Open up a MongoDB connection. (Refer to the backend README for detailed instructions.)
+3. Open up a MongoDB connection. `$ brew services stop mongodb/brew/mongodb-community`
+   
+5. Navigate to the backend directory and follow the instructions in its README: `cd backend`
 
-4. Navigate to the backend directory and follow the instructions in its README: `cd backend
-
-5. Navigate to the frontend directory and follow the setup instructions in its README.
+6. Navigate to the frontend directory and follow the setup instructions in its README: `cd frontend`
 
 ## Frontend
 Located in `/frontend`, the frontend application is built with Next.js, TypeScript, and Tailwind CSS. Detailed setup and running instructions can be found in the frontend README.
