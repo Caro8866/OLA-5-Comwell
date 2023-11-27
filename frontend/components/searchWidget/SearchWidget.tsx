@@ -5,13 +5,14 @@ import InputSelect from "../formField/InputSelect";
 import DualInputSelect from "../formField/DualInputSelect";
 import Button from "../button/Button";
 import TabGroup from "../tabGroup/TabGroup";
-import { Hotel } from "@/utils/Hotel.types";
 import { PeopleCount } from "@/utils/PeopleCount.types";
 import HotelInputDrawer from "@/components/drawers/hotel/HotelInputDrawer";
 import PeopleCountInputDrawer from "../drawers/peopleCount/PeopleCountInputDrawer";
 import DateInputDrawer from "../drawers/date/DateInputDrawer";
 import InputField from "../formField/InputField";
 import BookingFormDrawer from "../drawers/bookingForm/BookingFormDrawer";
+import { Hotel } from "@/utils/Hotel.types";
+import { bookingType } from "@/utils/bookingFormState";
 
 export const peopleCountToString = (peopleCount: PeopleCount) => {
   let totalPeople = peopleCount.adults + peopleCount.children + peopleCount.infants;
@@ -19,81 +20,64 @@ export const peopleCountToString = (peopleCount: PeopleCount) => {
   return peopleCountString;
 };
 
-function SearchWidget() {
-  const [bookingType, setBookingType] = useState("accomodation"); // ["accomodation", "conference", "banquet"]
+type SearchWidgetProps = {
+  bookingType: string;
+  setBookingType: (bookingType: string) => void;
+  selectedHotel: Hotel;
+  setSelectedHotel: (hotel: Hotel) => void;
+  selectedPeopleCount: PeopleCount;
+  setSelectedPeopleCount: (peopleCount: PeopleCount) => void;
+  selectedStartDate: Date;
+  setSelectedStartDate: (startDate: Date) => void;
+  selectedEndDate: Date;
+  setSelectedEndDate: (endDate: Date) => void;
+  isHotelDrawerOpen: boolean;
+  setHotelDrawerOpen: (isOpen: boolean) => void;
+  isPeopleCountDrawerOpen: boolean;
+  setPeopleCountDrawerOpen: (isOpen: boolean) => void;
+  isDateDrawerOpen: boolean;
+  isBookingFormDrawerOpen: boolean;
+  setBookingFormDrawerOpen: (isOpen: boolean) => void;
+  handleHotelDrawerOpen: () => void;
+  handleHotelDrawerClose: () => void;
+  handleHotelSelect: (hotel: Hotel) => void;
+  handlePeopleCountDrawerOpen: () => void;
+  handlePeopleCountDrawerClose: () => void;
+  handlePeopleCountSelect: (selectedPeopleCount: PeopleCount) => void;
+  handleDateDrawerOpen: () => void;
+  handleDateDrawerClose: () => void;
+  handleDateSelect: (startDate: Date, endDate: Date) => void;
+  handleSearch: () => void;
+};
 
-  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
-  const [selectedPeopleCount, setSelectedPeopleCount] = useState<PeopleCount>({ adults: 1, children: 0, infants: 0 });
-
-  const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
-  const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
-
+function SearchWidget({
+  bookingType,
+  setBookingType,
+  selectedHotel,
+  selectedPeopleCount,
+  selectedStartDate,
+  selectedEndDate,
+  isHotelDrawerOpen,
+  isPeopleCountDrawerOpen,
+  isDateDrawerOpen,
+  isBookingFormDrawerOpen,
+  setBookingFormDrawerOpen,
+  handleHotelDrawerOpen,
+  handleHotelDrawerClose,
+  handleHotelSelect,
+  handlePeopleCountDrawerOpen,
+  handlePeopleCountDrawerClose,
+  handlePeopleCountSelect,
+  handleDateDrawerOpen,
+  handleDateDrawerClose,
+  handleDateSelect,
+  handleSearch,
+}: SearchWidgetProps) {
   const [isBookingCodeInputVisible, setIsBookingCodeInputVisible] = useState(false);
-
-  const { bookingData, setBookingData } = useContext(BookingContext);
-
-  // drawer states
-  const [isHotelDrawerOpen, setHotelDrawerOpen] = useState(false);
-  const [isPeopleCountDrawerOpen, setPeopleCountDrawerOpen] = useState(false);
-  const [isDateDrawerOpen, setDateDrawerOpen] = useState(false);
-  const [isBookingFormDrawerOpen, setBookingFormDrawerOpen] = useState(false);
-
-  // drawer handlers
-  const handleHotelDrawerOpen = () => {
-    setHotelDrawerOpen(true);
-  };
-  const handleHotelDrawerClose = () => {
-    setHotelDrawerOpen(false);
-  };
-  const handleHotelSelect = (hotel: Hotel) => {
-    setSelectedHotel(hotel);
-    setBookingData({ ...bookingData, hotel: hotel });
-  };
-
-  const handlePeopleCountDrawerOpen = () => {
-    setPeopleCountDrawerOpen(true);
-  };
-
-  const handlePeopleCountDrawerClose = () => {
-    setPeopleCountDrawerOpen(false);
-  };
-
-  const handlePeopleCountSelect = (selectedPeopleCount: PeopleCount) => {
-    setSelectedPeopleCount(selectedPeopleCount);
-    setBookingData({ ...bookingData, peopleCount: selectedPeopleCount });
-  };
-
-  const handleDateDrawerOpen = () => {
-    setDateDrawerOpen(true);
-  };
-
-  const handleDateDrawerClose = () => {
-    setDateDrawerOpen(false);
-  };
-
-  const handleDateSelect = (startDate: Date, endDate: Date) => {
-    setSelectedStartDate(startDate);
-    setSelectedEndDate(endDate);
-    setBookingData({ ...bookingData, startDate: startDate, endDate: endDate });
-  };
-
-  const handleSearch = () => {
-    console.log(bookingData);
-    if (selectedHotel) {
-      setBookingData({
-        ...bookingData,
-        hotel: selectedHotel,
-        peopleCount: selectedPeopleCount,
-        startDate: selectedStartDate,
-        endDate: selectedEndDate,
-      });
-      setBookingFormDrawerOpen(true);
-    }
-  };
 
   return (
     <>
-      <div className="bg-white p-6 max-w-[450px] rounded-lg shadow-md z-100">
+      <div className="bg-white p-6 max-w-[450px] rounded-lg shadow-md z-[100] relative">
         <Heading size={3} color="black" styles="font-light">
           Check in at Comwell and discover Denmark
         </Heading>
@@ -158,10 +142,6 @@ function SearchWidget() {
           </form>
         )}
       </div>
-      <HotelInputDrawer isOpen={isHotelDrawerOpen} onClose={handleHotelDrawerClose} onSelect={handleHotelSelect} />
-      <PeopleCountInputDrawer isOpen={isPeopleCountDrawerOpen} onClose={handlePeopleCountDrawerClose} onSelect={handlePeopleCountSelect} />
-      <DateInputDrawer isOpen={isDateDrawerOpen} onClose={handleDateDrawerClose} onSelect={handleDateSelect} />
-      <BookingFormDrawer isOpen={isBookingFormDrawerOpen} onClose={() => setBookingFormDrawerOpen(false)} />
     </>
   );
 }
