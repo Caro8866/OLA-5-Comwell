@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SelectionDrawer from "../SelectionDrawer";
-import { PeopleCount } from "@/utils/types";
+import { PeopleCount } from "@/utils/PeopleCount.types";
 import Counter from "./Counter";
 import BodyText from "@/components/text/bodyText/BodyText";
 import Heading from "@/components/text/heading/Heading";
+import { BookingContext } from "@/context/BookingContext";
 
 type PeopleCountInputDrawerProps = {
   isOpen: boolean;
@@ -13,11 +14,13 @@ type PeopleCountInputDrawerProps = {
 
 function PeopleCountInputDrawer({ isOpen, onClose, onSelect }: PeopleCountInputDrawerProps) {
   const [peopleCount, setPeopleCount] = useState({ adults: 1, children: 0, infants: 0 });
+  const { bookingData, setBookingData } = useContext(BookingContext);
 
   const [error, setError] = useState("");
 
   const handleConfirmSelect = () => {
     onSelect(peopleCount);
+    setBookingData({ ...bookingData, peopleCount: peopleCount });
     onClose();
   };
 
@@ -28,6 +31,7 @@ function PeopleCountInputDrawer({ isOpen, onClose, onSelect }: PeopleCountInputD
       const updatedCount = { ...peopleCount, [type]: peopleCount[type] + 1 };
       setPeopleCount(updatedCount);
       onSelect(updatedCount);
+      setBookingData({ ...bookingData, peopleCount: peopleCount });
     }
   };
 
@@ -36,6 +40,7 @@ function PeopleCountInputDrawer({ isOpen, onClose, onSelect }: PeopleCountInputD
       const updatedCount = { ...peopleCount, [type]: peopleCount[type] - 1 };
       setPeopleCount(updatedCount);
       onSelect(updatedCount);
+      setBookingData({ ...bookingData, peopleCount: peopleCount });
     }
   };
 

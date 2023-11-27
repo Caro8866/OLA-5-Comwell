@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import SelectionDrawer from "../SelectionDrawer";
 import BodyText from "@/components/text/bodyText/BodyText";
+import { BookingContext } from "@/context/BookingContext";
 
 type DateInputDrawerProps = {
   isOpen: boolean;
@@ -13,6 +14,8 @@ function DateInputDrawer({ isOpen, onClose, onSelect }: DateInputDrawerProps) {
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
 
   const [error, setError] = useState("");
+
+  const { bookingData, setBookingData } = useContext(BookingContext);
 
   const validateDates = (newStartDate: Date, newEndDate: Date) => {
     if (newStartDate > newEndDate) {
@@ -47,11 +50,13 @@ function DateInputDrawer({ isOpen, onClose, onSelect }: DateInputDrawerProps) {
     setSelectedEndDate(newEndDate);
     if (selectedStartDate && validateDates(selectedStartDate, newEndDate)) {
       onSelect(selectedStartDate, newEndDate);
+      setBookingData({ ...bookingData, startDate: selectedStartDate, endDate: newEndDate });
     }
   };
   const handleConfirmSelect = () => {
     if (selectedStartDate && selectedEndDate) {
       onSelect(selectedStartDate, selectedEndDate);
+      setBookingData({ ...bookingData, startDate: selectedStartDate, endDate: selectedEndDate });
       onClose();
     }
   };
