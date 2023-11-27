@@ -99,7 +99,7 @@ The backend provides the following endpoints:
 - GET /hotel-rooms/:id - Get a specific hotel room
 - PUT /hotel-rooms/:id - Update a specific hotel roomDELETE /hotel-rooms/:id - Delete a specific hotel room
 ### Bookings
--POST /bookings - Create a new booking
+- POST /bookings - Create a new booking
 - GET /bookings - Get all bookings
 - GET /bookings/:id - Get a specific booking
 - PUT /bookings/:id - Update a specific booking
