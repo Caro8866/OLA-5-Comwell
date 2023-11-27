@@ -1,6 +1,6 @@
 # OLA-5-Comwell
 
-**TL;DR** - **YOU NEED TO SEED THE DATABASE**. the steps to do this is outlined in the backend/readme.md
+**TL;DR** - **YOU NEED TO SEED THE DATABASE**. the steps to do this are outlined in the `backend/readme.md`
 
 OLA 5 Comwell is a project developed as part of our studies in Web Development @Cph Business, case by Dwarf. The goal is to recreate specific features of the Comwell website, with a focus on the login and booking form functionalities. This project is structured as a monorepo, featuring a frontend built with Next.js, TypeScript, and Tailwind CSS, and a backend developed using Nest.js, Mongoose, TypeScript, and MongoDB as the database.
 
