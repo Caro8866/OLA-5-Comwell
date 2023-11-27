@@ -14,16 +14,43 @@ type GuestInformationProps = {
 
 function GuestInformation({ onNext }: GuestInformationProps) {
   const { bookingData, setBookingData } = useContext(BookingContext);
-  const totalPrice = Math.round((bookingData.selectedRoom.price * bookingData.selectedPackage.price + bookingData.selectedAddons.reduce((a, b) => a + b.price, 0)) * 100) / 100;
+  const totalPrice =
+    Math.round(
+      (bookingData.selectedRoom.price * bookingData.selectedPackage.price +
+        bookingData.selectedAddons.reduce((a, b) => a + b.price, 0)) *
+        100
+    ) / 100;
   const { authState } = useContext(AuthContext);
   const isFormSubmitted = useRef(false);
 
   // first check if the user already completed the booking form ie they came back tp the GuestInformation form
   // if it's the first time on this form check if they are logged in and prefill the information
-  const [fullName, setFullName] = useState(bookingData.guestInformation.fullName ? bookingData.guestInformation.fullName : authState.userData ? authState.userData.fullName : "");
-  const [email, setEmail] = useState(bookingData.guestInformation.email ? bookingData.guestInformation.email : authState.userData ? authState.userData.email : "");
-  const [phone, setPhone] = useState(bookingData.guestInformation.phone ? bookingData.guestInformation.phone : authState.userData ? authState.userData.phone : "");
-  const [address, setAddress] = useState(bookingData.guestInformation.address ? bookingData.guestInformation.address : "");
+  const [fullName, setFullName] = useState(
+    bookingData.guestInformation.fullName
+      ? bookingData.guestInformation.fullName
+      : authState.userData
+      ? authState.userData.fullName
+      : ""
+  );
+  const [email, setEmail] = useState(
+    bookingData.guestInformation.email
+      ? bookingData.guestInformation.email
+      : authState.userData
+      ? authState.userData.email
+      : ""
+  );
+  const [phone, setPhone] = useState(
+    bookingData.guestInformation.phone
+      ? bookingData.guestInformation.phone
+      : authState.userData
+      ? authState.userData.phone
+      : ""
+  );
+  const [address, setAddress] = useState(
+    bookingData.guestInformation.address
+      ? bookingData.guestInformation.address
+      : ""
+  );
 
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
@@ -40,7 +67,8 @@ function GuestInformation({ onNext }: GuestInformationProps) {
 
     phone: {
       fieldName: "phone",
-      validationFunction: () => (phone ? Number.isInteger(Number(phone)) : false),
+      validationFunction: () =>
+        phone ? Number.isInteger(Number(phone)) : false,
     },
 
     address: {
@@ -131,7 +159,9 @@ function GuestInformation({ onNext }: GuestInformationProps) {
           />
         </form>
       </section>
-      <section className={`w-full h-[calc(100vh-40px)] bg-sea-10 col-span-3 p-6 z-80 border-l border-sea-20 hidden lg:flex lg:flex-col`}>
+      <section
+        className={`w-full h-[calc(100vh-40px)] bg-sea-10 col-span-3 p-6 z-80 border-l border-sea-20 hidden lg:flex lg:flex-col`}
+      >
         <Heading size={3} color="black" styles="font-light mb-6">
           Overview
         </Heading>
@@ -139,31 +169,51 @@ function GuestInformation({ onNext }: GuestInformationProps) {
           <BodyText size={2}>Room 1</BodyText>
         </div>
         <section className={`flex flex-row gap-2 justify-between`}>
-          <Image height={128} width={128} src={bookingData.selectedRoom.image} alt={bookingData.selectedRoom.name} className={`rounded-md w-16 h-12`} />
+          <Image
+            height={128}
+            width={128}
+            src={bookingData.selectedRoom.image}
+            alt={bookingData.selectedRoom.name}
+            className={`rounded-md w-16 h-12`}
+          />
           <div className={"max-w-[20ch] flex flex-col gap-1"}>
-            <Heading size={6}>{`${bookingData.selectedRoom.name} Room`}</Heading>
+            <Heading
+              size={6}
+            >{`${bookingData.selectedRoom.name} Room`}</Heading>
             <BodyText size={1} styles="text-charcoal-80">
               {bookingData.selectedPackage.name}
             </BodyText>
           </div>
           <Heading size={6} styles="min-w-max">
-            {`${(bookingData.selectedRoom.price * bookingData.selectedPackage.price).toFixed(2)} kr.`}
+            {`${(
+              bookingData.selectedRoom.price * bookingData.selectedPackage.price
+            ).toFixed(2)} kr.`}
           </Heading>
         </section>
-        <section className={`flex flex-row justify-between mb-6`}>
-          <BodyText size={1} isBold>
-            {bookingData.selectedAddons.map((a) => a.name)}
-          </BodyText>
-          <BodyText size={1} isBold>
-            {`${bookingData.selectedAddons.map((a) => a.price)} kr.`}
-          </BodyText>
+        <section className={`flex flex-col justify-between mb-6 mt-4`}>
+          {bookingData.selectedAddons.map((addon) => {
+            return (
+              <div className={`flex flex-row justify-between w-full`}>
+                <BodyText size={1} isBold>
+                  {addon.name}
+                </BodyText>
+                <BodyText size={1} isBold>
+                  {`${addon.price} kr.`}
+                </BodyText>
+              </div>
+            );
+          })}
         </section>
-        <section className={`flex flex-row justify-between border-t border-b border-sea-20 py-4`}>
+        <section
+          className={`flex flex-row justify-between border-t border-b border-sea-20 py-4`}
+        >
           <Heading size={4}>Total</Heading>
           <Heading size={4}>{`${totalPrice} kr.`}</Heading>
         </section>
       </section>
-      <section className={`absolute w-full p-6 bottom-0 left-0 border-t border-sea-20 flex flex-row justify-end bg-white`}>
+      <section
+        className={`absolute w-full p-6 bottom-0 left-0 border-t border-sea-20 flex flex-row justify-end bg-white`}
+      >
         <Button
           isActive
           color={"sea"}
@@ -172,9 +222,13 @@ function GuestInformation({ onNext }: GuestInformationProps) {
             isFormSubmitted.current = true;
             Object.entries(validators).forEach(([key, value]) => {
               if (!value.validationFunction()) {
-                setValidationErrors((prev) => Array.from(new Set([...prev, value.fieldName])));
+                setValidationErrors((prev) =>
+                  Array.from(new Set([...prev, value.fieldName]))
+                );
               } else {
-                setValidationErrors((prev) => prev.filter((e) => e !== value.fieldName));
+                setValidationErrors((prev) =>
+                  prev.filter((e) => e !== value.fieldName)
+                );
               }
             });
           }}

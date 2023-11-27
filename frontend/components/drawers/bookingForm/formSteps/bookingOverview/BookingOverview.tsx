@@ -408,13 +408,19 @@ function BookingOverview({ onNext, onPrev }: BookingOverviewProps) {
             ).toFixed(2)} kr.`}
           </Heading>
         </section>
-        <section className={`flex flex-row justify-between mb-6`}>
-          <BodyText size={1} isBold>
-            {bookingData.selectedAddons.map((a) => a.name)}
-          </BodyText>
-          <BodyText size={1} isBold>
-            {`${bookingData.selectedAddons.map((a) => a.price)} kr.`}
-          </BodyText>
+        <section className={`flex flex-col justify-between mb-6 mt-4`}>
+          {bookingData.selectedAddons.map((addon) => {
+            return (
+              <div className={`flex flex-row justify-between w-full`}>
+                <BodyText size={1} isBold>
+                  {addon.name}
+                </BodyText>
+                <BodyText size={1} isBold>
+                  {`${addon.price} kr.`}
+                </BodyText>
+              </div>
+            );
+          })}
         </section>
         <section
           className={`flex flex-row justify-between border-t border-b border-sea-20 py-4`}
