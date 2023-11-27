@@ -9,7 +9,7 @@ import ExperienceCard from "@/components/experienceCard/ExperienceCard";
 import Label from "@/components/label/Label";
 import Button from "@/components/button/Button";
 import Footer from "@/components/footer/Footer";
-import { HotelPackage as Package } from "@/utils/HotelPackage.types";
+import { HotelPackage } from "@/utils/HotelPackage.types";
 import Spinner from "@/components/spinner/Spinner";
 import { Offer } from "@/utils/offer.types";
 import { AuthContextProvider } from "@/context/AuthContext";
@@ -25,7 +25,7 @@ import PeopleCountInputDrawer from "@/components/drawers/peopleCount/PeopleCount
 
 function index() {
   const [arePkgLoading, setArePkgLoading] = useState(false);
-  const [packages, setPackages] = useState<Package[]>([]);
+  const [packages, setPackages] = useState<HotelPackage[]>([]);
   const [areOffersLoading, setAreOffersLoading] = useState(false);
   const [offers, setOffers] = useState<Offer[]>([]);
   const [sliderRef, slider] = useKeenSlider(
@@ -48,7 +48,7 @@ function index() {
     setAreOffersLoading(true);
     fetch("http://localhost:5000/packages")
       .then((response) => response.json())
-      .then((data: Package[]) => {
+      .then((data: HotelPackage[]) => {
         setPackages(data);
         setArePkgLoading(false);
       })

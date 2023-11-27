@@ -46,7 +46,7 @@ function BookingFormDrawer({ isOpen, onClose }: BookingFormDrawerProps) {
       content = <BookingOverview onNext={nextStep} onPrev={prevStep} />;
       break;
     case 6:
-      content = <BookingConfirmation />;
+      content = <BookingConfirmation onClose={onClose} setBookingFormStep={setBookingFormStep} />;
       break;
     case 7:
       break;
