@@ -14,7 +14,12 @@ function TabGroup({ activeTab, onTabChange, tabs }: TabGroupProps) {
   return (
     <div className="flex flex-row my-4">
       {tabs.map((tab) => (
-        <Label key={tab} color={activeTab === tab ? "charcoal" : "blank"} onClick={() => onTabChange(tab)} styles="font-light">
+        <Label
+          key={tab}
+          color={activeTab === tab ? "sea" : "blank"}
+          onClick={() => onTabChange(tab)}
+          styles="font-light"
+        >
           {capitalize(tab)}
         </Label>
       ))}
