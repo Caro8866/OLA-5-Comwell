@@ -23,57 +23,16 @@ export const peopleCountToString = (peopleCount: PeopleCount) => {
 type SearchWidgetProps = {
   bookingType: string;
   setBookingType: (bookingType: string) => void;
-  selectedHotel: Hotel;
-  setSelectedHotel: (hotel: Hotel) => void;
-  selectedPeopleCount: PeopleCount;
-  setSelectedPeopleCount: (peopleCount: PeopleCount) => void;
-  selectedStartDate: Date;
-  setSelectedStartDate: (startDate: Date) => void;
-  selectedEndDate: Date;
-  setSelectedEndDate: (endDate: Date) => void;
-  isHotelDrawerOpen: boolean;
-  setHotelDrawerOpen: (isOpen: boolean) => void;
-  isPeopleCountDrawerOpen: boolean;
-  setPeopleCountDrawerOpen: (isOpen: boolean) => void;
-  isDateDrawerOpen: boolean;
-  isBookingFormDrawerOpen: boolean;
-  setBookingFormDrawerOpen: (isOpen: boolean) => void;
   handleHotelDrawerOpen: () => void;
-  handleHotelDrawerClose: () => void;
-  handleHotelSelect: (hotel: Hotel) => void;
   handlePeopleCountDrawerOpen: () => void;
-  handlePeopleCountDrawerClose: () => void;
-  handlePeopleCountSelect: (selectedPeopleCount: PeopleCount) => void;
   handleDateDrawerOpen: () => void;
-  handleDateDrawerClose: () => void;
-  handleDateSelect: (startDate: Date, endDate: Date) => void;
   handleSearch: () => void;
 };
 
-function SearchWidget({
-  bookingType,
-  setBookingType,
-  selectedHotel,
-  selectedPeopleCount,
-  selectedStartDate,
-  selectedEndDate,
-  isHotelDrawerOpen,
-  isPeopleCountDrawerOpen,
-  isDateDrawerOpen,
-  isBookingFormDrawerOpen,
-  setBookingFormDrawerOpen,
-  handleHotelDrawerOpen,
-  handleHotelDrawerClose,
-  handleHotelSelect,
-  handlePeopleCountDrawerOpen,
-  handlePeopleCountDrawerClose,
-  handlePeopleCountSelect,
-  handleDateDrawerOpen,
-  handleDateDrawerClose,
-  handleDateSelect,
-  handleSearch,
-}: SearchWidgetProps) {
+function SearchWidget({ bookingType, setBookingType, handleHotelDrawerOpen, handlePeopleCountDrawerOpen, handleDateDrawerOpen, handleSearch }: SearchWidgetProps) {
   const [isBookingCodeInputVisible, setIsBookingCodeInputVisible] = useState(false);
+
+  const { bookingData, setBookingData } = useContext(BookingContext);
 
   return (
     <>
@@ -84,13 +43,13 @@ function SearchWidget({
         <TabGroup activeTab={bookingType} onTabChange={setBookingType} tabs={["accomodation", "conference", "banquet"]} />
         {bookingType === "accomodation" && (
           <form className="flex flex-col space-y-2 " onSubmit={(e) => e.preventDefault()}>
-            <InputSelect label="Hotel" onClick={handleHotelDrawerOpen} value={selectedHotel ? selectedHotel.name : "Choose hotel"} />
-            <InputSelect label="Room" onClick={handlePeopleCountDrawerOpen} value={peopleCountToString(selectedPeopleCount)} />
+            <InputSelect label="Hotel" onClick={handleHotelDrawerOpen} value={bookingData.hotel.name ? bookingData.hotel.name : "Choose hotel"} />
+            <InputSelect label="Room" onClick={handlePeopleCountDrawerOpen} value={peopleCountToString(bookingData.peopleCount)} />
             <DualInputSelect
               label1={"Check in"}
-              value1={selectedStartDate ? selectedStartDate.toLocaleDateString() : "Choose Date"}
+              value1={bookingData.startDate ? bookingData.startDate.toLocaleDateString() : "Choose Date"}
               label2={"Check out"}
-              value2={selectedEndDate ? selectedEndDate.toLocaleDateString() : "Choose Date"}
+              value2={bookingData.endDate ? bookingData.endDate.toLocaleDateString() : "Choose Date"}
               onClick={handleDateDrawerOpen}
             />
             {!isBookingCodeInputVisible && (
@@ -105,7 +64,7 @@ function SearchWidget({
             )}
             {isBookingCodeInputVisible && <InputField name="bookingCode" id="bookingCode" label="Booking code" onChange={() => alert("Feature not available yet")} value={"Enter booking code"} />}
 
-            <Button color="charcoal" isFullWidth={true} isActive={selectedHotel && selectedPeopleCount && selectedStartDate && selectedEndDate ? true : false} onClick={handleSearch} styles="flex items-center justify-center gap-x-1 font-light">
+            <Button color="charcoal" isFullWidth={true} isActive={bookingData.hotel && bookingData.startDate && bookingData.endDate ? true : false} onClick={handleSearch} styles="flex items-center justify-center gap-x-1 font-light">
               Search
               <svg xmlns="http://www.w3.org/2000/svg" height="20q" viewBox="0 -960 960 960" width="20q" fill="#fff">
                 <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
