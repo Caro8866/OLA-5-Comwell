@@ -1,4 +1,4 @@
-**tldr** -  REMEBER TO SEED DATABASE. run the seeding commands after opening your mogodb client. and then start backend
+**tldr** -  *REMEBER TO SEED DATABASE. run the seeding commands after opening your mogodb client. and then start backend
 
 ## Description
 Built using NestJs, this backend handles functionalities like user management, hotel bookings, and data management related to hotels, rooms, and packages.
