@@ -1,4 +1,4 @@
-# Comwell Next.js Frontend
+# Frontend
 
 ## Description
 The frontend is built using Next.js, TypeScript, and Tailwind CSS.
