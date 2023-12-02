@@ -1,22 +1,55 @@
+# run this command to fetch env variables from env file
+# docker-compose --env-file ./backend/.env up -d
+
 version: "3"
 services:
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-
   backend:
+    container_name: backend
     build: ./backend
     ports:
       - "5000:5000"
+    env_file:
+     - ./backend/.env
     environment:
       - DB_HOST=mongodb
-    env_file:
-      - ./backend/.env
+      - JWT_SECRET=${JWT_SECRET}
     depends_on:
       - mongodb
+    networks:
+      - app-network
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    expose: 
+      - 3000
+    volumes:
+      - ./pages/:pages/
+      - ./app/:app/
+    networks:
+      - app-network
 
   mongodb:
+    container_name: mongodb
     image: mongo:latest
     ports:
       - "27017:27017"
+    expose: 
+      - 27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "rootpassword"
+    #   add volume for MongoDB
+    volumes:
+      - mongodb_data_container:/data/db
+    networks:
+      - app-network
+
+volumes:
+  mongodb_data_container:
+#   add network for the app     
+networks: 
+  app-network:
+    driver: bridge
