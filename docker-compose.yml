@@ -1,5 +1,7 @@
 # run this command to fetch env variables from env file
-# docker-compose --env-file ./backend/.env up -d
+# docker-compose --env-file ./backend/.env up -d [service name]
+# specify [service names] if you want to only run specific ones
+
 
 version: "3"
 services:
