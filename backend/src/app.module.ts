@@ -9,10 +9,12 @@ import { HotelRoomsModule } from './hotel-rooms/hotel-rooms.module';
 import { BookingsModule } from './bookings/bookings.module';
 import { CommandModule } from 'nestjs-command';
 import { SeedsModule } from './shared/seeds.module';
+import 'dotenv/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/comwell'),
+    // get db_host from .env for mongo
+    MongooseModule.forRoot(`mongodb://${process.env.DB_HOST}:27017/comwell`),
     AuthModule,
     HotelsModule,
     UsersModule,
