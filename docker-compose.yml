@@ -2,7 +2,6 @@
 # docker-compose --env-file ./backend/.env up -d [service name]
 # specify [service names] if you want to only run specific ones
 
-
 version: "3"
 services:
   backend:
@@ -11,7 +10,7 @@ services:
     ports:
       - "5000:5000"
     env_file:
-     - ./backend/.env
+      - ./backend/.env
     environment:
       - DB_HOST=mongodb
       - JWT_SECRET=${JWT_SECRET}
@@ -25,11 +24,11 @@ services:
     build: ./frontend
     ports:
       - "3000:3000"
-    expose: 
+    expose:
       - 3000
     volumes:
-      - ./pages/:pages/
-      - ./app/:app/
+      - ./frontend/pages:/pages
+      - ./frontend/app:/app
     networks:
       - app-network
 
@@ -38,7 +37,7 @@ services:
     image: mongo:latest
     ports:
       - "27017:27017"
-    expose: 
+    expose:
       - 27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: "root"
@@ -51,7 +50,7 @@ services:
 
 volumes:
   mongodb_data_container:
-#   add network for the app     
-networks: 
+#   add network for the app
+networks:
   app-network:
     driver: bridge
