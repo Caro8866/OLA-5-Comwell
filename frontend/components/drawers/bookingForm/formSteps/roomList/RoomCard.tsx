@@ -1,6 +1,7 @@
 import BodyText from "@/components/text/bodyText/BodyText";
 import Heading from "@/components/text/heading/Heading";
 import { HotelRoom } from "@/utils/HotelRoom.types";
+import Image from "next/image";
 
 type RoomCardProps = {
   room: HotelRoom;
@@ -9,9 +10,18 @@ type RoomCardProps = {
 
 function RoomCard({ room, onSelect }: RoomCardProps) {
   return (
-    <div onClick={onSelect} className="rounded-lg border border-charcoal-20 hover:border-charcoal-40 flex flex-col md:flex-row md:items-stretch cursor-pointer overflow-hidden">
+    <div
+      onClick={onSelect}
+      className="rounded-lg border border-charcoal-20 hover:border-charcoal-40 flex flex-col md:flex-row md:items-stretch cursor-pointer overflow-hidden"
+    >
       <div className="relative h-[200px] w-full lg:h-[242px]">
-        <img alt={room.name} className="block h-full w-full object-cover" src={room.image} />
+        <Image
+          src={room.image}
+          alt={room.name}
+          objectFit="cover"
+          layout="fill"
+          className="block"
+        />
         <div className="absolute top-2 left-2 rounded-full bg-white px-2.5 py-1.5 text-xs font-semibold">
           {room.size} m<sup>2</sup>
         </div>
