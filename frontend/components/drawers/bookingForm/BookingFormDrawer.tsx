@@ -46,7 +46,12 @@ function BookingFormDrawer({ isOpen, onClose }: BookingFormDrawerProps) {
       content = <BookingOverview onNext={nextStep} onPrev={prevStep} />;
       break;
     case 6:
-      content = <BookingConfirmation onClose={onClose} setBookingFormStep={setBookingFormStep} />;
+      content = (
+        <BookingConfirmation
+          onClose={onClose}
+          setBookingFormStep={setBookingFormStep}
+        />
+      );
       break;
     case 7:
       break;
@@ -55,7 +60,13 @@ function BookingFormDrawer({ isOpen, onClose }: BookingFormDrawerProps) {
   }
 
   return (
-    <Drawer open={isOpen} onClose={onClose} direction="right" className={`rounded-l-xl relative !w-screen lg:!w-[60vw] 2xl:!w-[55vw] overflow-hidden z-60`} customIdSuffix="bookingDrawer">
+    <Drawer
+      open={isOpen}
+      onClose={onClose}
+      direction="right"
+      className={`rounded-l-xl relative !w-screen lg:!w-[60vw] 2xl:!w-[55vw] overflow-hidden z-60`}
+      customIdSuffix="bookingDrawer"
+    >
       <div className="h-full flex flex-col">
         <BookingInfoHeader bookingData={bookingData} prevStep={prevStep} />
         <div className="h-full w-full pl-4 overflow-y-scroll">{content}</div>
