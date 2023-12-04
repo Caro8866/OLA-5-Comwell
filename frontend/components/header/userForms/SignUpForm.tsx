@@ -195,7 +195,20 @@ export default function SignUpForm({
     } else {
       isFormSubmitted.current = false;
     }
-  }, [validationErrors]);
+  }, [
+    validationErrors,
+    isTermsAccepted,
+    userExists,
+    fullName,
+    zipCode,
+    loginEmail,
+    phone,
+    selectedGender,
+    loginPassword,
+    dateOfBirth,
+    toggleRegisterDrawer,
+    onSignInSuccess,
+  ]);
 
   return (
     <Drawer
@@ -214,7 +227,7 @@ export default function SignUpForm({
         </Heading>
         <BodyText size={1} styles={`mb-8 leading-snug font-medium`}>
           Become a member of Comwell Club for free and earn points everytime you
-          stay with us. You'll also receive 25 points when you sign up
+          stay with us. You&apos;ll also receive 25 points when you sign up
         </BodyText>
         <form
           // disable form default validation to not interfere with our custom validation
