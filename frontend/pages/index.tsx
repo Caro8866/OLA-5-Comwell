@@ -23,7 +23,7 @@ import DateInputDrawer from "@/components/drawers/date/DateInputDrawer";
 import HotelInputDrawer from "@/components/drawers/hotel/HotelInputDrawer";
 import PeopleCountInputDrawer from "@/components/drawers/peopleCount/PeopleCountInputDrawer";
 
-function index() {
+function Index() {
   const [arePkgLoading, setArePkgLoading] = useState(false);
   const [packages, setPackages] = useState<HotelPackage[]>([]);
   const [areOffersLoading, setAreOffersLoading] = useState(false);
@@ -284,4 +284,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;
