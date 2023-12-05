@@ -16,8 +16,12 @@ COPY . .
 # Build the app
 RUN npm run build
 
+# Copy entrypoint script and make it executable
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+
 # Expose port 5000 to the outside world
 EXPOSE 5000
 
-# Run the app when the container launches
-CMD ["npm", "start"]
+# Run the entrypoint script when the container launches
+CMD ["./entrypoint.sh"]

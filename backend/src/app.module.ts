@@ -14,7 +14,12 @@ import 'dotenv/config';
 @Module({
   imports: [
     // get db_host from .env for mongo
-    MongooseModule.forRoot(`mongodb://${process.env.DB_HOST}:27017/comwell`),
+    MongooseModule.forRoot(
+      `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.DB_HOST}:27017/comwell`,
+      {
+        authSource: 'admin',
+      },
+    ),
     AuthModule,
     HotelsModule,
     UsersModule,
