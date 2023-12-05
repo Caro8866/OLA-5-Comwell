@@ -142,7 +142,7 @@ export default function SignInForm({
           Reset password
         </span>
         <BodyText size={1} styles="text-charcoal-60 mt-2 font-regular">
-          Don't have an account?
+          Don&apos;t have an account?
         </BodyText>
         <span
           onClick={toggleRegisterDrawer}
