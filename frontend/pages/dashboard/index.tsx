@@ -5,7 +5,7 @@ import React from "react";
 
 function Index() {
   return (
-    <DashboardWrapper>
+    <DashboardWrapper active="overview">
       <main>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti unde
