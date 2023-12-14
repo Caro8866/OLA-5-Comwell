@@ -51,7 +51,7 @@ function DashboardWrapper(props: Props) {
 
       <nav
         className={`flex flex-col gap-8 w-full  h-screen fixed md:relative transition-all duration-300 ${
-          isMenuExpanded ? "md:w-[340px]" : "md:w-[64px]"
+          isMenuExpanded ? "md:w-[340px]" : "md:w-[64px] md:pr-2"
         } md:pl-0 z-30 bg-charcoal-10 text-charcoal-80 fill-charcoal-80 pt-24 px-4 text-heading-medium-mobile font-medium ${
           isMenuVisible ? "translate-x-0" : "translate-x-full md:translate-x-0 "
         }`}
@@ -82,8 +82,8 @@ function DashboardWrapper(props: Props) {
         </span>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center p-2 md:pl-4 md:rounded-r-full transition duration-300 hover:bg-charcoal-20 ${
-            !isMenuExpanded ? "justify-center" : ""
+          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-charcoal-20 ${
+            !isMenuExpanded ? "justify-center md:pl-6" : ""
           }`}
         >
           <svg
@@ -109,8 +109,8 @@ function DashboardWrapper(props: Props) {
         </Link>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center p-2 md:pl-4 md:rounded-r-full transition duration-300 hover:bg-charcoal-20 ${
-            !isMenuExpanded ? "justify-center" : "justify-start"
+          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-charcoal-20 ${
+            !isMenuExpanded ? "justify-center md:pl-6" : "justify-start"
           }`}
         >
           <svg
@@ -136,8 +136,8 @@ function DashboardWrapper(props: Props) {
         </Link>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center p-2 md:pl-4 md:rounded-r-full transition duration-300 hover:bg-charcoal-20 ${
-            !isMenuExpanded ? "justify-center" : ""
+          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-charcoal-20 ${
+            !isMenuExpanded ? "justify-center md:pl-6" : ""
           }`}
         >
           <svg
@@ -165,8 +165,8 @@ function DashboardWrapper(props: Props) {
         </Link>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center p-2 md:pl-4 md:rounded-r-full transition duration-300 hover:bg-charcoal-20 ${
-            !isMenuExpanded ? "justify-center" : ""
+          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-charcoal-20 ${
+            !isMenuExpanded ? "justify-center md:pl-6" : ""
           }`}
         >
           <svg
@@ -196,8 +196,8 @@ function DashboardWrapper(props: Props) {
         </Link>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center p-2 md:pl-4 md:rounded-r-full transition duration-300 hover:bg-charcoal-20 ${
-            !isMenuExpanded ? "justify-center" : ""
+          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-charcoal-20 ${
+            !isMenuExpanded ? "justify-center md:pl-6" : ""
           }`}
         >
           <svg
@@ -223,8 +223,8 @@ function DashboardWrapper(props: Props) {
         </Link>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center p-2 md:pl-4 md:rounded-r-full transition duration-300 hover:bg-charcoal-20 ${
-            !isMenuExpanded ? "justify-center" : ""
+          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-charcoal-20 ${
+            !isMenuExpanded ? "justify-center md:pl-6" : ""
           }`}
         >
           <svg
