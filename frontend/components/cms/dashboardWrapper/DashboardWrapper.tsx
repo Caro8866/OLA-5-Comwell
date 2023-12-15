@@ -90,7 +90,7 @@ function DashboardWrapper(props: Props) {
         <Link
           href="#"
           className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "justify-center md:pl-6" : "justify-start"
+            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
           } ${
             props.active === "overview"
               ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
@@ -111,7 +111,7 @@ function DashboardWrapper(props: Props) {
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
             }`}
           >
             Overview
@@ -120,7 +120,7 @@ function DashboardWrapper(props: Props) {
         <Link
           href="#"
           className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "justify-center md:pl-6" : "justify-start"
+            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
           } ${
             props.active === "bookings"
               ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
@@ -141,7 +141,7 @@ function DashboardWrapper(props: Props) {
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
             }`}
           >
             Bookings
@@ -150,7 +150,7 @@ function DashboardWrapper(props: Props) {
         <Link
           href="#"
           className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "justify-center md:pl-6" : "justify-start"
+            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
           } ${
             props.active === "hotels"
               ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
@@ -175,7 +175,7 @@ function DashboardWrapper(props: Props) {
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
             }`}
           >
             Hotels
@@ -184,7 +184,7 @@ function DashboardWrapper(props: Props) {
         <Link
           href="#"
           className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "justify-center md:pl-6" : "justify-start"
+            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
           } ${
             props.active === "rooms"
               ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
@@ -206,7 +206,7 @@ function DashboardWrapper(props: Props) {
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
             }`}
           >
             Rooms
@@ -215,7 +215,7 @@ function DashboardWrapper(props: Props) {
         <Link
           href="#"
           className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "justify-center md:pl-6" : "justify-start"
+            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
           } ${
             props.active === "experiences"
               ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
@@ -236,7 +236,7 @@ function DashboardWrapper(props: Props) {
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
             }`}
           >
             Experiences
@@ -245,7 +245,7 @@ function DashboardWrapper(props: Props) {
         <Link
           href="#"
           className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "justify-center md:pl-6" : "justify-start"
+            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
           } ${
             props.active === "offers"
               ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
@@ -268,7 +268,7 @@ function DashboardWrapper(props: Props) {
 
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
             }`}
           >
             Offers
@@ -277,7 +277,7 @@ function DashboardWrapper(props: Props) {
         <Link
           href="#"
           className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "justify-center md:pl-6" : "justify-start"
+            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
           } ${
             props.active === "users"
               ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
@@ -302,14 +302,16 @@ function DashboardWrapper(props: Props) {
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
             }`}
           >
             Users
           </p>
         </Link>
       </nav>
-      <main className={`p-4 lg:p-8`}>{props.children}</main>
+      <main className={`p-4 lg:p-8 bg-charcoal-20 w-full min-h-screen`}>
+        {props.children}
+      </main>
     </section>
   );
 }
