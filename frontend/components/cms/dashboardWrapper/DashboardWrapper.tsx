@@ -22,7 +22,7 @@ function DashboardWrapper(props: Props) {
     <section className={`md:flex transition`}>
       <span
         onClick={() => setIsMenuVisible(!isMenuVisible)}
-        className={`flex absolute z-50 top-4 right-4 md:hidden p-2 cursor-pointer bg-sea-20 rounded-full`}
+        className={`flex fixed z-50 top-4 right-4 md:hidden p-2 cursor-pointer bg-sea-20 rounded-full`}
       >
         {isMenuVisible ? (
           <svg
@@ -58,7 +58,7 @@ function DashboardWrapper(props: Props) {
       </span>
 
       <nav
-        className={`flex flex-col gap-8 w-full  h-screen fixed md:relative transition-all duration-300 ${
+        className={`flex flex-col gap-8 w-full h-screen fixed transition-all duration-300 ${
           isMenuExpanded ? "md:w-[340px]" : "md:w-[64px] md:pr-2"
         } md:pl-0 z-30 bg-slate-50 text-charcoal-80 fill-charcoal-80 pt-24 px-4 text-heading-medium-mobile font-medium ${
           isMenuVisible ? "translate-x-0" : "translate-x-full md:translate-x-0 "
@@ -309,7 +309,11 @@ function DashboardWrapper(props: Props) {
           </p>
         </Link>
       </nav>
-      <main className={`p-4 lg:p-8 bg-charcoal-20 w-full min-h-screen`}>
+      <main
+        className={`p-4 lg:p-8 bg-charcoal-20 w-full min-h-screen h-[200vh] transition duration-300 ${
+          isMenuExpanded ? "md:ml-[340px]" : "md:ml-[64px]"
+        }`}
+      >
         {props.children}
       </main>
     </section>
