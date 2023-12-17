@@ -23,5 +23,8 @@ RUN npm run build
 # Expose port 5000 to the outside world
 EXPOSE 5000
 
+# Run the server
+# RUN npm run start
+
 # # Run the entrypoint script when the container launches
 # CMD ["./entrypoint.sh"]
