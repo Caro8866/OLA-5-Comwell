@@ -11,6 +11,7 @@ OLA 5 Comwell is a project developed as part of our studies in Web Development @
 2. Navigate to the project directory: `cd OLA-5-Comwell
 
 3. Open up a MongoDB connection. `$ brew services start mongodb/brew/mongodb-community`
+
 4. Navigate to the backend directory and follow the instructions in its README: `cd backend`
 
 5. Navigate to the frontend directory and follow the setup instructions in its README: `cd frontend`
@@ -22,6 +23,10 @@ Located in `/frontend`, the frontend application is built with Next.js, TypeScri
 ## Backend
 
 Located in `/backend`, the backend service utilizes Nest.js, Mongoose, and TypeScript, with MongoDB as the database. For setup and usage instructions, refer to the backend README.
+
+## Docker
+
+Docker setup includes a docker-compose file, it will contenerize frontend, backend and mongodb. To start the process run `docker-compose --env-file ./backend/.env up -d` in the ROOT directory of this repository. NB! Remember to create a .env file in `/backend`, if you require the data to be seeded, please follow the guide outlined in `/backend`. Afterwards run the server by executing `npm run start`.
 
 ## Acknowledgements
 
