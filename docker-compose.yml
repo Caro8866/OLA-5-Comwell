@@ -1,6 +1,8 @@
-# run this command to fetch env variables from env file
-# docker-compose --env-file ./backend/.env up -d [service name]
-# specify [service names] if you want to only run specific ones
+# run this command to fetch env variables from env file and create all required containers
+# docker-compose --env-file ./backend/.env up -d
+
+# specify service name if you want to only run specific ones
+# docker-compose --env-file ./backend/.env up -d service name
 
 version: "3"
 services:
@@ -12,10 +14,11 @@ services:
       - "5000:5000"
     env_file:
       - ./backend/.env
-    #associate the host environment variable with mongodb container
     environment:
+      #connects backend to mongodb container
       - DB_HOST=mongodb
-      - JWT_SECRET="${JWT_SECRET}"
+      #JWT_SECRET fetched from .env file in backend
+      - JWT_SECRET=${JWT_SECRET}
     depends_on:
       - mongodb
     networks:
@@ -41,15 +44,16 @@ services:
       - "27017:27017"
     expose:
       - 27017
-    #   add volume for MongoDB
+    #   link volume for mongodb
     volumes:
       - mongodb_data_container:/data/db
     networks:
       - app-network
 
 volumes:
+  #volume for mongodb
   mongodb_data_container:
-#   add network for the app
 networks:
+  #network linking containers
   app-network:
     driver: bridge
