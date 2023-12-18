@@ -26,7 +26,7 @@ Located in `/backend`, the backend service utilizes Nest.js, Mongoose, and TypeS
 
 ## Docker
 
-Docker setup includes a docker-compose file, it will contenerize frontend, backend and mongodb. To start the process run `docker-compose --env-file ./backend/.env up -d` in the ROOT directory of this repository. NB! Remember to create a .env file in `/backend`, if you require the data to be seeded, please follow the guide outlined in `/backend`. Afterwards run the server by executing `npm run start` in the backend container.
+Docker setup includes a docker-compose file, it will containerize frontend, backend and mongodb. To start the process run `docker-compose --env-file ./backend/.env up -d` in the ROOT directory of this repository. NB! Remember to create a .env file in `/backend`, if you require the data to be seeded, please follow the guide outlined in `/backend`. Afterwards run the server by executing `npm run start` in the backend container.
 
 ## Acknowledgements
 
