@@ -6,7 +6,7 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
-  app.enableCors({origin: "*"});
+  app.enableCors({origin: "http://localhost:3000", credentials: true, allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe, authorization',});
   app.use(cookieParser());
   await app.listen(5000);
   console.log('Server is now live.');
@@ -15,3 +15,4 @@ async function bootstrap() {
   );
 }
 bootstrap();
+ 
