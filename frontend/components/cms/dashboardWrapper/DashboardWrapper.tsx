@@ -19,10 +19,10 @@ function DashboardWrapper(props: Props) {
   const [isMenuExpanded, setIsMenuExpanded] = useState(true);
 
   return (
-    <section className={`md:flex transition`}>
+    <section className={`lg:flex transition`}>
       <span
         onClick={() => setIsMenuVisible(!isMenuVisible)}
-        className={`flex fixed z-50 top-4 right-4 md:hidden p-2 cursor-pointer bg-sea-20 rounded-full`}
+        className={`flex fixed z-50 top-4 right-4 lg:hidden p-2 cursor-pointer bg-sea-20 rounded-full`}
       >
         {isMenuVisible ? (
           <svg
@@ -59,13 +59,13 @@ function DashboardWrapper(props: Props) {
 
       <nav
         className={`flex flex-col gap-8 w-full h-screen fixed transition-all duration-300 ${
-          isMenuExpanded ? "md:w-[340px]" : "md:w-[64px] md:pr-2"
-        } md:pl-0 z-30 bg-slate-50 text-charcoal-80 fill-charcoal-80 pt-24 px-4 text-heading-medium-mobile font-medium ${
-          isMenuVisible ? "translate-x-0" : "translate-x-full md:translate-x-0 "
-        } md:border-r`}
+          isMenuExpanded ? "lg:w-[340px]" : "lg:w-[64px] lg:pr-2"
+        } lg:pl-0 z-30 bg-slate-50 text-charcoal-80 fill-charcoal-80 pt-24 px-4 text-heading-medium-mobile font-medium ${
+          isMenuVisible ? "translate-x-0" : "translate-x-full lg:translate-x-0 "
+        } lg:border-r`}
       >
         <span
-          className={`hidden md:flex absolute top-8 cursor-pointer transition-all duration-500 rounded-full p-2 hover:bg-sea-20 ${
+          className={`hidden lg:flex absolute top-8 cursor-pointer transition-all duration-500 rounded-full p-2 hover:bg-sea-20 ${
             !isMenuExpanded ? "right-3" : "right-8"
           }`}
           onClick={() => setIsMenuExpanded(!isMenuExpanded)}
@@ -89,11 +89,11 @@ function DashboardWrapper(props: Props) {
         </span>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
+          className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
+            !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
             props.active === "overview"
-              ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
+              ? "lg:bg-sea-80 lg:text-slate-50 hover:text-charcoal-80 duration-300"
               : ""
           }`}
         >
@@ -104,14 +104,14 @@ function DashboardWrapper(props: Props) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={`min-w-[30px] min-h-[30px] flex transition duration-300 ${
-              props.active === "overview" ? "md:fill-slate-50" : ""
+              props.active === "overview" ? "lg:fill-slate-50" : ""
             } fill-charcoal-80 group-hover:fill-charcoal-80`}
           >
             <path d="M12.4592 1.66043C12.3261 1.55655 12.1621 1.50012 11.9932 1.50012C11.8243 1.50012 11.6603 1.55655 11.5272 1.66043L0.75 10.0646L1.68203 11.2434L3 10.2158V19.5001C3.00081 19.8977 3.15911 20.2787 3.44024 20.5598C3.72137 20.841 4.10242 20.9993 4.5 21.0001H19.5C19.8976 20.9993 20.2787 20.8411 20.5599 20.5599C20.841 20.2788 20.9993 19.8977 21 19.5001V10.2226L22.318 11.2501L23.25 10.0712L12.4592 1.66043ZM13.5 19.5001H10.5V13.5001H13.5V19.5001ZM15 19.5001V13.5001C14.9995 13.1024 14.8414 12.7211 14.5602 12.4399C14.279 12.1587 13.8977 12.0005 13.5 12.0001H10.5C10.1023 12.0005 9.721 12.1586 9.43978 12.4399C9.15856 12.7211 9.0004 13.1024 9 13.5001V19.5001H4.5V9.04621L12 3.20371L19.5 9.05408V19.5001H15Z" />
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "lg:w-0 overflow-hidden"
             }`}
           >
             Overview
@@ -119,11 +119,11 @@ function DashboardWrapper(props: Props) {
         </Link>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
+          className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
+            !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
             props.active === "bookings"
-              ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
+              ? "lg:bg-sea-80 lg:text-slate-50 hover:text-charcoal-80 duration-300"
               : ""
           }`}
         >
@@ -134,14 +134,14 @@ function DashboardWrapper(props: Props) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={`min-w-[30px] min-h-[30px] flex transition duration-300 ${
-              props.active === "bookings" ? "md:fill-slate-50" : ""
+              props.active === "bookings" ? "lg:fill-slate-50" : ""
             } fill-charcoal-80 group-hover:fill-charcoal-80`}
           >
             <path d="M19.5 3H16.5V1.5H15V3H9V1.5H7.5V3H4.5C3.675 3 3 3.675 3 4.5V19.5C3 20.325 3.675 21 4.5 21H19.5C20.325 21 21 20.325 21 19.5V4.5C21 3.675 20.325 3 19.5 3ZM19.5 19.5H4.5V9H19.5V19.5ZM19.5 7.5H4.5V4.5H7.5V6H9V4.5H15V6H16.5V4.5H19.5V7.5Z" />
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "lg:w-0 overflow-hidden"
             }`}
           >
             Bookings
@@ -149,11 +149,11 @@ function DashboardWrapper(props: Props) {
         </Link>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
+          className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
+            !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
             props.active === "hotels"
-              ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
+              ? "lg:bg-sea-80 lg:text-slate-50 hover:text-charcoal-80 duration-300"
               : ""
           }`}
         >
@@ -164,7 +164,7 @@ function DashboardWrapper(props: Props) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={`min-w-[30px] min-h-[30px] flex transition duration-300 ${
-              props.active === "hotels" ? "md:fill-slate-50" : ""
+              props.active === "hotels" ? "lg:fill-slate-50" : ""
             } fill-charcoal-80 group-hover:fill-charcoal-80`}
           >
             <path
@@ -175,7 +175,7 @@ function DashboardWrapper(props: Props) {
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "lg:w-0 overflow-hidden"
             }`}
           >
             Hotels
@@ -183,11 +183,11 @@ function DashboardWrapper(props: Props) {
         </Link>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
+          className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
+            !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
             props.active === "rooms"
-              ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
+              ? "lg:bg-sea-80 lg:text-slate-50 hover:text-charcoal-80 duration-300"
               : ""
           }`}
         >
@@ -198,7 +198,7 @@ function DashboardWrapper(props: Props) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={`min-w-[30px] min-h-[30px] flex transition duration-300 ${
-              props.active === "rooms" ? "md:fill-slate-50" : ""
+              props.active === "rooms" ? "lg:fill-slate-50" : ""
             } fill-charcoal-80 group-hover:fill-charcoal-80`}
           >
             <path d="M18.75 7.5H12.75C12.3523 7.50046 11.9711 7.65864 11.6898 7.93984C11.4086 8.22105 11.2505 8.60232 11.25 9V13.5H3V4H1.5V21H3V15H21V21H22.5V11.25C22.4988 10.2558 22.1034 9.30265 21.4004 8.59964C20.6973 7.89664 19.7442 7.50117 18.75 7.5ZM21 13.5H12.75V9H18.75C19.3465 9.00066 19.9185 9.23792 20.3403 9.65973C20.7621 10.0815 20.9993 10.6535 21 11.25V13.5Z" />
@@ -206,7 +206,7 @@ function DashboardWrapper(props: Props) {
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "lg:w-0 overflow-hidden"
             }`}
           >
             Rooms
@@ -214,11 +214,11 @@ function DashboardWrapper(props: Props) {
         </Link>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
+          className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
+            !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
             props.active === "experiences"
-              ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
+              ? "lg:bg-sea-80 lg:text-slate-50 hover:text-charcoal-80 duration-300"
               : ""
           }`}
         >
@@ -229,14 +229,14 @@ function DashboardWrapper(props: Props) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={`min-w-[30px] min-h-[30px] flex transition duration-300 ${
-              props.active === "experiences" ? "md:fill-slate-50" : ""
+              props.active === "experiences" ? "lg:fill-slate-50" : ""
             } fill-charcoal-80 group-hover:fill-charcoal-80`}
           >
             <path d="M19.5 7.25073H17.4287C17.9169 6.52921 18.1062 5.6465 17.9569 4.78825C17.8076 3.93 17.3313 3.1631 16.6281 2.64886C15.9249 2.13461 15.0497 1.91311 14.1866 2.03093C13.3234 2.14875 12.5396 2.59672 12 3.2806C11.4592 2.6001 10.6761 2.15523 9.8146 2.03917C8.95315 1.92311 8.08021 2.14486 7.37858 2.65797C6.67696 3.17108 6.20107 3.93576 6.05059 4.79187C5.9001 5.64797 6.08669 6.5291 6.57127 7.25073H4.5C4.10233 7.25122 3.72109 7.40942 3.43989 7.69061C3.15869 7.97181 3.0005 8.35305 3 8.75073V11.7507C3.0005 12.1484 3.15869 12.5296 3.43989 12.8108C3.72109 13.092 4.10233 13.2502 4.5 13.2507V20.7507C4.5005 21.1484 4.65869 21.5296 4.93989 21.8108C5.22109 22.092 5.60233 22.2502 6 22.2507H18C18.3977 22.2502 18.7789 22.092 19.0601 21.8108C19.3413 21.5296 19.4995 21.1484 19.5 20.7507V13.2507C19.8977 13.2502 20.2789 13.092 20.5601 12.8108C20.8413 12.5296 20.9995 12.1484 21 11.7507V8.75073C20.9995 8.35305 20.8413 7.97181 20.5601 7.69061C20.2789 7.40942 19.8977 7.25122 19.5 7.25073ZM12.75 5.37573C12.75 5.00489 12.86 4.64237 13.066 4.33403C13.272 4.02569 13.5649 3.78537 13.9075 3.64345C14.2501 3.50154 14.6271 3.46441 14.9908 3.53675C15.3545 3.6091 15.6886 3.78768 15.9508 4.0499C16.213 4.31212 16.3916 4.64622 16.464 5.00993C16.5363 5.37365 16.4992 5.75065 16.3573 6.09326C16.2154 6.43587 15.975 6.7287 15.6667 6.93473C15.3584 7.14076 14.9958 7.25073 14.625 7.25073H12.75V5.37573ZM9.375 3.50073C9.8721 3.50132 10.3487 3.69906 10.7002 4.05056C11.0517 4.40206 11.2494 4.87863 11.25 5.37573V7.25073H9.375C8.87772 7.25073 8.40081 7.05318 8.04917 6.70155C7.69754 6.34992 7.5 5.87301 7.5 5.37573C7.5 4.87845 7.69754 4.40153 8.04917 4.0499C8.40081 3.69827 8.87772 3.50073 9.375 3.50073ZM4.5 8.75073H11.25V11.7507H4.5V8.75073ZM6 13.2507H11.25V20.7507H6V13.2507ZM18.0009 20.7507H12.75V13.2507H18L18.0009 20.7507ZM12.75 11.7507V8.75073H19.5L19.5009 11.7507H12.75Z" />
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "lg:w-0 overflow-hidden"
             }`}
           >
             Experiences
@@ -244,11 +244,11 @@ function DashboardWrapper(props: Props) {
         </Link>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
+          className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
+            !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
             props.active === "offers"
-              ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
+              ? "lg:bg-sea-80 lg:text-slate-50 hover:text-charcoal-80 duration-300"
               : ""
           }`}
         >
@@ -259,7 +259,7 @@ function DashboardWrapper(props: Props) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={`min-w-[30px] min-h-[30px] flex transition duration-300 ${
-              props.active === "offers" ? "md:fill-slate-50" : ""
+              props.active === "offers" ? "lg:fill-slate-50" : ""
             } fill-charcoal-80 group-hover:fill-charcoal-80`}
           >
             <path d="M21.75 10.5C21.9489 10.5 22.1397 10.421 22.2803 10.2803C22.421 10.1397 22.5 9.94891 22.5 9.75V6C22.5 5.60218 22.342 5.22064 22.0607 4.93934C21.7794 4.65804 21.3978 4.5 21 4.5H3C2.60218 4.5 2.22064 4.65804 1.93934 4.93934C1.65804 5.22064 1.5 5.60218 1.5 6V9.75C1.5 9.94891 1.57902 10.1397 1.71967 10.2803C1.86032 10.421 2.05109 10.5 2.25 10.5C2.64782 10.5 3.02936 10.658 3.31066 10.9393C3.59196 11.2206 3.75 11.6022 3.75 12C3.75 12.3978 3.59196 12.7794 3.31066 13.0607C3.02936 13.342 2.64782 13.5 2.25 13.5C2.05109 13.5 1.86032 13.579 1.71967 13.7197C1.57902 13.8603 1.5 14.0511 1.5 14.25V18C1.5 18.3978 1.65804 18.7794 1.93934 19.0607C2.22064 19.342 2.60218 19.5 3 19.5H21C21.3978 19.5 21.7794 19.342 22.0607 19.0607C22.342 18.7794 22.5 18.3978 22.5 18V14.25C22.5 14.0511 22.421 13.8603 22.2803 13.7197C22.1397 13.579 21.9489 13.5 21.75 13.5C21.3522 13.5 20.9706 13.342 20.6893 13.0607C20.408 12.7794 20.25 12.3978 20.25 12C20.25 11.6022 20.408 11.2206 20.6893 10.9393C20.9706 10.658 21.3522 10.5 21.75 10.5ZM21 14.9025V18H15.75V15.75H14.25V18H3V14.9025C3.642 14.7347 4.21025 14.3588 4.61582 13.8336C5.02139 13.3084 5.24139 12.6636 5.24139 12C5.24139 11.3364 5.02139 10.6916 4.61582 10.1664C4.21025 9.64121 3.642 9.2653 3 9.0975V6H14.25V8.25H15.75V6H21V9.0975C20.358 9.2653 19.7898 9.64121 19.3842 10.1664C18.9786 10.6916 18.7586 11.3364 18.7586 12C18.7586 12.6636 18.9786 13.3084 19.3842 13.8336C19.7898 14.3588 20.358 14.7347 21 14.9025Z" />
@@ -268,7 +268,7 @@ function DashboardWrapper(props: Props) {
 
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "lg:w-0 overflow-hidden"
             }`}
           >
             Offers
@@ -276,11 +276,11 @@ function DashboardWrapper(props: Props) {
         </Link>
         <Link
           href="#"
-          className={`flex flex-row gap-2 align-center md:p-2 md:pl-4 md:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
-            !isMenuExpanded ? "md:justify-center md:pl-6" : "md:justify-start"
+          className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
+            !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
             props.active === "users"
-              ? "md:bg-sea-80 md:text-slate-50 hover:text-charcoal-80 duration-300"
+              ? "lg:bg-sea-80 lg:text-slate-50 hover:text-charcoal-80 duration-300"
               : ""
           }`}
         >
@@ -291,7 +291,7 @@ function DashboardWrapper(props: Props) {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className={`min-w-[30px] min-h-[30px] flex transition duration-300 ${
-              props.active === "users" ? "md:fill-slate-50" : ""
+              props.active === "users" ? "lg:fill-slate-50" : ""
             } fill-charcoal-80 group-hover:fill-charcoal-80`}
           >
             <path
@@ -302,7 +302,7 @@ function DashboardWrapper(props: Props) {
           </svg>
           <p
             className={`flex items-center transition-all duration-500 ${
-              isMenuExpanded ? "w-full" : "md:w-0 overflow-hidden"
+              isMenuExpanded ? "w-full" : "lg:w-0 overflow-hidden"
             }`}
           >
             Users
@@ -310,8 +310,8 @@ function DashboardWrapper(props: Props) {
         </Link>
       </nav>
       <main
-        className={`p-4 lg:p-8 bg-charcoal-20 w-full min-h-screen h-[200vh] transition duration-300 ${
-          isMenuExpanded ? "md:ml-[340px]" : "md:ml-[64px]"
+        className={`p-4 lg:p-8 xl:px-12 2xl:px-36 bg-sea-20 w-full min-h-screen box-border h-[100%] transition duration-300 ${
+          isMenuExpanded ? "lg:ml-[340px]" : "lg:ml-[64px]"
         }`}
       >
         {props.children}
