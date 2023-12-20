@@ -2,8 +2,10 @@ import "@/app/globals.css";
 import Button from "@/components/button/Button";
 import BookingList from "@/components/cms/bookingList/BookingList";
 import DashboardWrapper from "@/components/cms/dashboardWrapper/DashboardWrapper";
+import HotelList from "@/components/cms/hotelList/HotelList";
 import Spinner from "@/components/spinner/Spinner";
 import Heading from "@/components/text/heading/Heading";
+import { Hotel } from "@/utils/Hotel.types";
 import Link from "next/link";
 
 import React from "react";
@@ -13,13 +15,29 @@ function Index() {
   const [areBookingsLoading, setAreBookingsLoading] = useState(false);
   const [bookings, setBookings] = useState<any[]>();
 
+  const [areHotelsLoading, setAreHotelsLoading] = useState(false);
+  const [hotels, setHotels] = useState<Hotel[]>();
+
   useEffect(() => {
+    // BOOKINGS FETCH
     setAreBookingsLoading(true);
     fetch("http://localhost:5000/bookings")
       .then((response) => response.json())
       .then((data: any[]) => {
         setBookings(data);
         setAreBookingsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // HOTEL FETCH
+    setAreHotelsLoading(true);
+    fetch("http://localhost:5000/hotels")
+      .then((response) => response.json())
+      .then((data: any[]) => {
+        setHotels(data);
+        setAreHotelsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -31,7 +49,7 @@ function Index() {
       <div className={`grid grid-cols-2 gap-4`}>
         <section className={`w-full h-36 col-span-2`}>Hello whatever</section>
         <section
-          className={`w-full bg-slate-50 rounded-lg  px-2 lg:px-8 py-4 flex flex-col lg:col-span-2`}
+          className={`w-full bg-slate-50 rounded-lg  px-2 lg:px-8 py-4 flex flex-col col-span-2`}
         >
           <header className={`flex flex-row justify-between items-center`}>
             <Heading size={4} styles="text-charcoal-80">
@@ -97,6 +115,16 @@ function Index() {
               </svg>
             </Link>
           </header>
+          {areHotelsLoading && <Spinner />}
+          {!areHotelsLoading && hotels && hotels.length === 0 ? (
+            <p
+              className={`flex w-full justify-center p-4 font-semibold text-sea-60`}
+            >
+              No bookings found
+            </p>
+          ) : (
+            <HotelList hotels={hotels} />
+          )}
         </section>
         <section
           className={`w-full bg-slate-50 rounded-lg px-2 lg:px-8 py-4 flex flex-col col-span-2 xl:col-span-1 row-span-2`}
@@ -128,7 +156,7 @@ function Index() {
           </header>
         </section>
         <section
-          className={`w-full bg-slate-50 rounded-lg  px-2 lg:px-8 py-4 flex flex-col col-span-1 col-span-2 xl:col-span-1`}
+          className={`w-full bg-slate-50 rounded-lg  px-2 lg:px-8 py-4 flex flex-col col-span-2 xl:col-span-1`}
         >
           <header className={`flex flex-row justify-between items-center`}>
             <Heading size={4} styles="text-charcoal-80">
@@ -155,6 +183,18 @@ function Index() {
               </svg>
             </Link>
           </header>
+        </section>
+        <section
+          className={`w-full bg-slate-50 rounded-lg px-2 lg:px-8 py-4 flex justify-between items-center flex-row col-span-2`}
+        >
+          <p className={`text-sea-60`}>2023 &copy; Group 8</p>
+          <Link
+            href="https://github.com/relcnob/OLA-5-Comwell"
+            className={`text-trumpet-desktop text-sea-80 underline`}
+            target="_blank"
+          >
+            Found issues? Report them here.
+          </Link>
         </section>
       </div>
     </DashboardWrapper>

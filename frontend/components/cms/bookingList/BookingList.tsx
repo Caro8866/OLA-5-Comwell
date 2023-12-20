@@ -6,7 +6,6 @@ type Props = {
 };
 
 function BookingList(props: Props) {
-  console.log(props.bookings);
   return (
     <section className={`flex flex-col gap-2 py-4 max-h-96 overflow-y-scroll`}>
       <header
