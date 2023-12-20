@@ -1,52 +1,57 @@
-import Heading from "@/components/text/heading/Heading";
-import { Hotel } from "@/utils/Hotel.types";
-import Image from "next/image";
-import Link from "next/link";
+import { HotelRoom } from "@/utils/HotelRoom.types";
 import React from "react";
+import Image from "next/image";
+import Heading from "@/components/text/heading/Heading";
+import Link from "next/link";
 
 type Props = {
-  hotels: Hotel[] | undefined;
+  rooms: HotelRoom[] | undefined;
 };
 
-function HotelList(props: Props) {
+function RoomsList(props: Props) {
   return (
     <div className="relative">
       <div
         className={`absolute bottom-0 left-0 w-full h-6 z-10 bg-gradient-to-b from-transparent to-slate-50`}
       ></div>
       <div
-        className={`flex flex-col gap-2 pt-4 max-h-52 overflow-y-scroll relative pb-6`}
+        className={`flex flex-col gap-2 pt-4 max-h-52 xl:max-h-[32rem] overflow-y-scroll relative pb-6`}
       >
-        {props.hotels &&
-          props.hotels.length &&
-          props.hotels.map((hotel) => (
+        {props.rooms &&
+          props.rooms.length &&
+          props.rooms.map((room) => (
             <article
               className={`rounded border h-32 flex flex-row items-center border-box`}
-              key={hotel._id}
+              key={room._id}
             >
               <Image
                 height={60}
                 width={100}
-                src={hotel.image}
-                alt={hotel.name}
+                src={room.image}
+                alt={room.name}
                 className={`flex object-cover rounded-l h-auto aspect-[4/3] w-[82px]`}
               />
               <div
-                className={`flex flex-row items-center justify-between w-full pr-4 md:pr-2 xl:pr-4`}
+                className={`grid grid-cols-12 items-center justify-between w-full pr-4 md:pr-2 xl:pr-4`}
               >
-                <div className={`flex flex-col gap-1 ml-2`}>
-                  <Heading size={6}>{hotel.name}</Heading>
+                <div className={`flex flex-col gap-1 ml-2 col-span-6`}>
+                  <Heading size={6}>{room.name}</Heading>
                   <p
                     className={`text-trumpet-desktop font-medium text-charcoal-60`}
                   >
-                    {hotel.region}
+                    {`${room.size} m2`}
                   </p>
                 </div>
                 <div
-                  className={`flex flex-row items-center gap-2 md:gap-4 justify-self-end`}
+                  className={`col-span-2 flex md:text-trumpet-desktop lg:flex items-center justify-end font-medium`}
+                >
+                  {`${room.price} DKK`}
+                </div>
+                <div
+                  className={`flex flex-row items-center gap-2 md:gap-4 justify-self-end col-span-4`}
                 >
                   <Link
-                    href={`/dashboard/hotels/${hotel._id}`}
+                    href={`/dashboard/rooms/${room._id}`}
                     className={`flex justify-center items-center border rounded-full p-2 group hover:bg-sea-80 hover:border-sea-80 transition`}
                   >
                     <svg
@@ -88,4 +93,4 @@ function HotelList(props: Props) {
   );
 }
 
-export default HotelList;
+export default RoomsList;

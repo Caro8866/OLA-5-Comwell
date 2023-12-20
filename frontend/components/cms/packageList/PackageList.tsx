@@ -1,14 +1,13 @@
 import Heading from "@/components/text/heading/Heading";
-import { Hotel } from "@/utils/Hotel.types";
+import { HotelPackage } from "@/utils/HotelPackage.types";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-
 type Props = {
-  hotels: Hotel[] | undefined;
+  packages: HotelPackage[] | undefined;
 };
 
-function HotelList(props: Props) {
+function PackageList(props: Props) {
   return (
     <div className="relative">
       <div
@@ -17,36 +16,36 @@ function HotelList(props: Props) {
       <div
         className={`flex flex-col gap-2 pt-4 max-h-52 overflow-y-scroll relative pb-6`}
       >
-        {props.hotels &&
-          props.hotels.length &&
-          props.hotels.map((hotel) => (
+        {props.packages &&
+          props.packages.length &&
+          props.packages.map((pkg) => (
             <article
               className={`rounded border h-32 flex flex-row items-center border-box`}
-              key={hotel._id}
+              key={pkg._id}
             >
               <Image
                 height={60}
                 width={100}
-                src={hotel.image}
-                alt={hotel.name}
+                src={pkg.image}
+                alt={pkg.name}
                 className={`flex object-cover rounded-l h-auto aspect-[4/3] w-[82px]`}
               />
               <div
                 className={`flex flex-row items-center justify-between w-full pr-4 md:pr-2 xl:pr-4`}
               >
                 <div className={`flex flex-col gap-1 ml-2`}>
-                  <Heading size={6}>{hotel.name}</Heading>
+                  <Heading size={6}>{pkg.name}</Heading>
                   <p
                     className={`text-trumpet-desktop font-medium text-charcoal-60`}
                   >
-                    {hotel.region}
+                    {pkg.type}
                   </p>
                 </div>
                 <div
                   className={`flex flex-row items-center gap-2 md:gap-4 justify-self-end`}
                 >
                   <Link
-                    href={`/dashboard/hotels/${hotel._id}`}
+                    href={`/dashboard/hotels/${pkg._id}`}
                     className={`flex justify-center items-center border rounded-full p-2 group hover:bg-sea-80 hover:border-sea-80 transition`}
                   >
                     <svg
@@ -88,4 +87,4 @@ function HotelList(props: Props) {
   );
 }
 
-export default HotelList;
+export default PackageList;
