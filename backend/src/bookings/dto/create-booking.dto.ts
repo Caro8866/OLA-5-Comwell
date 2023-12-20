@@ -33,6 +33,9 @@ export class CreateBookingDto {
   @IsNotEmpty({ message: 'Hotel package must be selected' })
   hotelPackageId: string;
 
+  @IsNotEmpty({ message: 'Guests cannot be empty' })
+  peopleCount: { adults: number; children: number; infants: number };
+
   @IsOptional()
   addons: {
     name: string;
@@ -70,6 +73,7 @@ export class CreateBookingDto {
       name: string;
       price: number;
     }[],
+    peopleCount: { adults: number; children: number; infants: number },
     guest: Guest,
     termsAccepted: boolean,
     price: number,
@@ -84,6 +88,7 @@ export class CreateBookingDto {
     this.checkOutDate = checkOutDate;
     this.hotelPackageId = hotelPackageId;
     this.addons = addons;
+    this.peopleCount = peopleCount;
     this.guest = guest;
     this.price = price;
     this.termsAccepted = termsAccepted;
