@@ -3,8 +3,6 @@ import { HydratedDocument } from 'mongoose';
 import { HotelRoom } from 'src/hotel-rooms/schemas/hotel-room.schema';
 import { Guest } from './guest.schema';
 import { Booker } from './booker.schema';
-import { Hotel } from 'src/hotels/schemas/hotel.schema';
-import { HotelPackage } from 'src/hotel-packages/schemas/package.schema';
 export type BookingDocument = HydratedDocument<Booking>;
 
 @Schema()
@@ -13,7 +11,7 @@ export class Booking {
   bookingType: string;
 
   @Prop()
-  hotel: Hotel;
+  hotelId: string;
 
   @Prop()
   rooms: HotelRoom[];
@@ -25,13 +23,16 @@ export class Booking {
   checkOutDate: Date;
 
   @Prop()
-  hotelPackage: HotelPackage;
+  hotelPackageId: string;
 
   @Prop({ type: Array })
   addons: {
     name: string;
     price: number;
   }[];
+
+  @Prop({ type: Object })
+  peopleCount: { adults: number; children: number; infants: number };
 
   @Prop()
   guest: Guest;

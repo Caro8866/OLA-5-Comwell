@@ -81,7 +81,7 @@ export class HotelsCommand {
         The beautiful location, the Fireplace Bar, Restaurant Brasseriet, and the large terrace make it an attractive place to meet - both for private and business guests.
         
         The hotel is spread across various buildings and is beautifully located on a slope. This means that there are stairs to all rooms, and the hotel is therefore not suitable for guests with limited mobility or disabilities.`,
-        `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/cho/udendoers/comwell-holte-061.jpg/3db33078ba1088c86ef0ea90a140b4f9.jpg`,
+        `https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/hoteller/cho/udendoers/comwell-holte-061.jpg/048888665ca5337cfc9e85f85b7995a7.webp`,
         `Our rooms are furnished with all modern conveniences and in the Nordic style. The appearance varies and not all rooms look exactly like the picture. We have 112 rooms in total - 6 junior suites, 34 superior rooms, 45 standard rooms with a double bed and 32 standard rooms with two single beds (these rooms are located on the hotel's top level in the annexe). `,
         true,
         true,
