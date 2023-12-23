@@ -10,6 +10,8 @@ import Button from "@/components/button/Button";
 import Link from "next/link";
 
 function Page() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalContent, setModalContent] = useState("update");
   const [isRoomDataLoading, setIsRoomDataLoading] = useState(false);
   const [roomData, setRoomData] = useState<HotelRoom>();
   const [formData, setFormData] = useState<HotelRoom>({
@@ -32,7 +34,6 @@ function Page() {
           setRoomData(data);
           setFormData(data);
           setIsRoomDataLoading(false);
-          console.log(data);
         })
         .catch((err) => {
           console.log(err);
@@ -52,7 +53,26 @@ function Page() {
     fetch(`http://localhost:5000/hotel-rooms/${slug}`, options)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        setModalContent("update");
+        setIsModalVisible(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function deleteRoom() {
+    const options = {
+      method: "DELETE",
+    };
+    fetch(`http://localhost:5000/hotel-rooms/${slug}`, options)
+      .then((response) => response.json())
+      .then((res) => {
+        setModalContent("delete");
+        setIsModalVisible(true);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -105,6 +125,47 @@ function Page() {
 
   return (
     <div>
+      <div
+        className={`fixed w-full h-screen z-50 items-center justify-center bg-sea-80 bg-opacity-50 ${
+          isModalVisible ? "flex" : "hidden"
+        }`}
+      >
+        <section className={`p-4 bg-white rounded-lg border`}>
+          <Heading size={5} styles="mb-6 justify-center flex w-full">
+            {`Entry ${
+              modalContent == "update" ? "updated" : "removed"
+            } successfully`}
+          </Heading>
+          {modalContent === "update" && (
+            <div className={`flex flex-row gap-4 items-center justify-between`}>
+              <Button
+                color="outline"
+                isActive
+                isSmall
+                onClick={() => setIsModalVisible(false)}
+              >
+                Close
+              </Button>
+              <Link
+                href={"/dashboard/rooms"}
+                className={`flex px-6 py-2 rounded-full bg-sea-80 hover:bg-sea-100 transition text-slate-50`}
+              >
+                Back to rooms
+              </Link>
+            </div>
+          )}
+          {modalContent === "delete" && (
+            <div className={`flex flex-row gap-4 items-center justify-center`}>
+              <Link
+                href={"/dashboard/rooms"}
+                className={`flex px-6 py-2 rounded-full bg-sea-80 hover:bg-sea-100 transition text-slate-50`}
+              >
+                Back to rooms
+              </Link>
+            </div>
+          )}
+        </section>
+      </div>
       <DashboardWrapper active="rooms">
         <div>
           <div className={`flex flex-row justify-between py-4 items-center`}>
@@ -120,7 +181,7 @@ function Page() {
               isActive
               isSmall
               onClick={() => {
-                "delete";
+                deleteRoom();
               }}
             >
               <span className={`flex flex-row gap-2 items-center`}>
