@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { HotelRoom } from "@/utils/HotelRoom.types";
 import DashboardWrapper from "@/components/cms/dashboardWrapper/DashboardWrapper";
@@ -9,11 +9,15 @@ import Spinner from "@/components/spinner/Spinner";
 import Button from "@/components/button/Button";
 import Link from "next/link";
 
+import { RoomValidators } from "@/utils/formTypes";
+import InputError from "@/components/formField/InputError";
+
 function Page() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState("update");
   const [isRoomDataLoading, setIsRoomDataLoading] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [formData, setFormData] = useState<HotelRoom>({
     _id: "",
     name: "",
@@ -49,67 +53,64 @@ function Page() {
       });
   }
 
-  const validateForm = () => {
-    if (
-      formData.name.length > 2 &&
-      formData.size > 0 &&
-      formData.price > 0 &&
-      formData.description.length > 2 &&
-      formData.image.length > 2
-    ) {
-      setIsFormValid(true);
-    } else {
-      setIsFormValid(false);
-    }
+  const validators: RoomValidators = {
+    roomName: {
+      fieldName: "roomName",
+      validationFunction: () =>
+        formData.name.match(/^[a-zA-Z\s]*$/) && formData.name.length > 0
+          ? true
+          : false,
+    },
+    roomPrice: {
+      fieldName: "roomPrice",
+      validationFunction: () => formData.price > 0,
+    },
+    roomSize: {
+      fieldName: "roomSize",
+      validationFunction: () => formData.size > 0,
+    },
+    roomDescription: {
+      fieldName: "roomDescription",
+      validationFunction: () =>
+        formData.description.match(/^[a-zA-Z\s]*$/) &&
+        formData.description.length > 0
+          ? true
+          : false,
+    },
+    roomImage: {
+      fieldName: "roomImage",
+      validationFunction: () =>
+        formData.image.match(
+          /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+        )
+          ? true
+          : false,
+    },
   };
 
-  const handleUpdate = (prop: string, value: string) => {
-    validateForm();
-    if (formData) {
-      if (prop === "name") {
-        setFormData((prevState) => ({
-          ...prevState,
-          name: value,
-        }));
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    Object.entries(validators).forEach(([key, value]) => {
+      if (!value.validationFunction()) {
+        setValidationErrors((prev) =>
+          Array.from(new Set([...prev, value.fieldName]))
+        );
+      } else {
+        setValidationErrors((prev) =>
+          prev.filter((e) => e !== value.fieldName)
+        );
       }
-      if (prop === "size") {
-        let convertedValue: number;
-        if (!/^\d+$/ || value == "") {
-          convertedValue = 0;
-        } else {
-          convertedValue = parseInt(value);
-        }
-        setFormData((prevState) => ({
-          ...prevState,
-          size: convertedValue,
-        }));
-      }
-      if (prop === "price") {
-        let convertedValue: number;
-        if (!/^\d+$/ || value == "") {
-          convertedValue = 0;
-        } else {
-          convertedValue = parseInt(value);
-        }
-        setFormData((prevState) => ({
-          ...prevState,
-          price: convertedValue,
-        }));
-      }
-      if (prop === "description") {
-        setFormData((prevState) => ({
-          ...prevState,
-          description: value,
-        }));
-      }
-      if (prop === "image") {
-        setFormData((prevState) => ({
-          ...prevState,
-          image: value,
-        }));
-      }
+    });
+    if (
+      validators.roomName.validationFunction() &&
+      validators.roomSize.validationFunction() &&
+      validators.roomPrice.validationFunction() &&
+      validators.roomDescription.validationFunction() &&
+      validators.roomImage.validationFunction()
+    ) {
+      addRoom();
     }
-  };
+  }
 
   return (
     <div>
@@ -120,38 +121,25 @@ function Page() {
       >
         <section className={`p-4 bg-white rounded-lg border`}>
           <Heading size={5} styles="mb-6 justify-center flex w-full">
-            {`Entry ${
-              modalContent == "update" ? "updated" : "removed"
-            } successfully`}
+            {`Room added successfully`}
           </Heading>
-          {modalContent === "update" && (
-            <div className={`flex flex-row gap-4 items-center justify-between`}>
-              <Button
-                color="outline"
-                isActive
-                isSmall
-                onClick={() => setIsModalVisible(false)}
-              >
-                Close
-              </Button>
-              <Link
-                href={"/dashboard/rooms"}
-                className={`flex px-6 py-2 rounded-full bg-sea-80 hover:bg-sea-100 transition text-slate-50`}
-              >
-                Back to rooms
-              </Link>
-            </div>
-          )}
-          {modalContent === "delete" && (
-            <div className={`flex flex-row gap-4 items-center justify-center`}>
-              <Link
-                href={"/dashboard/rooms"}
-                className={`flex px-6 py-2 rounded-full bg-sea-80 hover:bg-sea-100 transition text-slate-50`}
-              >
-                Back to rooms
-              </Link>
-            </div>
-          )}
+
+          <div className={`flex flex-row gap-4 items-center justify-between`}>
+            <Button
+              color="outline"
+              isActive
+              isSmall
+              onClick={() => setIsModalVisible(false)}
+            >
+              Close
+            </Button>
+            <Link
+              href={"/dashboard/rooms"}
+              className={`flex px-6 py-2 rounded-full bg-sea-80 hover:bg-sea-100 transition text-slate-50`}
+            >
+              Back to rooms
+            </Link>
+          </div>
         </section>
       </div>
       <DashboardWrapper active="rooms">
@@ -162,8 +150,9 @@ function Page() {
             } room`}</Heading>
           </div>
           <form
+            noValidate
+            onSubmit={handleSubmit}
             className={`grid md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2 md:gap-4`}
-            onSubmit={(e) => e.preventDefault()}
           >
             <section
               className={`w-full bg-slate-50 rounded-lg px-2 lg:px-4 py-4 flex flex-col gap-4 col-span-1`}
@@ -174,32 +163,76 @@ function Page() {
 
               <InputField
                 label="Room name"
-                name="room_name"
-                id="room_name"
+                name="roomName"
+                id="roomName"
                 value={formData.name}
+                errorMessage="Please type a valid name (a-z)"
+                validationCondition={() =>
+                  validators.roomName.validationFunction()
+                }
+                validationOnSend={!validationErrors.includes("roomName")}
+                setValidationErrors={setValidationErrors}
                 onChange={(e) => {
-                  handleUpdate("name", e.target.value);
+                  setFormData((prevState) => ({
+                    ...prevState,
+                    name: e.target.value,
+                  }));
                 }}
               />
               <InputField
-                label="Room size"
-                name="room_size"
-                id="room_size"
+                label="Room size (m2)"
+                name="roomSize"
+                id="roomSize"
                 value={formData.size}
-                validationCondition={() => formData.size > 0}
+                errorMessage="Please enter a valid size"
+                validationCondition={() =>
+                  validators.roomName.validationFunction()
+                }
+                validationOnSend={!validationErrors.includes("roomSize")}
+                setValidationErrors={setValidationErrors}
                 onChange={(e) => {
-                  handleUpdate("size", e.target.value);
+                  //handle if provided a string
+                  if (e.target.value.match(/^\d+$/)) {
+                    setFormData((prevState) => ({
+                      ...prevState,
+                      size: parseInt(e.target.value),
+                    }));
+                  } else {
+                    setFormData((prevState) => ({
+                      ...prevState,
+                      size: 0,
+                    }));
+                  }
                 }}
               />
+
               <InputField
                 label="Room price (DKK)"
                 name="room_price"
                 id="room_price"
                 value={formData.price}
+                errorMessage="Please enter valid price"
+                validationCondition={() =>
+                  validators.roomName.validationFunction()
+                }
+                validationOnSend={!validationErrors.includes("roomPrice")}
+                setValidationErrors={setValidationErrors}
                 onChange={(e) => {
-                  handleUpdate("price", e.target.value);
+                  //handle if provided a string
+                  if (e.target.value.match(/^\d+$/)) {
+                    setFormData((prevState) => ({
+                      ...prevState,
+                      price: parseInt(e.target.value),
+                    }));
+                  } else {
+                    setFormData((prevState) => ({
+                      ...prevState,
+                      price: 0,
+                    }));
+                  }
                 }}
               />
+
               <div className={`relative group`}>
                 <p
                   className={`absolute top-[2px] left-[4px] h-6 px-[calc(0.75rem-2px)] z-20 font-sans font-semibold text-gray-600 w-[calc(100%-20px)] bg-white bg-opacity-50`}
@@ -210,35 +243,75 @@ function Page() {
                   className={`absolute top-[2px] left-[4px] h-6 z-10 w-[calc(100%-20px)] bg-gradient-to-br from-white to-transparent`}
                 ></div>
                 <textarea
-                  className={`flex min-h-48 w-full resize-none flex-col border-2 rounded border-gray-300 px-3 py-4 pt-6 font-sans relative transition hover:border-gray-400 active:outline-none focus:outline-none focus:border-charcoal-100`}
+                  className={`flex min-h-48 mb-4 w-full resize-none flex-col border-2 rounded border-gray-300 px-3 py-4 pt-6 font-sans relative transition hover:border-gray-400 active:outline-none focus:outline-none focus:border-charcoal-100`}
                   rows={6}
                   defaultValue={formData.description}
                   onChange={(e) => {
-                    handleUpdate("description", e.target.value);
+                    if (e.target.value.length > 0) {
+                      validationErrors.splice(
+                        validationErrors.indexOf("roomDescription"),
+                        1
+                      );
+                    } else {
+                      !validationErrors.includes("roomDescription") &&
+                        setValidationErrors([
+                          ...validationErrors,
+                          "roomDescription",
+                        ]);
+                    }
+                    setFormData((prevState) => ({
+                      ...prevState,
+                      description: e.target.value,
+                    }));
                   }}
                 ></textarea>
+                {validationErrors.includes("roomDescription") && (
+                  <InputError
+                    message="Description must be provided"
+                    showError
+                  />
+                )}
               </div>
             </section>
             <section
               className={`w-full bg-slate-50 rounded-lg px-2 lg:px-4 py-4 flex flex-col gap-4 col-span-1`}
             >
               {isRoomDataLoading && <Spinner></Spinner>}
-              {formData && (
+              {formData.image.match(
+                /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+              ) ? (
                 <Image
-                  alt={"placeholder"}
-                  src={""}
+                  alt={"Invalid room image"}
+                  src={
+                    formData.image.match(
+                      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+                    )
+                      ? formData.image
+                      : ""
+                  }
                   width={512}
                   height={400}
-                  className={`w-full h-80 object-cover rounded-lg`}
+                  className={`w-full h-80 object-cover rounded-lg flex justify-center items-center`}
                 />
+              ) : (
+                <></>
               )}
               <InputField
                 label="Room Image"
                 name="room_image"
                 id="room_image"
                 value={formData.image}
+                errorMessage="Please provide a link"
+                validationCondition={() =>
+                  validators.roomName.validationFunction()
+                }
+                validationOnSend={!validationErrors.includes("roomImage")}
+                setValidationErrors={setValidationErrors}
                 onChange={(e) => {
-                  handleUpdate("image", e.target.value);
+                  setFormData((prevState) => ({
+                    ...prevState,
+                    image: e.target.value,
+                  }));
                 }}
               />
             </section>
@@ -253,20 +326,12 @@ function Page() {
               >
                 <Link
                   href="/dashboard/rooms"
-                  className="bg-transparent text-charcoal-100 border-2 hover:bg-sea-100 hover:text-slate-50 hover:border-sea-100 px-10 box-border block transition py-1.5 rounded-full"
+                  className="bg-transparent text-charcoal-100 border-2 hover:bg-sea-100 hover:text-slate-50 hover:border-sea-100 px-10 box-border block transition py-1.5 rounded-full font-semibold"
                 >
                   Cancel
                 </Link>
-                <Button
-                  color="sea"
-                  isActive
-                  isSmall
-                  onClick={() => {
-                    console.log(formData);
-                    addRoom();
-                  }}
-                >
-                  Update
+                <Button color="sea" isActive isSmall onClick={() => {}}>
+                  Add room
                 </Button>
               </div>
             </section>
