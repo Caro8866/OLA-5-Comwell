@@ -195,20 +195,7 @@ export default function SignUpForm({
     } else {
       isFormSubmitted.current = false;
     }
-  }, [
-    validationErrors,
-    isTermsAccepted,
-    userExists,
-    fullName,
-    zipCode,
-    loginEmail,
-    phone,
-    selectedGender,
-    loginPassword,
-    dateOfBirth,
-    toggleRegisterDrawer,
-    onSignInSuccess,
-  ]);
+  }, [validationErrors]);
 
   return (
     <Drawer
