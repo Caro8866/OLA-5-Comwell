@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cdn.dwarf.dk",
+        hostname: "**",
         port: "",
       },
     ],

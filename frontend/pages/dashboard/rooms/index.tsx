@@ -26,9 +26,17 @@ function Page() {
 
   return (
     <DashboardWrapper active="rooms">
-      <Heading size={3} styles={`my-8`}>
-        Rooms
-      </Heading>
+      <div className={`flex flex-row justify-between items-center mt-8`}>
+        <Heading size={3} styles={`my-8`}>
+          Rooms
+        </Heading>
+        <Link
+          href={"/dashboard/rooms/add"}
+          className={`flex flex-row py-2 px-6 rounded-full bg-sea-80 text-slate-50 hover:bg-sea-100 transition font-medium`}
+        >
+          Add new room
+        </Link>
+      </div>
       <section
         className={`w-full bg-slate-50 rounded-lg px-2 lg:px-8 py-4 flex flex-col col-span-2`}
       >

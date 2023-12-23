@@ -33,7 +33,10 @@ export class HotelRoomsService {
     return this.hotelRoomModel.findByIdAndUpdate(id, updateHotelRoomDto).exec();
   }
 
-  remove(id: string) {
-    return this.hotelRoomModel.findByIdAndRemove(id).exec();
+  async remove(id: string) {
+    const deletedRoom = await this.hotelRoomModel
+      .findByIdAndDelete(new mongoose.Types.ObjectId(id))
+      .exec();
+    return deletedRoom;
   }
 }
