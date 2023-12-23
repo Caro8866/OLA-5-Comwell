@@ -15,6 +15,9 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { SignInDto } from './dto/signIn.dto';
 import { Response } from 'express';
+import { Role } from 'src/enums/role.enum';
+import { Roles } from 'src/roles.decorator';
+import { RolesGuard } from './roles.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -44,8 +47,9 @@ export class AuthController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get('profile')
+  @Roles(Role.Admin)
   getProfile(@Request() req) {
     return req.user;
   }
