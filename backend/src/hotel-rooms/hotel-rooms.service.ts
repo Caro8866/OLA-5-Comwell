@@ -4,6 +4,7 @@ import { UpdateHotelRoomDto } from './dto/update-hotel-room.dto';
 import { HotelRoom } from './schemas/hotel-room.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import mongoose from 'mongoose';
 
 @Injectable()
 export class HotelRoomsService {
@@ -20,15 +21,22 @@ export class HotelRoomsService {
     return this.hotelRoomModel.find().exec();
   }
 
-  findOne(id: number) {
-    return this.hotelRoomModel.findById({ id }).exec();
+  findOne(id: string) {
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      return this.hotelRoomModel
+        .findById(new mongoose.Types.ObjectId(id))
+        .exec();
+    }
   }
 
-  update(id: number, updateHotelRoomDto: UpdateHotelRoomDto) {
+  update(id: string, updateHotelRoomDto: UpdateHotelRoomDto) {
     return this.hotelRoomModel.findByIdAndUpdate(id, updateHotelRoomDto).exec();
   }
 
-  remove(id: number) {
-    return this.hotelRoomModel.findByIdAndRemove(id).exec();
+  async remove(id: string) {
+    const deletedRoom = await this.hotelRoomModel
+      .findByIdAndDelete(new mongoose.Types.ObjectId(id))
+      .exec();
+    return deletedRoom;
   }
 }

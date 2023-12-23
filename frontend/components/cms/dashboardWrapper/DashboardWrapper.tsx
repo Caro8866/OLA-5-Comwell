@@ -88,7 +88,7 @@ function DashboardWrapper(props: Props) {
           </svg>
         </span>
         <Link
-          href="#"
+          href="/dashboard/"
           className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
             !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
@@ -118,7 +118,7 @@ function DashboardWrapper(props: Props) {
           </p>
         </Link>
         <Link
-          href="#"
+          href="/dashboard/bookings"
           className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
             !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
@@ -148,7 +148,7 @@ function DashboardWrapper(props: Props) {
           </p>
         </Link>
         <Link
-          href="#"
+          href="/dashboard/hotels"
           className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
             !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
@@ -182,7 +182,7 @@ function DashboardWrapper(props: Props) {
           </p>
         </Link>
         <Link
-          href="#"
+          href="/dashboard/rooms"
           className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
             !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
@@ -213,7 +213,7 @@ function DashboardWrapper(props: Props) {
           </p>
         </Link>
         <Link
-          href="#"
+          href="/dashboard/experiences"
           className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
             !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
@@ -243,7 +243,7 @@ function DashboardWrapper(props: Props) {
           </p>
         </Link>
         <Link
-          href="#"
+          href="/dashboard/offers"
           className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
             !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
@@ -275,7 +275,7 @@ function DashboardWrapper(props: Props) {
           </p>
         </Link>
         <Link
-          href="#"
+          href="/dashboard/users"
           className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
             !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${

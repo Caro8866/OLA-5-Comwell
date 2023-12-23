@@ -217,6 +217,7 @@ function BookingConfirmation({
               startDate: null,
               endDate: null,
               selectedRoom: {
+                _id: "",
                 name: "",
                 size: 0,
                 description: "",
