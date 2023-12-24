@@ -568,7 +568,7 @@ function Page() {
                     offers?.map((offer) => {
                       return (
                         <li
-                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative ${
+                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative transition hover:border-charcoal-60 ${
                             formData?.offers.some(
                               (offerData) => offerData._id === offer._id
                             )
@@ -628,7 +628,7 @@ function Page() {
                     experiencePackages?.map((pkg) => {
                       return (
                         <li
-                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative ${
+                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative transition hover:border-charcoal-60 ${
                             formData?.packages.some(
                               (pkgData) => pkgData._id === pkg._id
                             )
@@ -688,7 +688,7 @@ function Page() {
                     rooms?.map((room) => {
                       return (
                         <li
-                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative ${
+                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative transition hover:border-charcoal-60 ${
                             formData?.rooms.some(
                               (roomData) => roomData._id === room._id
                             )
