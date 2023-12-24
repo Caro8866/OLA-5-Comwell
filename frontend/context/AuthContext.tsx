@@ -38,13 +38,10 @@ export const AuthContextProvider = ({
     userData: null,
   });
 
-  const [signInCompleted, setSignInCompleted] = useState(false);
-
   useEffect(() => {
     async function checkAuthentication() {
       const authenticationResult = await verifyAuth();
       if (authenticationResult) {
-        setSignInCompleted(true);
         setAuthState({
           isAuthenticated: authenticationResult.isAuthenticated,
           userData: authenticationResult.userData,
@@ -53,14 +50,20 @@ export const AuthContextProvider = ({
     }
 
     checkAuthentication();
-  }, [signInCompleted]);
+  }, [authState.isAuthenticated]);
 
   const handleSignInSuccess = () => {
-    setSignInCompleted(true);
+    setAuthState({
+      ...authState,
+      isAuthenticated: true,
+    });
   };
 
   const handleSignOutSuccess = () => {
-    setSignInCompleted(false);
+    setAuthState({
+      ...authState,
+      isAuthenticated: false,
+    });
   };
 
   return (
