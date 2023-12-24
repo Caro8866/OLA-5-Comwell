@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import verifyAuth from "@/utils/verifyAuth";
+import { getCookie } from "cookies-next";
 
 type AuthContextType = {
   authState: {
@@ -42,11 +43,13 @@ export const AuthContextProvider = ({
   useEffect(() => {
     async function checkAuthentication() {
       const authenticationResult = await verifyAuth();
-      authenticationResult &&
+      if (authenticationResult) {
+        setSignInCompleted(true);
         setAuthState({
           isAuthenticated: authenticationResult.isAuthenticated,
           userData: authenticationResult.userData,
         });
+      }
     }
 
     checkAuthentication();
