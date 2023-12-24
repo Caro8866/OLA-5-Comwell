@@ -42,8 +42,16 @@ function Page() {
   });
   const [areLocationsVisible, setAreLocationsVisible] = useState(false);
   const [areRegionsVisible, setAreRegionsVisible] = useState(false);
+  const [addonData, setAddonData] = useState<Addon>();
   const router = useRouter();
   const { slug } = router.query;
+
+  type Addon = {
+    name: string;
+    price: number;
+    description?: string;
+    image?: string;
+  };
 
   const locations = [
     "Aarhus",
@@ -147,7 +155,7 @@ function Page() {
 
   const handleUpdate = (
     prop: string,
-    value: string | boolean | Offer | HotelPackage | HotelRoom
+    value: string | boolean | Offer | HotelPackage | HotelRoom | Addon
   ) => {
     if (formData) {
       if (prop === "name" && typeof value == "string") {
@@ -266,6 +274,25 @@ function Page() {
         }));
       }
     }
+
+    if (prop === "addons") {
+      const addon = value as unknown as Addon;
+      if (formData?.addons.some((addonData) => addonData.name === addon.name)) {
+        setFormData((prevState) => ({
+          ...prevState,
+          addons: [
+            ...formData.addons.filter(
+              (addonData) => addonData.name !== addon.name
+            ),
+          ],
+        }));
+      } else {
+        setFormData((prevState) => ({
+          ...prevState,
+          addons: [...formData.addons, addon],
+        }));
+      }
+    }
   };
 
   return (
@@ -276,10 +303,14 @@ function Page() {
         }`}
       >
         <section className={`p-4 bg-white rounded-lg border`}>
-          <Heading size={5} styles="mb-6 justify-center flex w-full">
-            {`Entry ${
-              modalContent == "update" ? "updated" : "removed"
-            } successfully`}
+          <Heading size={5} styles="mb-4 justify-start flex w-full">
+            {` ${
+              modalContent == "update"
+                ? "Entry updated successfully"
+                  ? modalContent == "update"
+                  : "Entry removed successfully"
+                : "Add new addon"
+            } `}
           </Heading>
           {modalContent === "update" && (
             <div className={`flex flex-row gap-4 items-center justify-between`}>
@@ -307,6 +338,81 @@ function Page() {
               >
                 Back to hotels
               </Link>
+            </div>
+          )}
+          {modalContent === "addon" && (
+            <div className={`flex flex-row gap-4 items-center justify-start`}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                }}
+                className={`flex flex-col gap-4 min-w-[320px]`}
+              >
+                <InputField
+                  label="Addon name"
+                  name="addon_name"
+                  id="addon_name"
+                  value={addonData ? addonData.name : ""}
+                  onChange={(e) => {
+                    //handleAddonUpdate("name", e.target.value)
+                  }}
+                />
+                <InputField
+                  label="Addon name"
+                  name="addon_name"
+                  id="addon_name"
+                  type="number"
+                  value={addonData ? addonData.price : ""}
+                  onChange={(e) => {
+                    //handleAddonUpdate("price", e.target.value)
+                  }}
+                />
+                <InputField
+                  label="Description (optional)"
+                  name="addon_description"
+                  id="addon_description"
+                  value={
+                    addonData && addonData.description
+                      ? addonData.description
+                      : ""
+                  }
+                  onChange={(e) => {
+                    //handleAddonUpdate("price", e.target.value)
+                  }}
+                />
+                <InputField
+                  label="Image (optional)"
+                  name="addon_image"
+                  id="addon_image"
+                  value={addonData && addonData.image ? addonData.image : ""}
+                  onChange={(e) => {
+                    //handleAddonUpdate("price", e.target.value)
+                  }}
+                />
+                <div
+                  className={`flex flex-row gap-4 items-center justify-between`}
+                >
+                  <Button
+                    color="outline"
+                    isActive
+                    isSmall
+                    onClick={() => {
+                      setIsModalVisible(false);
+                      setAddonData(undefined);
+                    }}
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    color="sea"
+                    isActive
+                    isSmall
+                    onClick={() => setIsModalVisible(false)}
+                  >
+                    Add addon
+                  </Button>
+                </div>
+              </form>
             </div>
           )}
         </section>
@@ -568,7 +674,7 @@ function Page() {
                     offers?.map((offer) => {
                       return (
                         <li
-                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative transition hover:border-charcoal-60 ${
+                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] max-w-[230px] cursor-pointer relative transition hover:border-charcoal-60 ${
                             formData?.offers.some(
                               (offerData) => offerData._id === offer._id
                             )
@@ -628,7 +734,7 @@ function Page() {
                     experiencePackages?.map((pkg) => {
                       return (
                         <li
-                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative transition hover:border-charcoal-60 ${
+                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] max-w-[230px] cursor-pointer relative transition hover:border-charcoal-60 ${
                             formData?.packages.some(
                               (pkgData) => pkgData._id === pkg._id
                             )
@@ -688,7 +794,7 @@ function Page() {
                     rooms?.map((room) => {
                       return (
                         <li
-                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative transition hover:border-charcoal-60 ${
+                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] max-w-[230px] cursor-pointer relative transition hover:border-charcoal-60 ${
                             formData?.rooms.some(
                               (roomData) => roomData._id === room._id
                             )
@@ -737,6 +843,80 @@ function Page() {
                     })}
                 </ul>
               </div>
+              <Heading size={5} styles="mb-2">
+                Addons
+              </Heading>
+              <ul
+                className={`flex flex-row gap-4 overflow-x-scroll w-auto pb-4`}
+              >
+                <li
+                  className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] max-w-[230px] cursor-pointer relative transition hover:border-charcoal-60 pt-6 group`}
+                  onClick={() => {
+                    setIsModalVisible(true);
+                    setModalContent("addon");
+                  }}
+                >
+                  <span
+                    className={
+                      "w-4 h-4 flex items-center justify-center rounded-full absolute top-2 left-2 border bg-white group-hover:border-sea-80 group-hover:bg-sea-80 group-hover:text-white"
+                    }
+                  >
+                    +
+                  </span>
+                  <Heading size={6} styles={`px-2 my-4`}>
+                    Add New entry
+                  </Heading>
+                  <p
+                    className={`text-trumpet-mobile px-2 max-w-[24ch] truncate`}
+                  >
+                    Add New entry
+                  </p>
+                </li>
+                {formData.addons &&
+                  formData.addons?.map((addon) => {
+                    return (
+                      <li
+                        className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] max-w-[230px] cursor-pointer relative transition hover:border-charcoal-60 pt-6 ${
+                          formData?.addons.some(
+                            (addonData) => addonData.name === addon.name
+                          )
+                            ? "border-charcoal-80"
+                            : ""
+                        }`}
+                        key={addon.name}
+                        onClick={() => {
+                          handleUpdate("addons", addon);
+                        }}
+                      >
+                        <span
+                          className={`z-10 rounded-full top-2 left-2 w-4 h-4 rounded flex items-center border justify-center absolute ${
+                            formData?.addons.some(
+                              (addonData) => addonData.name === addon.name
+                            )
+                              ? "border-white bg-sea-80"
+                              : "bg-white"
+                          }`}
+                        >
+                          {formData?.addons.some(
+                            (addonData) => addonData.name === addon.name
+                          ) && (
+                            <span
+                              className={`w-1.5 h-1.5 flex bg-white rounded-full`}
+                            ></span>
+                          )}
+                        </span>
+                        <Heading size={6} styles={`px-2 my-4`}>
+                          {addon.name}
+                        </Heading>
+                        <p
+                          className={`text-trumpet-mobile px-2 max-w-[24ch] truncate`}
+                        >
+                          {addon.description}
+                        </p>
+                      </li>
+                    );
+                  })}
+              </ul>
             </section>
             <section
               className={`w-full bg-slate-50 rounded-lg px-2 lg:px-4 py-4 flex flex-col-reverse sm:flex-row justify-between gap-4 col-span-full`}
