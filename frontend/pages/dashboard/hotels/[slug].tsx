@@ -11,20 +11,36 @@ import Link from "next/link";
 import { Hotel } from "@/utils/Hotel.types";
 import InputSelect from "@/components/formField/InputSelect";
 import { Area } from "@/utils/Area.types";
+import { Region } from "@/utils/Region.types";
+import { HotelPackage } from "@/utils/HotelPackage.types";
+import { Offer } from "@/utils/offer.types";
 
 function Page() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState("update");
   const [ishotelDataLoading, setIsHotelDataLoading] = useState(false);
   const [hotelData, setHotelData] = useState<Hotel>();
+  const [experiencePackages, setExperiencePackages] =
+    useState<HotelPackage[]>();
+  const [offers, setOffers] = useState<Offer[]>();
   const [formData, setFormData] = useState<Hotel>({
     _id: "",
     name: "",
     description: "",
+    roomsDescription: "",
     image: "",
+    region: "",
+    location: "",
+    addons: [],
+    packages: [],
+    offers: [],
+    isHotel: true,
+    isBanquet: false,
+    isConferenceCenter: false,
+    rooms: [],
   });
-
   const [areLocationsVisible, setAreLocationsVisible] = useState(false);
+  const [areRegionsVisible, setAreRegionsVisible] = useState(false);
   const router = useRouter();
   const { slug } = router.query;
 
@@ -47,6 +63,8 @@ function Page() {
     "Copenhagen",
   ];
 
+  const regions = ["Zealand", "Funen", "Jutland", "Sweden"];
+
   useEffect(() => {
     setIsHotelDataLoading(true);
     const fetchData = async () => {
@@ -56,6 +74,25 @@ function Page() {
           setHotelData(data);
           setFormData(data);
           setIsHotelDataLoading(false);
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      fetch(`http://localhost:5000/packages`)
+        .then((response) => response.json())
+        .then((data: HotelPackage[]) => {
+          setExperiencePackages(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      fetch(`http://localhost:5000/hotel-offers`)
+        .then((response) => response.json())
+        .then((data: Offer[]) => {
+          setOffers(data);
         })
         .catch((err) => {
           console.log(err);
@@ -98,14 +135,18 @@ function Page() {
       });
   }
 
-  const handleUpdate = (prop: string, value: string) => {
+  const handleUpdate = (
+    prop: string,
+    value: string | boolean | Offer | HotelPackage | HotelRoom
+  ) => {
     if (formData) {
-      if (prop === "name") {
+      if (prop === "name" && typeof value == "string") {
         setFormData((prevState) => ({
           ...prevState,
           name: value,
         }));
       }
+
       if (prop === "location") {
         const location = value as Area;
         setFormData((prevState) => ({
@@ -113,40 +154,68 @@ function Page() {
           location: location,
         }));
       }
-      if (prop === "size") {
-        let convertedValue: number;
-        if (value === "") {
-          convertedValue = 0;
-        } else {
-          convertedValue = parseInt(value);
-        }
+
+      if (prop === "hotel") {
+        const isChecked = value as unknown as boolean;
         setFormData((prevState) => ({
           ...prevState,
-          size: convertedValue,
+          isHotel: isChecked,
         }));
       }
-      if (prop === "price") {
-        let convertedValue: number;
-        if (value === "") {
-          convertedValue = 0;
-        } else {
-          convertedValue = parseInt(value);
-        }
+
+      if (prop === "banquet") {
+        const isChecked = value as unknown as boolean;
         setFormData((prevState) => ({
           ...prevState,
-          price: convertedValue,
+          isBanquet: isChecked,
         }));
       }
-      if (prop === "description") {
+
+      if (prop === "conference") {
+        const isChecked = value as unknown as boolean;
+        setFormData((prevState) => ({
+          ...prevState,
+          isConferenceCenter: isChecked,
+        }));
+      }
+
+      if (prop === "region") {
+        const region = value as Region;
+        setFormData((prevState) => ({
+          ...prevState,
+          region: region,
+        }));
+      }
+
+      if (prop === "description" && typeof value == "string") {
         setFormData((prevState) => ({
           ...prevState,
           description: value,
         }));
       }
-      if (prop === "image") {
+
+      if (prop === "image" && typeof value == "string") {
         setFormData((prevState) => ({
           ...prevState,
           image: value,
+        }));
+      }
+    }
+
+    if (prop === "offers") {
+      const offer = value as unknown as Offer;
+      if (formData?.offers.includes(offer)) {
+        const index = formData.offers.indexOf(offer);
+        setFormData((prevState) => ({
+          ...prevState,
+          offers: [
+            ...formData.offers.filter((offerData) => offerData !== offer),
+          ],
+        }));
+      } else {
+        setFormData((prevState) => ({
+          ...prevState,
+          offers: [...formData.offers, offer],
         }));
       }
     }
@@ -233,7 +302,7 @@ function Page() {
             </Button>
           </div>
           <form
-            className={`grid md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2 md:gap-4`}
+            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2 md:gap-4`}
             onSubmit={(e) => e.preventDefault()}
           >
             <section
@@ -252,20 +321,14 @@ function Page() {
                   handleUpdate("name", e.target.value);
                 }}
               />
-              <InputField
-                label="Hotel region"
-                name="hotel_region"
-                id="hotel_region"
-                value={formData.region}
-                onChange={(e) => {
-                  handleUpdate("region", e.target.value);
-                }}
-              />
               <div className={`relative`}>
                 <InputSelect
                   value={formData.location}
                   label="Hotel location"
-                  onClick={() => setAreLocationsVisible(!areLocationsVisible)}
+                  onClick={() => {
+                    setAreLocationsVisible(!areLocationsVisible);
+                    setAreRegionsVisible(false);
+                  }}
                   isExpanded={areLocationsVisible}
                 />
                 <section
@@ -277,6 +340,7 @@ function Page() {
                     {locations.sort().map((location) => {
                       return (
                         <li
+                          key={location}
                           onClick={() => {
                             handleUpdate("location", location);
                             setAreLocationsVisible(false);
@@ -290,15 +354,39 @@ function Page() {
                   </ul>
                 </section>
               </div>
-              <InputField
-                label="Room region"
-                name="Hotel_region"
-                id="Hotel_region"
-                value={formData.region}
-                onChange={(e) => {
-                  handleUpdate("size", e.target.value);
-                }}
-              />
+              <div className={`relative`}>
+                <InputSelect
+                  value={formData.region}
+                  label="Hotel region"
+                  onClick={() => {
+                    setAreRegionsVisible(!areRegionsVisible);
+                    setAreLocationsVisible(false);
+                  }}
+                  isExpanded={areRegionsVisible}
+                />
+                <section
+                  className={`absolute top-16 bg-white z-40 w-full rounded-lg border overflow-y-scroll max-h-48 transition duration-500 ${
+                    areRegionsVisible ? "flex" : "hidden"
+                  }`}
+                >
+                  <ul className={`flex flex-col gap-2 w-full`}>
+                    {regions.sort().map((region) => {
+                      return (
+                        <li
+                          key={region}
+                          onClick={() => {
+                            handleUpdate("region", region);
+                            setAreLocationsVisible(false);
+                          }}
+                          className={`pl-2 py-2 cursor-pointer hover:bg-sea-20 transition duration-300 w-full`}
+                        >
+                          {region}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </section>
+              </div>
               <div className={`relative group`}>
                 <p
                   className={`absolute top-[2px] left-[4px] h-6 px-[calc(0.75rem-2px)] z-20 font-sans font-semibold text-gray-600 w-[calc(100%-20px)] bg-white bg-opacity-50`}
@@ -358,6 +446,124 @@ function Page() {
                   handleUpdate("image", e.target.value);
                 }}
               />
+              <div className={`flex flex-col`}>
+                <Heading size={5} styles="mb-6">
+                  Status
+                </Heading>
+                <ul className={`flex flex-col gap-4`}>
+                  <li
+                    className={`flex flex-row gap-2 items-center cursor-pointer w-fit`}
+                    onClick={() => {
+                      handleUpdate("hotel", !formData.isHotel);
+                    }}
+                  >
+                    <div
+                      className={`w-6 h-6 border border-charcoal-40 rounded-md transition duration-300 flex items-center justify-center ${
+                        formData.isHotel ? "bg-sea-80 border-sea-80" : ""
+                      }`}
+                    >
+                      {formData.isHotel && (
+                        <span className={`w-3 h-3 rounded bg-white`}></span>
+                      )}
+                    </div>
+                    <p className={`font-medium`}>Hotel</p>
+                  </li>
+                  <li
+                    className={`flex flex-row gap-2 items-center cursor-pointer w-fit`}
+                    onClick={() => {
+                      handleUpdate("conference", !formData.isConferenceCenter);
+                    }}
+                  >
+                    <div
+                      className={`w-6 h-6 border border-charcoal-40 rounded-md transition duration-300 flex items-center justify-center ${
+                        formData.isConferenceCenter
+                          ? "bg-sea-80 border-sea-80"
+                          : ""
+                      }`}
+                    >
+                      {formData.isConferenceCenter && (
+                        <span className={`w-3 h-3 rounded bg-white`}></span>
+                      )}
+                    </div>
+                    <p className={`font-medium`}>Conference center</p>
+                  </li>
+                  <li
+                    className={`flex flex-row gap-2 items-center cursor-pointer w-fit`}
+                    onClick={() => {
+                      handleUpdate("banquet", !formData.isBanquet);
+                    }}
+                  >
+                    <div
+                      className={`w-6 h-6 border border-charcoal-40 rounded-md transition duration-300 flex items-center justify-center ${
+                        formData.isBanquet ? "bg-sea-80 border-sea-80" : ""
+                      }`}
+                    >
+                      {formData.isBanquet && (
+                        <span className={`w-3 h-3 rounded bg-white`}></span>
+                      )}
+                    </div>
+                    <p className={`font-medium`}>Banquet center</p>
+                  </li>
+                </ul>
+              </div>
+            </section>
+            <section
+              className={`w-full bg-slate-50 rounded-lg px-2 lg:px-4 py-4 flex flex-col gap-4 col-span-full`}
+            >
+              <Heading size={6} styles="mb-4">
+                Linked resources
+              </Heading>
+              <div className={`w-full`}>
+                <ul
+                  className={`flex flex-row gap-4 overflow-x-scroll w-auto pb-4`}
+                >
+                  {offers &&
+                    offers?.map((offer) => {
+                      return (
+                        <li
+                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative ${
+                            formData?.offers.includes(offer)
+                              ? "border-charcoal-80"
+                              : ""
+                          }`}
+                          key={offer._id}
+                          onClick={() => {
+                            handleUpdate("offers", offer);
+                          }}
+                        >
+                          <span
+                            className={`z-10 rounded-full top-2 left-2 w-4 h-4 rounded flex items-center border justify-center absolute ${
+                              formData?.offers.includes(offer)
+                                ? "border-white bg-sea-80"
+                                : "bg-white"
+                            }`}
+                          >
+                            {formData?.offers.includes(offer) && (
+                              <span
+                                className={`w-1.5 h-1.5 flex bg-white rounded-full`}
+                              ></span>
+                            )}
+                          </span>
+                          <Image
+                            src={offer.image}
+                            alt={offer.name}
+                            width={300}
+                            height={300}
+                            className={`object-cover w-full min-h-32 h-32 max-w-full`}
+                          />
+                          <Heading size={6} styles="px-2 my-2">
+                            {offer.name}
+                          </Heading>
+                          <p
+                            className={`text-trumpet-mobile px-2 max-w-[24ch] truncate`}
+                          >
+                            {offer.description}
+                          </p>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
             </section>
             <section
               className={`w-full bg-slate-50 rounded-lg px-2 lg:px-4 py-4 flex flex-col-reverse sm:flex-row justify-between gap-4 col-span-full`}
