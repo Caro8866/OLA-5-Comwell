@@ -23,6 +23,7 @@ function Page() {
   const [experiencePackages, setExperiencePackages] =
     useState<HotelPackage[]>();
   const [offers, setOffers] = useState<Offer[]>();
+  const [rooms, setRooms] = useState<HotelRoom[]>();
   const [formData, setFormData] = useState<Hotel>({
     _id: "",
     name: "",
@@ -93,6 +94,15 @@ function Page() {
         .then((response) => response.json())
         .then((data: Offer[]) => {
           setOffers(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      fetch(`http://localhost:5000/hotel-rooms`)
+        .then((response) => response.json())
+        .then((data: HotelRoom[]) => {
+          setRooms(data);
         })
         .catch((err) => {
           console.log(err);
@@ -205,7 +215,6 @@ function Page() {
     if (prop === "offers") {
       const offer = value as unknown as Offer;
       if (formData?.offers.includes(offer)) {
-        const index = formData.offers.indexOf(offer);
         setFormData((prevState) => ({
           ...prevState,
           offers: [
@@ -216,6 +225,44 @@ function Page() {
         setFormData((prevState) => ({
           ...prevState,
           offers: [...formData.offers, offer],
+        }));
+      }
+    }
+
+    if (prop === "packages") {
+      const pkg = value as unknown as HotelPackage;
+      if (
+        formData?.packages.some((packageData) => packageData._id === pkg._id)
+      ) {
+        setFormData((prevState) => ({
+          ...prevState,
+          packages: [
+            ...formData.packages.filter(
+              (packageData) => packageData._id !== pkg._id
+            ),
+          ],
+        }));
+      } else {
+        setFormData((prevState) => ({
+          ...prevState,
+          packages: [...formData.packages, pkg],
+        }));
+      }
+    }
+
+    if (prop === "rooms") {
+      const room = value as unknown as HotelRoom;
+      if (formData?.rooms.some((roomData) => roomData._id === room._id)) {
+        setFormData((prevState) => ({
+          ...prevState,
+          rooms: [
+            ...formData.rooms.filter((roomData) => roomData._id !== room._id),
+          ],
+        }));
+      } else {
+        setFormData((prevState) => ({
+          ...prevState,
+          rooms: [...formData.rooms, room],
         }));
       }
     }
@@ -510,8 +557,8 @@ function Page() {
             <section
               className={`w-full bg-slate-50 rounded-lg px-2 lg:px-4 py-4 flex flex-col gap-4 col-span-full`}
             >
-              <Heading size={6} styles="mb-4">
-                Linked resources
+              <Heading size={5} styles="mb-2">
+                Hotel Offers
               </Heading>
               <div className={`w-full`}>
                 <ul
@@ -522,7 +569,9 @@ function Page() {
                       return (
                         <li
                           className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative ${
-                            formData?.offers.includes(offer)
+                            formData?.offers.some(
+                              (offerData) => offerData._id === offer._id
+                            )
                               ? "border-charcoal-80"
                               : ""
                           }`}
@@ -533,12 +582,16 @@ function Page() {
                         >
                           <span
                             className={`z-10 rounded-full top-2 left-2 w-4 h-4 rounded flex items-center border justify-center absolute ${
-                              formData?.offers.includes(offer)
+                              formData?.offers.some(
+                                (offerData) => offerData._id === offer._id
+                              )
                                 ? "border-white bg-sea-80"
                                 : "bg-white"
                             }`}
                           >
-                            {formData?.offers.includes(offer) && (
+                            {formData?.offers.some(
+                              (offerData) => offerData._id === offer._id
+                            ) && (
                               <span
                                 className={`w-1.5 h-1.5 flex bg-white rounded-full`}
                               ></span>
@@ -558,6 +611,126 @@ function Page() {
                             className={`text-trumpet-mobile px-2 max-w-[24ch] truncate`}
                           >
                             {offer.description}
+                          </p>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
+              <Heading size={5} styles="mb-2">
+                Experience packages
+              </Heading>
+              <div className={`w-full`}>
+                <ul
+                  className={`flex flex-row gap-4 overflow-x-scroll w-auto pb-4`}
+                >
+                  {experiencePackages &&
+                    experiencePackages?.map((pkg) => {
+                      return (
+                        <li
+                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative ${
+                            formData?.packages.some(
+                              (pkgData) => pkgData._id === pkg._id
+                            )
+                              ? "border-charcoal-80"
+                              : ""
+                          }`}
+                          key={pkg._id}
+                          onClick={() => {
+                            handleUpdate("packages", pkg);
+                          }}
+                        >
+                          <span
+                            className={`z-10 rounded-full top-2 left-2 w-4 h-4 rounded flex items-center border justify-center absolute ${
+                              formData?.packages.some(
+                                (pkgData) => pkgData._id === pkg._id
+                              )
+                                ? "border-white bg-sea-80"
+                                : "bg-white"
+                            }`}
+                          >
+                            {formData?.packages.some(
+                              (pkgData) => pkgData._id === pkg._id
+                            ) && (
+                              <span
+                                className={`w-1.5 h-1.5 flex bg-white rounded-full`}
+                              ></span>
+                            )}
+                          </span>
+                          <Image
+                            src={pkg.image}
+                            alt={pkg.name}
+                            width={300}
+                            height={300}
+                            className={`object-cover w-full min-h-32 h-32 max-w-full`}
+                          />
+                          <Heading size={6} styles="px-2 my-2">
+                            {pkg.name}
+                          </Heading>
+                          <p
+                            className={`text-trumpet-mobile px-2 max-w-[24ch] truncate`}
+                          >
+                            {pkg.description}
+                          </p>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
+              <Heading size={5} styles="mb-2">
+                Hotel rooms
+              </Heading>
+              <div className={`w-full`}>
+                <ul
+                  className={`flex flex-row gap-4 overflow-x-scroll w-auto pb-4`}
+                >
+                  {rooms &&
+                    rooms?.map((room) => {
+                      return (
+                        <li
+                          className={`w-64 pb-4 rounded-md border overflow-hidden relative min-w-[230px] cursor-pointer relative ${
+                            formData?.rooms.some(
+                              (roomData) => roomData._id === room._id
+                            )
+                              ? "border-charcoal-80"
+                              : ""
+                          }`}
+                          key={room._id}
+                          onClick={() => {
+                            handleUpdate("rooms", room);
+                          }}
+                        >
+                          <span
+                            className={`z-10 rounded-full top-2 left-2 w-4 h-4 rounded flex items-center border justify-center absolute ${
+                              formData?.rooms.some(
+                                (roomData) => roomData._id === room._id
+                              )
+                                ? "border-white bg-sea-80"
+                                : "bg-white"
+                            }`}
+                          >
+                            {formData?.rooms.some(
+                              (roomData) => roomData._id === room._id
+                            ) && (
+                              <span
+                                className={`w-1.5 h-1.5 flex bg-white rounded-full`}
+                              ></span>
+                            )}
+                          </span>
+                          <Image
+                            src={room.image}
+                            alt={room.name}
+                            width={300}
+                            height={300}
+                            className={`object-cover w-full min-h-32 h-32 max-w-full`}
+                          />
+                          <Heading size={6} styles="px-2 my-2">
+                            {room.name}
+                          </Heading>
+                          <p
+                            className={`text-trumpet-mobile px-2 max-w-[24ch] truncate`}
+                          >
+                            {room.description}
                           </p>
                         </li>
                       );
