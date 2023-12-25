@@ -213,7 +213,7 @@ function DashboardWrapper(props: Props) {
           </p>
         </Link>
         <Link
-          href="/dashboard/experiences"
+          href="/dashboard/packages"
           className={`flex flex-row gap-2 align-center lg:p-2 lg:pl-4 lg:rounded-r-full transition-all duration-300 hover:bg-sea-20 group ${
             !isMenuExpanded ? "lg:justify-center lg:pl-6" : "lg:justify-start"
           } ${
