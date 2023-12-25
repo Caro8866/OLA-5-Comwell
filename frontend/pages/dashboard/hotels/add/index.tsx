@@ -630,15 +630,24 @@ function Page() {
             <section
               className={`w-full bg-slate-50 rounded-lg px-2 lg:px-4 py-4 flex flex-col gap-4 col-span-1`}
             >
-              {ishotelDataLoading && <Spinner></Spinner>}
-              {hotelData && (
+              {formData.image.match(
+                /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+              ) ? (
                 <Image
-                  alt={hotelData.name}
-                  src={hotelData?.image}
+                  alt={"Invalid room image"}
+                  src={
+                    formData.image.match(
+                      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+                    )
+                      ? formData.image
+                      : ""
+                  }
                   width={512}
                   height={400}
                   className={`w-full h-80 object-cover rounded-lg`}
                 />
+              ) : (
+                ""
               )}
               <InputField
                 label="Hotel Image"
