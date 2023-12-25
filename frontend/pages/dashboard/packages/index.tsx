@@ -112,7 +112,7 @@ function Page() {
           )}
         </div>
       </div>
-      <DashboardWrapper active="experiences">
+      <DashboardWrapper active="packages">
         <div className={`flex flex-row justify-between items-center mt-8`}>
           <Heading size={3} styles={`my-8`}>
             Rooms
