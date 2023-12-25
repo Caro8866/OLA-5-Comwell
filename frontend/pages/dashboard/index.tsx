@@ -129,7 +129,7 @@ function Index() {
               Hotels
             </Heading>
             <Link
-              href="/dashboard/bookings"
+              href="/dashboard/hotels"
               className="h-8 w-8 sm:h-auto sm:w-auto text-slate-50 bg-sea-80 px-2 lg:px-4 py-1 rounded-full transition group hover:bg-sea-100 flex gap-2 items-center justify-center"
             >
               <p className={`hidden sm:flex`}>See all</p>

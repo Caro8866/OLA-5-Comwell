@@ -7,6 +7,7 @@ import { Model } from 'mongoose';
 import { CreatePackageDto } from 'src/hotel-packages/dto/create-package.dto';
 import { CreateHotelOfferDto } from 'src/hotel-offers/dto/create-hotel-offer.dto';
 import { CreateHotelRoomDto } from 'src/hotel-rooms/dto/create-hotel-room.dto';
+
 @Injectable()
 export class HotelsService {
   constructor(@InjectModel(Hotel.name) private hotelModel: Model<Hotel>) {}
@@ -24,7 +25,7 @@ export class HotelsService {
       .populate('rooms');
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.hotelModel
       .findById(id)
       .populate('packages')
@@ -32,11 +33,11 @@ export class HotelsService {
       .populate('rooms');
   }
 
-  update(id: number, updateHotelDto: UpdateHotelDto) {
+  update(id: string, updateHotelDto: UpdateHotelDto) {
     return this.hotelModel.findByIdAndUpdate(id, updateHotelDto);
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.hotelModel.findByIdAndDelete(id).exec();
   }
 
