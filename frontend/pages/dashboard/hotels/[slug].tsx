@@ -14,6 +14,7 @@ import { Area } from "@/utils/Area.types";
 import { Region } from "@/utils/Region.types";
 import { HotelPackage } from "@/utils/HotelPackage.types";
 import { Offer } from "@/utils/offer.types";
+import InputError from "@/components/formField/InputError";
 
 function Page() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -42,7 +43,17 @@ function Page() {
   });
   const [areLocationsVisible, setAreLocationsVisible] = useState(false);
   const [areRegionsVisible, setAreRegionsVisible] = useState(false);
-  const [addonData, setAddonData] = useState<Addon>();
+  const [addonData, setAddonData] = useState<Addon>({
+    name: "",
+    price: 0,
+    description: "",
+    image: "",
+  });
+  const [addonErrors, setAddonErrors] = useState({
+    name: false,
+    price: false,
+  });
+
   const router = useRouter();
   const { slug } = router.query;
 
@@ -121,7 +132,7 @@ function Page() {
     }
   }, [slug]);
 
-  function updateRoom() {
+  function updateHotel() {
     const options = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -138,7 +149,7 @@ function Page() {
       });
   }
 
-  function deleteRoom() {
+  function deleteHotel() {
     const options = {
       method: "DELETE",
     };
@@ -222,11 +233,13 @@ function Page() {
 
     if (prop === "offers") {
       const offer = value as unknown as Offer;
-      if (formData?.offers.includes(offer)) {
+      if (formData?.offers.some((offerData) => offerData._id === offer._id)) {
         setFormData((prevState) => ({
           ...prevState,
           offers: [
-            ...formData.offers.filter((offerData) => offerData !== offer),
+            ...formData.offers.filter(
+              (offerData) => offerData._id !== offer._id
+            ),
           ],
         }));
       } else {
@@ -295,6 +308,69 @@ function Page() {
     }
   };
 
+  const addonUpdateHandler = {
+    name: {
+      name: "name",
+      updaterFunction: (str: string) => {
+        if (str.length <= 1) {
+          setAddonErrors((prevState) => ({
+            ...prevState,
+            name: true,
+          }));
+        } else {
+          setAddonErrors((prevState) => ({
+            ...prevState,
+            name: false,
+          }));
+        }
+        setAddonData((prevState) => ({
+          ...prevState,
+          name: str,
+        }));
+      },
+    },
+    price: {
+      name: "price",
+      updaterFunction: (num: string) => {
+        if (num.match(/^\d+$/)) {
+          if (parseInt(num) <= 0) {
+            setAddonErrors((prevState) => ({
+              ...prevState,
+              price: true,
+            }));
+          } else {
+            setAddonErrors((prevState) => ({
+              ...prevState,
+              price: false,
+            }));
+          }
+          setAddonData((prevState) => ({
+            ...prevState,
+            price: parseInt(num),
+          }));
+        }
+      },
+    },
+    description: {
+      name: "description",
+      updaterFunction: (str: string) => {
+        setAddonData((prevState) => ({
+          ...prevState,
+          description: str,
+        }));
+      },
+    },
+    image: {
+      name: "image",
+      updaterFunction: (str: string) => {
+        setAddonData((prevState) => ({
+          ...prevState,
+          image: str,
+        }));
+      },
+    },
+  };
+
   return (
     <div>
       <div
@@ -307,8 +383,8 @@ function Page() {
             {` ${
               modalContent == "update"
                 ? "Entry updated successfully"
-                  ? modalContent == "update"
-                  : "Entry removed successfully"
+                : modalContent == "remove"
+                ? "Entry removed successfully"
                 : "Add new addon"
             } `}
           </Heading>
@@ -346,7 +422,7 @@ function Page() {
                 onSubmit={(e) => {
                   e.preventDefault();
                 }}
-                className={`flex flex-col gap-4 min-w-[320px]`}
+                className={`flex flex-col gap-4 min-w-[300px] md:min-w-[400px]`}
               >
                 <InputField
                   label="Addon name"
@@ -354,19 +430,29 @@ function Page() {
                   id="addon_name"
                   value={addonData ? addonData.name : ""}
                   onChange={(e) => {
-                    //handleAddonUpdate("name", e.target.value)
+                    addonUpdateHandler.name.updaterFunction(e.target.value);
                   }}
                 />
+                {addonErrors.name && (
+                  <InputError
+                    message="Name has to have at least 2 characters."
+                    showError
+                  />
+                )}
+
                 <InputField
-                  label="Addon name"
-                  name="addon_name"
-                  id="addon_name"
+                  label="Addon price"
+                  name="addon_price"
+                  id="addon_price"
                   type="number"
                   value={addonData ? addonData.price : ""}
                   onChange={(e) => {
-                    //handleAddonUpdate("price", e.target.value)
+                    addonUpdateHandler.price.updaterFunction(e.target.value);
                   }}
                 />
+                {addonErrors.price && (
+                  <InputError message="Price cannot be 0." showError />
+                )}
                 <InputField
                   label="Description (optional)"
                   name="addon_description"
@@ -377,7 +463,9 @@ function Page() {
                       : ""
                   }
                   onChange={(e) => {
-                    //handleAddonUpdate("price", e.target.value)
+                    addonUpdateHandler.description.updaterFunction(
+                      e.target.value
+                    );
                   }}
                 />
                 <InputField
@@ -386,7 +474,7 @@ function Page() {
                   id="addon_image"
                   value={addonData && addonData.image ? addonData.image : ""}
                   onChange={(e) => {
-                    //handleAddonUpdate("price", e.target.value)
+                    addonUpdateHandler.image.updaterFunction(e.target.value);
                   }}
                 />
                 <div
@@ -398,7 +486,13 @@ function Page() {
                     isSmall
                     onClick={() => {
                       setIsModalVisible(false);
-                      setAddonData(undefined);
+                      //unset addon data
+                      setAddonData({
+                        name: "",
+                        price: 0,
+                        description: "",
+                        image: "",
+                      });
                     }}
                   >
                     Close
@@ -407,7 +501,15 @@ function Page() {
                     color="sea"
                     isActive
                     isSmall
-                    onClick={() => setIsModalVisible(false)}
+                    onClick={() => {
+                      if (
+                        addonData &&
+                        addonData.name.length > 0 &&
+                        addonData.price > 0
+                      ) {
+                        handleUpdate("addons", addonData);
+                      }
+                    }}
                   >
                     Add addon
                   </Button>
@@ -432,7 +534,7 @@ function Page() {
               isActive
               isSmall
               onClick={() => {
-                deleteRoom();
+                deleteHotel();
               }}
             >
               <span className={`flex flex-row gap-2 items-center`}>
@@ -938,7 +1040,7 @@ function Page() {
                   isActive
                   isSmall
                   onClick={() => {
-                    updateRoom();
+                    updateHotel();
                   }}
                 >
                   Update
