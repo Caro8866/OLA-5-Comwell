@@ -32,7 +32,7 @@ function Page() {
     const options = {
       method: "DELETE",
     };
-    fetch(`http://localhost:5000/hotel-packages/${id}`, options)
+    fetch(`http://localhost:5000/packages/${id}`, options)
       .then((response) => response.json())
       .then((res) => {
         setModalState("finished");
