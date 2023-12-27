@@ -1,10 +1,11 @@
 import InputField from "@/components/formField/InputField";
-import { useState, FormEvent, useContext } from "react";
+import { useState, FormEvent, useContext, useEffect } from "react";
 import { SignInValidators } from "../../../utils/formTypes";
 import InputError from "@/components/formField/InputError";
 import { AuthContext } from "@/context/AuthContext";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import verifyAuth from "@/utils/verifyAuth";
 
 export default function SignInForm() {
   const router = useRouter();
@@ -15,9 +16,18 @@ export default function SignInForm() {
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [errorText, setErrorText] = useState("");
 
-  const { onSignInSuccess, authState } = useContext(AuthContext);
+  const { onSignInSuccess } = useContext(AuthContext);
 
-  authState.isAuthenticated && console.log(authState.userData);
+  useEffect(() => {
+    async function checkAuthentication() {
+      const authenticationResult = await verifyAuth("admin");
+      if (authenticationResult.isAuthenticated) {
+        router.push("/dashboard");
+      }
+    }
+
+    checkAuthentication();
+  }, []);
 
   const validators: SignInValidators = {
     loginEmail: {
