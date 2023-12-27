@@ -40,7 +40,7 @@ export const AuthContextProvider = ({
 
   useEffect(() => {
     async function checkAuthentication() {
-      const authenticationResult = await verifyAuth();
+      const authenticationResult = await verifyAuth("profile");
       if (authenticationResult) {
         setAuthState({
           isAuthenticated: authenticationResult.isAuthenticated,

@@ -1,7 +1,7 @@
 import { getCookie } from "cookies-next";
-export default async function verifyAuth() {
+export default async function verifyAuth(endpoint: string) {
   const token = getCookie("token");
-  const response = await fetch("http://localhost:5000/auth/profile", {
+  const response = await fetch(`http://localhost:5000/auth/${endpoint}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
