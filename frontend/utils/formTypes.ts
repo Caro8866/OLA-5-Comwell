@@ -17,3 +17,11 @@ export type SignInValidators = {
   loginEmail: ValidatorType;
   loginPassword: ValidatorType;
 };
+
+export type RoomValidators = {
+  roomName: ValidatorType;
+  roomPrice: ValidatorType;
+  roomSize: ValidatorType;
+  roomDescription: ValidatorType;
+  roomImage: ValidatorType;
+};
