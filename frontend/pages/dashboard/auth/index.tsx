@@ -10,6 +10,7 @@ export default function SignInForm() {
   const [loginPassword, setLoginPassword] = useState("");
   const [unauthorizedError, setUnauthorizedError] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [errorText, setErrorText] = useState("");
 
   const { onSignInSuccess, authState } = useContext(AuthContext);
 
@@ -61,6 +62,7 @@ export default function SignInForm() {
             return response.json().then((errorData) => {
               // Display an error if the user doesn't exist or the password is wrong
               setUnauthorizedError(true);
+              setErrorText("Email or password are wrong. Please try again");
               throw new Error(`Server error! Message: ${errorData.message}`);
             });
           } else {
@@ -79,6 +81,7 @@ export default function SignInForm() {
               return response.json().then((errorData) => {
                 // Display an error if the user doesn't exist or the password is wrong
                 setUnauthorizedError(true);
+                setErrorText("You are not authorized to access this area");
                 throw new Error(`Server error! Message: ${errorData.message}`);
               });
             } else {
@@ -91,6 +94,7 @@ export default function SignInForm() {
         .then((data) => {
           // remove error if the login was successful
           setUnauthorizedError(false);
+          setErrorText("");
           console.log("Response:", "login was successful");
         })
         .catch((error) => {
@@ -165,10 +169,7 @@ export default function SignInForm() {
             setValidationErrors={setValidationErrors}
           />
 
-          <InputError
-            message="Email or password are wrong. Please try again"
-            showError={unauthorizedError}
-          />
+          <InputError message={errorText} showError={unauthorizedError} />
         </div>
         <button
           type="submit"
