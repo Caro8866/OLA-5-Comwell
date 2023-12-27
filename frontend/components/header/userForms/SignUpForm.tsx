@@ -131,6 +131,7 @@ export default function SignUpForm({
           gender: selectedGender,
           password: loginPassword,
           dateOfBirth,
+          roles: ["Admin"],
         }),
       })
         .then(async (response) => {

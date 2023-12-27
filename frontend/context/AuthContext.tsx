@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import verifyAuth from "@/utils/verifyAuth";
-import { getCookie } from "cookies-next";
 
 type AuthContextType = {
   authState: {
@@ -13,6 +12,7 @@ type AuthContextType = {
       phone: number;
       gender: "Male" | "Female" | "Prefer not to say" | "Other";
       dateOfBirth: string;
+      roles: string[];
     } | null;
   };
   onSignInSuccess: () => void;

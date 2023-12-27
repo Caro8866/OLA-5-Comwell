@@ -15,7 +15,7 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { SignInDto } from './dto/signIn.dto';
 import { Response } from 'express';
-import { Role } from 'src/enums/role.enum';
+import { Role } from 'src/users/enums/role.enum';
 import { Roles } from 'src/roles.decorator';
 import { RolesGuard } from './roles.guard';
 

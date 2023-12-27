@@ -51,6 +51,7 @@ export class AuthService {
       phone: user.phone,
       gender: user.gender,
       birthday: user.dateOfBirth,
+      roles: user.roles,
     };
     return {
       access_token: await this.jwtService.signAsync(payload),

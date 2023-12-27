@@ -2,6 +2,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import 'dotenv/config';
+import { Role } from 'src/users/enums/role.enum';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -21,6 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     phone: number;
     gender: 'Male' | 'Female' | 'Prefer not to say' | 'Other';
     dateOfBirth: string;
+    roles: Role[];
   }) {
     return {
       userId: payload.sub,
@@ -30,6 +32,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       phone: payload.phone,
       gender: payload.gender,
       birthday: payload.dateOfBirth,
+      roles: payload.roles,
     };
   }
 }
