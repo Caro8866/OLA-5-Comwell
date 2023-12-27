@@ -53,6 +53,7 @@ function BookingConfirmation({
     checkOutDate: convertedEndDate,
     hotelPackageId: bookingData.selectedPackage._id,
     addons: bookingData.selectedAddons,
+    peopleCount: bookingData.peopleCount,
     guest: {
       fullName: bookingData.guestInformation.fullName,
       email: bookingData.guestInformation.email,
@@ -216,6 +217,7 @@ function BookingConfirmation({
               startDate: null,
               endDate: null,
               selectedRoom: {
+                _id: "",
                 name: "",
                 size: 0,
                 description: "",

@@ -27,7 +27,7 @@ export class HotelRoomsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.hotelRoomsService.findOne(+id);
+    return this.hotelRoomsService.findOne(id);
   }
 
   @Put(':id')
@@ -35,11 +35,11 @@ export class HotelRoomsController {
     @Param('id') id: string,
     @Body() updateHotelRoomDto: UpdateHotelRoomDto,
   ) {
-    return this.hotelRoomsService.update(+id, updateHotelRoomDto);
+    return this.hotelRoomsService.update(id, updateHotelRoomDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.hotelRoomsService.remove(+id);
+    return this.hotelRoomsService.remove(id);
   }
 }

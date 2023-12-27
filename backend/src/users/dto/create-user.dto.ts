@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsEmail, Validate, IsInt, IsIn } from 'class-validator';
 import { CustomPasswordValidator } from './validators/CustomPasswordValidator';
 import { IsDateOfBirthValid } from './validators/isDateOfBirthValid';
+import { Role } from '../enums/role.enum';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: 'Please enter a name.' })
@@ -34,4 +35,6 @@ export class CreateUserDto {
     message: 'The person must be at least 18 years old.',
   })
   dateOfBirth: Date;
+
+  roles: Role[];
 }

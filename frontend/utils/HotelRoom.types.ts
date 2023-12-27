@@ -1,4 +1,6 @@
 export type HotelRoom = {
+  _id: string;
+
   name: string;
 
   size: number;

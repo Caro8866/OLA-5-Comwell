@@ -1,1 +1,2 @@
 JWT_SECRET="" # Replace with a secure, randomly generated 64-byte string. This is used for JWT authentication.
+DB_HOST="127.0.0.1" # If the backend is to be run locally include this in the .env NB! Not needed for Docker

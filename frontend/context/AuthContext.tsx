@@ -12,6 +12,7 @@ type AuthContextType = {
       phone: number;
       gender: "Male" | "Female" | "Prefer not to say" | "Other";
       dateOfBirth: string;
+      roles: string[];
     } | null;
   };
   onSignInSuccess: () => void;
@@ -37,27 +38,32 @@ export const AuthContextProvider = ({
     userData: null,
   });
 
-  const [signInCompleted, setSignInCompleted] = useState(false);
-
   useEffect(() => {
     async function checkAuthentication() {
       const authenticationResult = await verifyAuth();
-      authenticationResult &&
+      if (authenticationResult) {
         setAuthState({
           isAuthenticated: authenticationResult.isAuthenticated,
           userData: authenticationResult.userData,
         });
+      }
     }
 
     checkAuthentication();
-  }, [signInCompleted]);
+  }, [authState.isAuthenticated]);
 
   const handleSignInSuccess = () => {
-    setSignInCompleted(true);
+    setAuthState({
+      ...authState,
+      isAuthenticated: true,
+    });
   };
 
   const handleSignOutSuccess = () => {
-    setSignInCompleted(false);
+    setAuthState({
+      ...authState,
+      isAuthenticated: false,
+    });
   };
 
   return (

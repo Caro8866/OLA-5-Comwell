@@ -131,6 +131,7 @@ export default function SignUpForm({
           gender: selectedGender,
           password: loginPassword,
           dateOfBirth,
+          roles: ["User"],
         }),
       })
         .then(async (response) => {
@@ -195,20 +196,7 @@ export default function SignUpForm({
     } else {
       isFormSubmitted.current = false;
     }
-  }, [
-    validationErrors,
-    isTermsAccepted,
-    userExists,
-    fullName,
-    zipCode,
-    loginEmail,
-    phone,
-    selectedGender,
-    loginPassword,
-    dateOfBirth,
-    toggleRegisterDrawer,
-    onSignInSuccess,
-  ]);
+  }, [validationErrors]);
 
   return (
     <Drawer
