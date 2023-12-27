@@ -4,8 +4,11 @@ import { SignInValidators } from "../../../utils/formTypes";
 import InputError from "@/components/formField/InputError";
 import { AuthContext } from "@/context/AuthContext";
 import { getCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 export default function SignInForm() {
+  const router = useRouter();
+
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [unauthorizedError, setUnauthorizedError] = useState(false);
@@ -65,37 +68,40 @@ export default function SignInForm() {
               setErrorText("Email or password are wrong. Please try again");
               throw new Error(`Server error! Message: ${errorData.message}`);
             });
-          } else {
-            const token = getCookie("token");
+          }
 
-            const response = await fetch("http://localhost:5000/auth/admin", {
+          const token = getCookie("token");
+          const responseAdmin = await fetch(
+            "http://localhost:5000/auth/admin",
+            {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
               credentials: "include",
-            });
-
-            if (!response.ok) {
-              return response.json().then((errorData) => {
-                // Display an error if the user doesn't exist or the password is wrong
-                setUnauthorizedError(true);
-                setErrorText("You are not authorized to access this area");
-                throw new Error(`Server error! Message: ${errorData.message}`);
-              });
-            } else {
-              // Run the callback from the auth context to check if the cookie token in still valid
-              onSignInSuccess();
-              return response.json();
             }
+          );
+
+          if (!responseAdmin.ok) {
+            return responseAdmin.json().then((errorData) => {
+              // Display an error if the user doesn't exist or the password is wrong
+              setUnauthorizedError(true);
+              setErrorText("You are not authorized to access this area");
+              throw new Error(`Server error! Message: ${errorData.message}`);
+            });
           }
+
+          // Run the callback from the auth context to check if the cookie token in still valid
+          onSignInSuccess();
+          return responseAdmin.json();
         })
         .then((data) => {
           // remove error if the login was successful
           setUnauthorizedError(false);
           setErrorText("");
           console.log("Response:", "login was successful");
+          router.push("/dashboard");
         })
         .catch((error) => {
           console.error("Error:", error.message);
