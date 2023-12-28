@@ -3,7 +3,7 @@ import "@/app/globals.css";
 type Props = {
   color: "charcoal" | "sea" | "sand" | "earth" | "blank" | "outline";
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e?: any) => void;
   isActive?: boolean;
   isFullWidth?: boolean;
   isSmall?: boolean;
