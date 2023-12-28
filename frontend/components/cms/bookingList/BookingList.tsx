@@ -4,6 +4,7 @@ import React from "react";
 
 type Props = {
   bookings: HotelBooking[] | undefined;
+  deleteBooking: (id: HotelBooking) => void;
 };
 
 function BookingList(props: Props) {
@@ -33,10 +34,12 @@ function BookingList(props: Props) {
             >
               <p
                 className={`font-medium text-mobile-xsmall-desktop md:text-heading-tiny-desktop 2xl:text-heading-xsmall-desktop`}
-              >{`${booking.rooms[0].name} room`}</p>
+              >
+                {booking.booker.email.toLowerCase()}
+              </p>
               <p
                 className={`text-charcoal-60 text-trumpet-mobile lg:text-trumpet-desktop font-medium`}
-              >{`${booking.booker.email.toLowerCase()}`}</p>
+              >{`${booking._id.toLowerCase()}`}</p>
             </div>
             <div
               className={`col-span-3 lg:col-span-2 xl:col-span-3 flex flex-row justify-start items-center text-trumpet-desktop`}
@@ -112,6 +115,7 @@ function BookingList(props: Props) {
               </Link>
               <span
                 className={`flex justify-center items-center border rounded-full p-2 group hover:bg-sea-80 hover:border-sea-80 transition cursor-pointer`}
+                onClick={() => props.deleteBooking(booking)}
               >
                 <svg
                   width="20"

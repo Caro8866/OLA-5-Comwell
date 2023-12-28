@@ -29,7 +29,7 @@ function Page() {
       });
   }, []);
 
-  function deleteBooking(id: string) {
+  function deleteBookingRequest(id: string) {
     const options = {
       method: "DELETE",
     };
@@ -45,9 +45,9 @@ function Page() {
       });
   }
 
-  function handleModal(booking: HotelBooking) {
+  function deleteBooking(booking: HotelBooking) {
     setIsModalVisible(true);
-    setModalState("confirmation");
+    setModalState("delete");
     setModalBooking(booking);
   }
 
@@ -59,10 +59,10 @@ function Page() {
         }`}
       >
         <div className={`flex flex-col gap-4 bg-white p-8 rounded-lg `}>
-          {modalState == "confirmation" && modalBooking && (
+          {modalState == "delete" && modalBooking && (
             <>
               <Heading size={4}>Delete booking</Heading>
-              <p>{`Are you sure you want to delete ${modalBooking?._id} booking?`}</p>
+              <p>{`Are you sure you want to delete booking #${modalBooking?._id} ?`}</p>
               <div
                 className={`flex flex-row gap-2 justify-between items-center mt-4`}
               >
@@ -82,7 +82,7 @@ function Page() {
                   isActive
                   isSmall
                   onClick={() => {
-                    deleteBooking(modalBooking._id);
+                    deleteBookingRequest(modalBooking._id);
                   }}
                 >
                   Delete booking
@@ -138,7 +138,12 @@ function Page() {
             ) : (
               <>
                 {areBookingsLoading && <Spinner />}
-                {bookings && <BookingList bookings={bookings}></BookingList>}
+                {bookings && (
+                  <BookingList
+                    bookings={bookings}
+                    deleteBooking={deleteBooking}
+                  />
+                )}
               </>
             )}
           </section>
