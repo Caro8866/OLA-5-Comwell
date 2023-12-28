@@ -318,7 +318,7 @@ function Page() {
                 name="packageDiscount"
                 id="packageDiscount"
                 value={formData.discount}
-                errorMessage="Please enter a valid size"
+                errorMessage="Please enter a valid discount"
                 validationCondition={() =>
                   validators.packageDiscount.validationFunction()
                 }
