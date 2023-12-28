@@ -1,8 +1,9 @@
+import { HotelBooking } from "@/utils/Booking.types";
 import Link from "next/link";
 import React from "react";
 
 type Props = {
-  bookings: any[] | undefined;
+  bookings: HotelBooking[] | undefined;
 };
 
 function BookingList(props: Props) {
@@ -11,7 +12,7 @@ function BookingList(props: Props) {
       <header
         className={`grid grid-cols-12 gap-2 px-2 lg:px-4 text-charcoal-60 font-medium`}
       >
-        <p className={`col-span-6 lg:col-span-5 xl:col-span-4`}>Room name</p>
+        <p className={`col-span-6 lg:col-span-5 xl:col-span-4`}>Details</p>
         <p className={`col-span-5 lg:col-span-2 xl:col-span-3`}>Date</p>
         <p className={`col-span-1 hidden lg:flex`}>Amount</p>
         <p className={`col-span-2 hidden lg:flex flex-row justify-center`}>
@@ -35,7 +36,7 @@ function BookingList(props: Props) {
               >{`${booking.rooms[0].name} room`}</p>
               <p
                 className={`text-charcoal-60 text-trumpet-mobile lg:text-trumpet-desktop font-medium`}
-              >{`#${booking._id}`}</p>
+              >{`${booking.booker.email.toLowerCase()}`}</p>
             </div>
             <div
               className={`col-span-3 lg:col-span-2 xl:col-span-3 flex flex-row justify-start items-center text-trumpet-desktop`}
