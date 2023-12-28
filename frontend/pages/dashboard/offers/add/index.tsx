@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { HotelPackage, HotelPackageForm } from "@/utils/HotelPackage.types";
+import { Offer, OfferForm } from "@/utils/offer.types";
 import DashboardWrapper from "@/components/cms/dashboardWrapper/DashboardWrapper";
 import Heading from "@/components/text/heading/Heading";
 import InputField from "@/components/formField/InputField";
@@ -16,49 +16,44 @@ import { RoomValidators } from "@/utils/formTypes";
 function Page() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState("update");
-  const [isPackageDataLoading, setIsPackageDataLoading] = useState(false);
+  const [isOfferDataLoading, setIsOfferDataLoading] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [tagName, setTagName] = useState("");
-  const [formData, setFormData] = useState<HotelPackageForm>({
+  const [formData, setFormData] = useState<OfferForm>({
     name: "",
     description: "",
     image: "",
-    price: 0,
-    type: "",
-    tags: [],
-    discount: 0,
+    tag: "",
+    href: "",
   });
 
-  type PackageValidators = {
-    packageName: ValidatorType;
-    packageDescription: ValidatorType;
-    packageImage: ValidatorType;
-    packagePrice: ValidatorType;
-    packageDiscount: ValidatorType;
-    packageType: ValidatorType;
+  type OfferValidators = {
+    offerName: ValidatorType;
+    offerDescription: ValidatorType;
+    offerImage: ValidatorType;
+    offerTag: ValidatorType;
+    offerHref: ValidatorType;
   };
 
-  function addPackage() {
+  function addOffer() {
     const options = {
       method: "Post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: formData.name,
-        discount: formData.discount,
         description: formData.description,
         image: formData.image,
-        price: formData.price,
-        tags: formData.tags,
-        type: formData.type,
+        tag: formData.tag,
+        href: formData.href,
       }),
     };
-    fetch(`http://localhost:5000/packages/`, options)
+    fetch(`http://localhost:5000/hotel-offers/`, options)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         if (data.statusCode !== 400 && data.statusCode !== 500) {
-          setModalContent("update");
+          setModalContent("created");
           setIsModalVisible(true);
         } else {
           setModalContent("error");
@@ -70,29 +65,21 @@ function Page() {
       });
   }
 
-  const validators: PackageValidators = {
-    packageName: {
-      fieldName: "packageName",
+  const validators: OfferValidators = {
+    offerName: {
+      fieldName: "offerName",
       validationFunction: () =>
         formData.name.match(/^[a-zA-Z\s]*$/) && formData.name.length > 0
           ? true
           : false,
     },
-    packagePrice: {
-      fieldName: "packagePrice",
-      validationFunction: () => formData.price > 0,
-    },
-    packageDiscount: {
-      fieldName: "packageDiscount",
-      validationFunction: () => formData.discount >= 0,
-    },
-    packageDescription: {
-      fieldName: "packageDescription",
+    offerDescription: {
+      fieldName: "offerDescription",
       validationFunction: () =>
         formData.description.length > 0 ? true : false,
     },
-    packageImage: {
-      fieldName: "packageImage",
+    offerImage: {
+      fieldName: "offerImage",
       validationFunction: () =>
         formData.image.match(
           /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
@@ -100,10 +87,17 @@ function Page() {
           ? true
           : false,
     },
-    packageType: {
-      fieldName: "packageType",
+    offerTag: {
+      fieldName: "offerTag",
       validationFunction: () =>
-        formData.name.match(/^[a-zA-Z\s]*$/) && formData.name.length > 0
+        formData.tag.match(/^[a-zA-Z\s]*$/) && formData.tag.length > 0
+          ? true
+          : false,
+    },
+    offerHref: {
+      fieldName: "offerHref",
+      validationFunction: () =>
+        formData.href.match(/([A-Za-z0-9_-]+)/) && formData.href.length > 0
           ? true
           : false,
     },
@@ -115,59 +109,26 @@ function Page() {
         ...prevState,
         name: value,
       })),
-    price: (value: string) => {
-      let convertedValue: number;
-      if (!value.match(/^[+-]?(\d*\.)?\d+$/)) {
-        convertedValue = formData.price;
-      } else {
-        convertedValue = parseFloat(value);
-      }
-      setFormData((prevState) => ({
-        ...prevState,
-        price: convertedValue,
-      }));
-    },
-    discount: (value: string) => {
-      let convertedValue: number;
-      if (!value.match(/^[+-]?(\d*\.)?\d+$/)) {
-        convertedValue = formData.discount;
-      } else {
-        convertedValue = parseFloat(value);
-      }
-      setFormData((prevState) => ({
-        ...prevState,
-        discount: convertedValue,
-      }));
-    },
     description: (value: string) =>
       setFormData((prevState) => ({
         ...prevState,
         description: value,
       })),
-    type: (value: string) =>
+    tag: (value: string) =>
       setFormData((prevState) => ({
         ...prevState,
-        type: value,
+        tag: value,
       })),
     image: (value: string) =>
       setFormData((prevState) => ({
         ...prevState,
         image: value,
       })),
-    tag: (value: string) => (
+    href: (value: string) =>
       setFormData((prevState) => ({
         ...prevState,
-        tags: [...formData.tags, tagName],
+        href: value,
       })),
-      setTagName("")
-    ),
-    removeTag: (value: string) => {
-      const filteredTags = formData.tags.filter((tag) => tag !== value);
-      setFormData((prevState) => ({
-        ...prevState,
-        tags: [...filteredTags],
-      }));
-    },
   };
 
   function handleSubmit(e: FormEvent) {
@@ -183,14 +144,13 @@ function Page() {
       }
     });
     if (
-      validators.packageName.validationFunction() &&
-      validators.packageDiscount.validationFunction() &&
-      validators.packagePrice.validationFunction() &&
-      validators.packageDescription.validationFunction() &&
-      validators.packageImage.validationFunction() &&
-      validators.packageType.validationFunction()
+      validators.offerName.validationFunction() &&
+      validators.offerTag.validationFunction() &&
+      validators.offerHref.validationFunction() &&
+      validators.offerDescription.validationFunction() &&
+      validators.offerImage.validationFunction()
     ) {
-      addPackage();
+      addOffer();
     }
   }
 
@@ -203,47 +163,11 @@ function Page() {
       >
         <section className={`p-4 bg-white rounded-lg border`}>
           <Heading size={5} styles="mb-6 justify-center flex w-full">
-            {modalContent == "tag" && "Add new tag"}
             {modalContent == "error" && "Problem submitting your data"}
+            {modalContent == "created" && "Entry added"}
           </Heading>
-          {modalContent === "tag" && (
-            <div className={`flex flex-col gap-6`}>
-              <InputField
-                label="Tag name"
-                name="tag"
-                id="tag"
-                value={tagName}
-                onChange={(e) => {
-                  setTagName(e.target.value);
-                }}
-              />
-              <div
-                className={`flex flex-row gap-4 items-center justify-between`}
-              >
-                <Button
-                  color="outline"
-                  isActive
-                  isSmall
-                  onClick={() => setIsModalVisible(false)}
-                >
-                  Close
-                </Button>
-                <Button
-                  color="outline"
-                  isActive
-                  isSmall
-                  onClick={() => {
-                    update.tag(tagName);
-                    setIsModalVisible(false);
-                  }}
-                >
-                  Add tag
-                </Button>
-              </div>
-            </div>
-          )}
           {modalContent === "error" && (
-            <div className={`flex flex-col gap-6`}>
+            <div className={`flex flex-col gap-6 justify-center`}>
               <p>Something went wrong, please try again.</p>
               <div
                 className={`flex flex-row gap-4 items-center justify-center`}
@@ -259,14 +183,37 @@ function Page() {
               </div>
             </div>
           )}
+          {modalContent === "created" && (
+            <div className={`flex flex-col gap-6 justify-center`}>
+              <p>Offer added successfully.</p>
+              <div
+                className={`flex flex-row gap-4 items-center justify-between`}
+              >
+                <Button
+                  color="outline"
+                  isActive
+                  isSmall
+                  onClick={() => setIsModalVisible(false)}
+                >
+                  Close
+                </Button>
+                <Link
+                  href={"/dashboard/offers"}
+                  className={`flex px-6 py-2 rounded-full bg-sea-80 hover:bg-sea-100 transition text-slate-50`}
+                >
+                  Back to offers
+                </Link>
+              </div>
+            </div>
+          )}
         </section>
       </div>
-      <DashboardWrapper active="packages">
+      <DashboardWrapper active="offers">
         <div>
           <div className={`flex flex-row justify-between py-4 items-center`}>
             <Heading size={3} styles="col-span-full mb-8">{`${
               formData?.name ? formData.name : "New"
-            } package`}</Heading>
+            } offer`}</Heading>
           </div>
           <form
             noValidate
@@ -279,53 +226,52 @@ function Page() {
               className={`w-full bg-slate-50 rounded-lg px-2 lg:px-4 py-4 flex flex-col gap-4 col-span-1`}
             >
               <Heading size={5} styles="mb-4">
-                Package details
+                Offer details
               </Heading>
 
               <InputField
-                label="Package name"
-                name="packageName"
-                id="packageName"
+                label="Offer name"
+                name="offerName"
+                id="offerName"
                 value={formData.name}
                 errorMessage="Please type a valid name (a-z)"
                 validationCondition={() =>
-                  validators.packageName.validationFunction()
+                  validators.offerName.validationFunction()
                 }
-                validationOnSend={!validationErrors.includes("packageName")}
+                validationOnSend={!validationErrors.includes("offerName")}
                 setValidationErrors={setValidationErrors}
                 onChange={(e) => {
                   update.name(e.target.value);
                 }}
               />
-
               <InputField
-                label="Package price multiplier"
-                name="package_price"
-                id="package_price"
-                value={formData.price}
-                errorMessage="Please enter valid price"
+                label="Offer tag"
+                name="offerTag"
+                id="offerTag"
+                value={formData.tag}
+                errorMessage="Please type a valid tag (a-z)"
                 validationCondition={() =>
-                  validators.packagePrice.validationFunction()
+                  validators.offerTag.validationFunction()
                 }
-                validationOnSend={!validationErrors.includes("packagePrice")}
+                validationOnSend={!validationErrors.includes("offerTag")}
                 setValidationErrors={setValidationErrors}
                 onChange={(e) => {
-                  update.price(e.target.value);
+                  update.tag(e.target.value);
                 }}
               />
               <InputField
-                label="Package discount"
-                name="packageDiscount"
-                id="packageDiscount"
-                value={formData.discount}
-                errorMessage="Please enter a valid discount"
+                label="Offer slug"
+                name="offerSlug"
+                id="offerSlug"
+                value={formData.href}
+                errorMessage="Please type a valid slug (a-z, -, _)"
                 validationCondition={() =>
-                  validators.packageDiscount.validationFunction()
+                  validators.offerHref.validationFunction()
                 }
-                validationOnSend={!validationErrors.includes("packageSize")}
+                validationOnSend={!validationErrors.includes("offerHref")}
                 setValidationErrors={setValidationErrors}
                 onChange={(e) => {
-                  update.discount(e.target.value);
+                  update.href(e.target.value);
                 }}
               />
 
@@ -345,14 +291,14 @@ function Page() {
                   onChange={(e) => {
                     if (e.target.value.length > 0) {
                       validationErrors.splice(
-                        validationErrors.indexOf("packageDescription"),
+                        validationErrors.indexOf("offerDescription"),
                         1
                       );
                     } else {
-                      !validationErrors.includes("packageDescription") &&
+                      !validationErrors.includes("offerDescription") &&
                         setValidationErrors([
                           ...validationErrors,
-                          "packageDescription",
+                          "offerDescription",
                         ]);
                     }
                     setFormData((prevState) => ({
@@ -361,7 +307,7 @@ function Page() {
                     }));
                   }}
                 ></textarea>
-                {validationErrors.includes("packageDescription") && (
+                {validationErrors.includes("offerDescription") && (
                   <InputError
                     message="Description must be provided"
                     showError
@@ -372,12 +318,12 @@ function Page() {
             <section
               className={`w-full bg-slate-50 rounded-lg px-2 lg:px-4 py-4 flex flex-col gap-4 col-span-1`}
             >
-              {isPackageDataLoading && <Spinner></Spinner>}
+              {isOfferDataLoading && <Spinner></Spinner>}
               {formData.image.match(
                 /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
               ) ? (
                 <Image
-                  alt={"Invalid package image"}
+                  alt={"Invalid offer image"}
                   src={
                     formData.image.match(
                       /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
@@ -393,15 +339,15 @@ function Page() {
                 <></>
               )}
               <InputField
-                label="Package Image"
-                name="package_image"
-                id="package_image"
+                label="Offer Image"
+                name="offerImage"
+                id="offerImage"
                 value={formData.image}
-                errorMessage="Please provide a link"
+                errorMessage="Please provide a valid link"
                 validationCondition={() =>
-                  validators.packageName.validationFunction()
+                  validators.offerName.validationFunction()
                 }
-                validationOnSend={!validationErrors.includes("packageImage")}
+                validationOnSend={!validationErrors.includes("offerImage")}
                 setValidationErrors={setValidationErrors}
                 onChange={(e) => {
                   setFormData((prevState) => ({
@@ -409,50 +355,7 @@ function Page() {
                     image: e.target.value,
                   }));
                 }}
-              />{" "}
-              <div className={`flex flex-row justify-between py-1`}>
-                <Heading size={5}>Tags</Heading>
-                <Button
-                  color="outline"
-                  isSmall
-                  isActive
-                  onClick={() => {
-                    setModalContent("tag");
-                    setIsModalVisible(true);
-                  }}
-                >
-                  Add tag
-                </Button>
-              </div>
-              <ul className={`flex flex-col gap-4 font-medium`}>
-                {formData.tags.map((tag) => (
-                  <li
-                    className={`w-full flex flex-row justify-between group rounded-full hover:bg-sea-20 px-2 pr-1 py-1 transition items-center`}
-                    key={tag}
-                  >
-                    {tag}
-                    <span
-                      className={`w-8 h-8 rounded-full group-hover:bg-errorRed flex items-center justify-center cursor-pointer `}
-                      onClick={() => update.removeTag(tag)}
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className={`fill-charcoal-60 group-hover:fill-white transition duration-300`}
-                      >
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M15 1.5H9V3H15V1.5ZM3 4.5V6H4.5V21C4.5 21.8284 5.17157 22.5 6 22.5H18C18.8284 22.5 19.5 21.8284 19.5 21V6H21V4.5H3ZM6 21V6H18V21H6ZM9 9H10.5V18H9V9ZM15 9H13.5V18H15V9Z"
-                        />
-                      </svg>
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              />
             </section>
             <section
               className={`w-full bg-slate-50 rounded-lg px-2 lg:px-4 py-4 flex flex-col-reverse sm:flex-row justify-between gap-4 col-span-full`}
@@ -464,13 +367,13 @@ function Page() {
                 className={`flex flex-row gap-8 items-center justify-center sm:justify-end`}
               >
                 <Link
-                  href="/dashboard/packages"
+                  href="/dashboard/offers"
                   className="bg-transparent text-charcoal-100 border-2 hover:bg-sea-100 hover:text-slate-50 hover:border-sea-100 px-10 box-border block transition py-1.5 rounded-full font-semibold"
                 >
                   Cancel
                 </Link>
                 <Button color="sea" isActive isSmall onClick={handleSubmit}>
-                  Add package
+                  Add offer
                 </Button>
               </div>
             </section>
