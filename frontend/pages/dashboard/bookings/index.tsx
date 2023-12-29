@@ -7,6 +7,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/button/Button";
 import BookingList from "@/components/cms/bookingList/BookingList";
+import { Hotel } from "@/utils/Hotel.types";
 
 function Page() {
   const [bookings, setBookings] = useState<HotelBooking[]>();
@@ -14,6 +15,7 @@ function Page() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalState, setModalState] = useState("confirmation");
   const [modalBooking, setModalBooking] = useState<HotelBooking>();
+  const [hotels, setHotels] = useState<Hotel[]>();
 
   useEffect(() => {
     setAreBookingsLoading(true);
@@ -23,6 +25,16 @@ function Page() {
         console.log(data);
         setBookings(data);
         setAreBookingsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    fetch("http://localhost:5000/hotels")
+      .then((response) => response.json())
+      .then((data: Hotel[]) => {
+        console.log(data);
+        setHotels(data);
       })
       .catch((err) => {
         console.log(err);
@@ -142,6 +154,7 @@ function Page() {
                   <BookingList
                     bookings={bookings}
                     deleteBooking={deleteBooking}
+                    hotels={hotels}
                   />
                 )}
               </>

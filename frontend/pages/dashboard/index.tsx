@@ -207,7 +207,11 @@ function Index() {
                 No bookings found
               </p>
             ) : (
-              <BookingList bookings={bookings} deleteBooking={deleteBooking} />
+              <BookingList
+                bookings={bookings}
+                deleteBooking={deleteBooking}
+                hotels={hotels}
+              />
             )}
           </section>
           <section

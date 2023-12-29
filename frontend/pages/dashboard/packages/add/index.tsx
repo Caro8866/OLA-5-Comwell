@@ -11,7 +11,6 @@ import Link from "next/link";
 
 import { ValidatorType } from "@/utils/formTypes";
 import InputError from "@/components/formField/InputError";
-import { RoomValidators } from "@/utils/formTypes";
 
 function Page() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -205,6 +204,7 @@ function Page() {
           <Heading size={5} styles="mb-6 justify-center flex w-full">
             {modalContent == "tag" && "Add new tag"}
             {modalContent == "error" && "Problem submitting your data"}
+            {modalContent == "update" && "Create package"}
           </Heading>
           {modalContent === "tag" && (
             <div className={`flex flex-col gap-6`}>
@@ -256,6 +256,40 @@ function Page() {
                 >
                   Close
                 </Button>
+              </div>
+            </div>
+          )}
+          {modalContent === "update" && (
+            <div className={`flex flex-col gap-6`}>
+              <p>Package created successtuffly</p>
+              <div
+                className={`flex flex-row gap-4 items-center justify-between`}
+              >
+                <Button
+                  color="outline"
+                  isActive
+                  isSmall
+                  onClick={() => {
+                    setIsModalVisible(false);
+                    setFormData({
+                      name: "",
+                      description: "",
+                      image: "",
+                      price: 0,
+                      type: "",
+                      tags: [],
+                      discount: 0,
+                    });
+                  }}
+                >
+                  Close
+                </Button>
+                <Link
+                  href={"/dashboard/packages"}
+                  className={`flex px-6 py-2 rounded-full bg-sea-80 hover:bg-sea-100 transition text-slate-50`}
+                >
+                  Back to packages
+                </Link>
               </div>
             </div>
           )}
