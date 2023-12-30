@@ -37,4 +37,8 @@ export class PackagesService {
       .findByIdAndDelete(new mongoose.Types.ObjectId(id))
       .exec();
   }
+
+  async removeAll() {
+    return await this.packageModel.deleteMany({}).exec();
+  }
 }

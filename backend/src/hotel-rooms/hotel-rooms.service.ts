@@ -39,4 +39,8 @@ export class HotelRoomsService {
       .exec();
     return deletedRoom;
   }
+
+  async removeAll() {
+    return this.hotelRoomModel.deleteMany({}).exec();
+  }
 }
