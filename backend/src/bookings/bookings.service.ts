@@ -6,6 +6,7 @@ import { Booking } from './schemas/booking.schema';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 
+import mongoose from 'mongoose';
 @Injectable()
 export class BookingsService {
   constructor(
@@ -22,15 +23,20 @@ export class BookingsService {
     return this.bookingModel.find().exec();
   }
 
-  findOne(id: number) {
-    return this.bookingModel.findById(id).exec();
+  findOne(id: string) {
+    return this.bookingModel.findById(new mongoose.Types.ObjectId(id)).exec();
   }
 
-  update(id: number, updateBookingDto: UpdateBookingDto) {
-    return this.bookingModel.findByIdAndUpdate(id, updateBookingDto);
+  update(id: string, updateBookingDto: UpdateBookingDto) {
+    return this.bookingModel.findByIdAndUpdate(
+      new mongoose.Types.ObjectId(id),
+      updateBookingDto,
+    );
   }
 
-  remove(id: number) {
-    return this.bookingModel.findByIdAndDelete(id).exec();
+  remove(id: string) {
+    return this.bookingModel
+      .findByIdAndDelete(new mongoose.Types.ObjectId(id))
+      .exec();
   }
 }
