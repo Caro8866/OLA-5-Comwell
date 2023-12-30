@@ -31,7 +31,7 @@ describe('HotelsController', () => {
   describe('/packages', () => {
     it('should insert a hotel package', async () => {
       // Arrange
-      const newRoom = new CreatePackageDto(
+      const newPackage = new CreatePackageDto(
         'Overnight stay with breakfast buffet',
         'Gastronomy',
         ['2-course dinner/buffet', 'Accomodation', 'Breakfast Buffet'],
@@ -44,18 +44,18 @@ describe('HotelsController', () => {
       // ACT
       const response = await request(app.getHttpServer())
         .post('/packages')
-        .send(newRoom)
+        .send(newPackage)
         .expect(201);
 
-      const createdRoom = response.body;
+      const createdPackage = response.body;
 
       // ASSERT
-      expect(createdRoom.name).toEqual(newRoom.name);
-      expect(createdRoom._id).toBeDefined();
+      expect(createdPackage.name).toEqual(newPackage.name);
+      expect(createdPackage._id).toBeDefined();
     });
     it('should fetch a hotel package', async () => {
       // Arrange
-      const newRoom = new CreatePackageDto(
+      const newPackage = new CreatePackageDto(
         'Overnight stay with breakfast buffet',
         'Gastronomy',
         ['2-course dinner/buffet', 'Accomodation', 'Breakfast Buffet'],
@@ -68,24 +68,24 @@ describe('HotelsController', () => {
       // ACT
       const response = await request(app.getHttpServer())
         .post('/packages')
-        .send(newRoom)
+        .send(newPackage)
         .expect(201);
 
-      const createdRoom = response.body;
+      const createdPackage = response.body;
 
       const fetch = await request(app.getHttpServer())
-        .get(`/packages/${createdRoom._id}`)
+        .get(`/packages/${createdPackage._id}`)
         .send()
         .expect(200);
 
-      const fetchedRoom = fetch.body;
+      const fetchedPackage = fetch.body;
 
       // ASSERT
-      expect(fetchedRoom._id).toEqual(createdRoom._id);
+      expect(fetchedPackage._id).toEqual(createdPackage._id);
     });
     it('should update a hotel package', async () => {
       // Arrange
-      const newRoom = new CreatePackageDto(
+      const newPackage = new CreatePackageDto(
         'Overnight stay with breakfast buffet',
         'Gastronomy',
         ['2-course dinner/buffet', 'Accomodation', 'Breakfast Buffet'],
@@ -98,30 +98,30 @@ describe('HotelsController', () => {
       // ACT
       const response = await request(app.getHttpServer())
         .post('/packages')
-        .send(newRoom)
+        .send(newPackage)
         .expect(201);
 
-      const createdRoom = response.body;
-      newRoom.name = 'New name';
+      const createdPackage = response.body;
+      newPackage.name = 'New name';
 
       await request(app.getHttpServer())
-        .put(`/packages/${createdRoom._id}`)
-        .send(newRoom)
+        .put(`/packages/${createdPackage._id}`)
+        .send(newPackage)
         .expect(200);
 
       const fetch = await request(app.getHttpServer())
-        .get(`/packages/${createdRoom._id}`)
+        .get(`/packages/${createdPackage._id}`)
         .send()
         .expect(200);
 
-      const fetchedRoom = fetch.body;
+      const fetchedPackage = fetch.body;
 
       // ASSERT
-      expect(fetchedRoom.name).toEqual('New name');
+      expect(fetchedPackage.name).toEqual('New name');
     });
     it('should fetch a hotel package', async () => {
       // Arrange
-      const newRoom = new CreatePackageDto(
+      const newPackage = new CreatePackageDto(
         'Overnight stay with breakfast buffet',
         'Gastronomy',
         ['2-course dinner/buffet', 'Accomodation', 'Breakfast Buffet'],
@@ -134,29 +134,29 @@ describe('HotelsController', () => {
       // ACT
       const response = await request(app.getHttpServer())
         .post('/packages')
-        .send(newRoom)
+        .send(newPackage)
         .expect(201);
 
-      const createdRoom = response.body;
+      const createdPackage = response.body;
 
       await request(app.getHttpServer())
-        .get(`/packages/${createdRoom._id}`)
+        .get(`/packages/${createdPackage._id}`)
         .send()
         .expect(200);
 
       await request(app.getHttpServer())
-        .delete(`/packages/${createdRoom._id}`)
+        .delete(`/packages/${createdPackage._id}`)
         .send()
         .expect(200);
 
       const fetch = await request(app.getHttpServer())
-        .get(`/packages/${createdRoom._id}`)
+        .get(`/packages/${createdPackage._id}`)
         .send()
         .expect(200);
-      const fetchedRoom = fetch.body;
+      const fetchedPackage = fetch.body;
 
       // ASSERT
-      expect(fetchedRoom._id).toEqual(undefined);
+      expect(fetchedPackage._id).toEqual(undefined);
     });
   });
 });

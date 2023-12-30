@@ -39,4 +39,8 @@ export class HotelOffersService {
       .findByIdAndDelete(new mongoose.Types.ObjectId(id))
       .exec();
   }
+
+  removeAll() {
+    return this.hotelOfferModel.deleteMany({}).exec();
+  }
 }
