@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 type Props = {
   children?: React.ReactNode;
@@ -64,6 +65,17 @@ function DashboardWrapper(props: Props) {
           isMenuVisible ? "translate-x-0" : "translate-x-full lg:translate-x-0 "
         } lg:border-r`}
       >
+        <Link href="/" className={`absolute top-8 left-5`}>
+          <Image
+            src="/img/comwell-logo.svg"
+            alt="Logo"
+            width="140"
+            height="50"
+            className={`transition hover:opacity-50 ${
+              isMenuExpanded ? "max-w-[140px]" : "lg:max-w-[0px]"
+            } ${isMenuVisible ? "max-w-[140px]" : ""}`}
+          />
+        </Link>
         <span
           className={`hidden lg:flex absolute top-8 cursor-pointer transition-all duration-500 rounded-full p-2 hover:bg-sea-20 ${
             !isMenuExpanded ? "right-3" : "right-8"
