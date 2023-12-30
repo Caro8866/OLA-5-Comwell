@@ -197,6 +197,121 @@ function Page() {
         }));
       }
     },
+    bookerName: (value: string) => {
+      const bookerData = {
+        _id: formData.booker._id,
+        fullName: value,
+        email: formData.booker.email,
+        phone: formData.booker.phone,
+      };
+      setFormData((prevState) => ({
+        ...prevState,
+        booker: bookerData,
+      }));
+    },
+    bookerEmail: (value: string) => {
+      const bookerData = {
+        _id: formData.booker._id,
+        fullName: formData.booker.fullName,
+        email: value,
+        phone: formData.booker.phone,
+      };
+      setFormData((prevState) => ({
+        ...prevState,
+        booker: bookerData,
+      }));
+    },
+    bookerPhone: (value: string) => {
+      if (value !== "") {
+        const bookerData = {
+          _id: formData.booker._id,
+          fullName: formData.booker.fullName,
+          email: formData.booker.email,
+          phone: parseInt(value),
+        };
+        setFormData((prevState) => ({
+          ...prevState,
+          booker: bookerData,
+        }));
+      } else {
+        const bookerData = {
+          _id: formData.booker._id,
+          fullName: formData.booker.fullName,
+          email: formData.booker.email,
+          phone: 0,
+        };
+        setFormData((prevState) => ({
+          ...prevState,
+          booker: bookerData,
+        }));
+      }
+    },
+    guestName: (value: string) => {
+      const guestData = {
+        _id: formData.guest._id,
+        fullName: value,
+        email: formData.guest.email,
+        phone: formData.guest.phone,
+        address: formData.guest.address,
+      };
+      setFormData((prevState) => ({
+        ...prevState,
+        guest: guestData,
+      }));
+    },
+    guestAddress: (value: string) => {
+      const guestData = {
+        _id: formData.guest._id,
+        fullName: formData.guest.fullName,
+        email: formData.guest.email,
+        phone: formData.guest.phone,
+        address: value,
+      };
+      setFormData((prevState) => ({
+        ...prevState,
+        guest: guestData,
+      }));
+    },
+    guestEmail: (value: string) => {
+      const guestData = {
+        _id: formData.guest._id,
+        fullName: formData.guest.fullName,
+        email: value,
+        phone: formData.guest.phone,
+        address: formData.guest.address,
+      };
+      setFormData((prevState) => ({
+        ...prevState,
+        guest: guestData,
+      }));
+    },
+    guestPhone: (value: string) => {
+      if (value !== "") {
+        const guestData = {
+          _id: formData.guest._id,
+          fullName: formData.guest.fullName,
+          email: formData.guest.email,
+          phone: parseInt(value),
+          address: formData.guest.address,
+        };
+        setFormData((prevState) => ({
+          ...prevState,
+          guest: guestData,
+        }));
+      } else {
+        const guestData = {
+          _id: formData.guest._id,
+          fullName: formData.guest.fullName,
+          email: formData.guest.email,
+          phone: 0,
+          address: formData.guest.address,
+        };
+        setFormData((prevState) => ({
+          ...prevState,
+          guest: guestData,
+        }));
+      }
+    },
   };
 
   useEffect(() => {
@@ -222,7 +337,7 @@ function Page() {
         <section className={`p-4 bg-white rounded-lg border`}>
           <Heading size={5} styles="mb-6 justify-center flex w-full">
             {modalContent === "update" && "Entry Updated"}
-            {modalContent === "remove" && "Entry Removed"}
+            {modalContent === "delete" && "Entry Removed"}
             {modalContent === "hotels" && "Hotel list"}
             {modalContent === "rooms" && `${hotelData?.name} room list`}
             {modalContent === "packages" && `${hotelData?.name} package list`}
@@ -461,10 +576,12 @@ function Page() {
       </div>
       <DashboardWrapper active="bookings">
         <div>
-          <div className={`flex flex-row justify-between py-4 items-center`}>
+          <div
+            className={`flex flex-col md:flex-row justify-between py-4 items-center mb-4 gap-4`}
+          >
             <Heading
               size={3}
-              styles="col-span-full mb-8"
+              styles="col-span-full"
             >{`Booking # ${bookingData?._id} `}</Heading>
             <Button
               styles={
@@ -746,7 +863,7 @@ function Page() {
                       className={`absolute top-[2px] left-[4px] h-6 z-10 w-[calc(100%-20px)] bg-gradient-to-br from-white to-transparent`}
                     ></div>
                     <textarea
-                      className={`flex min-h-48 w-full resize-none flex-col border-2 rounded border-gray-300 px-3 py-4 pt-6 font-sans relative transition hover:border-gray-400 active:outline-none focus:outline-none focus:border-charcoal-100`}
+                      className={`flex min-h-48 w-full resize-none bg-transparent flex-col border-2 rounded border-gray-300 px-3 py-4 pt-6 font-sans relative transition hover:border-gray-400 active:outline-none focus:outline-none focus:border-charcoal-100`}
                       rows={6}
                       defaultValue={formData.comment}
                       onChange={(e) => {
