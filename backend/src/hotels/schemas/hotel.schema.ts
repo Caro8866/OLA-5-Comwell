@@ -1,11 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { HotelPackage } from 'src/hotel-packages/schemas/package.schema';
-import { Area } from 'src/utils/Area';
-import { Region } from 'src/utils/Region';
+import { HotelPackage } from '../../hotel-packages/schemas/package.schema';
+import { Area } from '../../utils/Area';
+import { Region } from '../../utils/Region';
 import * as mongoose from 'mongoose';
-import { HotelOffer } from 'src/hotel-offers/schemas/hotel-offer.schema';
-import { HotelRoom } from 'src/hotel-rooms/schemas/hotel-room.schema';
+import { HotelOffer } from '../../hotel-offers/schemas/hotel-offer.schema';
+import { HotelRoom } from '../../hotel-rooms/schemas/hotel-room.schema';
 
 export type HotelDocument = HydratedDocument<Hotel>;
 

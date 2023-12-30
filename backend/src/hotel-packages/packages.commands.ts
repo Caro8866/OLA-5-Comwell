@@ -2,7 +2,7 @@ import { Command } from 'nestjs-command';
 import { Injectable } from '@nestjs/common';
 import { PackagesService } from './packages.service';
 import { CreatePackageDto } from './dto/create-package.dto';
-import { HotelsService } from 'src/hotels/hotels.service';
+import { HotelsService } from '../hotels/hotels.service';
 
 @Injectable()
 export class PackagesCommand {
