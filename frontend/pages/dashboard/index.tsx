@@ -170,7 +170,11 @@ function Index() {
       </div>
       <DashboardWrapper active="overview">
         <div className={`grid grid-cols-2 gap-4`}>
-          <section className={`w-full h-24 col-span-2`}>Hello whatever</section>
+          <section
+            className={`w-full h-24 col-span-2 text-heading-large-desktop font-semibold`}
+          >
+            Dashboard
+          </section>
           <section
             className={`w-full bg-slate-50 rounded-lg px-2 lg:px-8 py-4 flex flex-col col-span-2`}
           >
