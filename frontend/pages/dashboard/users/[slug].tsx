@@ -32,7 +32,7 @@ function Page() {
   useEffect(() => {
     setIsUserDataLoading(true);
     const fetchData = async () => {
-      fetch(`http://localhost:5000/auth/${slug}`)
+      fetch(`http://localhost:5000/users/${slug}`)
         .then((response) => response.json())
         .then((data: User) => {
           setUserData(data);
@@ -54,7 +54,7 @@ function Page() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...formData, roles: formData.roles.split(",") }),
     };
-    fetch(`http://localhost:5000/auth/${slug}`, options)
+    fetch(`http://localhost:5000/users/${slug}`, options)
       .then((response) => response.json())
       .then((data) => {
         setModalContent("update");

@@ -19,7 +19,7 @@ function Page() {
 
   useEffect(() => {
     setAreUsersLoading(true);
-    fetch("http://localhost:5000/auth/users", {
+    fetch("http://localhost:5000/users", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
