@@ -6,5 +6,5 @@ export type User = {
   phone: number;
   gender: "Male" | "Female" | "Prefer not to say" | "Other";
   dateOfBirth: string;
-  roles: string[];
+  roles: string;
 };

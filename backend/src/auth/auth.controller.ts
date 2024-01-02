@@ -10,6 +10,7 @@ import {
   Request,
   Res,
   Param,
+  Put,
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
@@ -20,6 +21,7 @@ import { Role } from 'src/users/enums/role.enum';
 import { Roles } from 'src/roles.decorator';
 import { RolesGuard } from './roles.guard';
 import { UsersService } from 'src/users/users.service';
+import { UpdateUserDto } from 'src/users/update-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -75,6 +77,11 @@ export class AuthController {
   @Get(':id')
   findOneId(@Param('id') id: string) {
     return this.usersService.findOneById(id);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(id, updateUserDto);
   }
 
   @Get('logout')

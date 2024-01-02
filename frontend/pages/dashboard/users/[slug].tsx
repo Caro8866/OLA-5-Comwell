@@ -8,6 +8,7 @@ import Spinner from "@/components/spinner/Spinner";
 import Button from "@/components/button/Button";
 import Link from "next/link";
 import { User } from "@/utils/user.types";
+import { resolveSoa } from "dns";
 
 function Page() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -22,7 +23,7 @@ function Page() {
     phone: 0,
     gender: "Prefer not to say",
     dateOfBirth: "",
-    roles: ["User"],
+    roles: "",
   });
 
   const router = useRouter();
@@ -47,13 +48,13 @@ function Page() {
     }
   }, [slug]);
 
-  function updateOffer() {
+  function updateUser() {
     const options = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ ...formData, roles: formData.roles.split(",") }),
     };
-    fetch(`http://localhost:5000/hotel-offers/${slug}`, options)
+    fetch(`http://localhost:5000/auth/${slug}`, options)
       .then((response) => response.json())
       .then((data) => {
         setModalContent("update");
@@ -95,13 +96,13 @@ function Page() {
     zipCode: (value: number) =>
       setFormData((prevState) => ({
         ...prevState,
-        zipCode: value,
+        zipCode: Number(value),
       })),
 
     phone: (value: number) =>
       setFormData((prevState) => ({
         ...prevState,
-        phone: value,
+        phone: Number(value),
       })),
 
     gender: (value: string) =>
@@ -116,7 +117,7 @@ function Page() {
         dateOfBirth: value,
       })),
 
-    roles: (value: string[]) =>
+    roles: (value: string) =>
       setFormData((prevState) => ({
         ...prevState,
         roles: value,
@@ -146,10 +147,10 @@ function Page() {
                 Close
               </Button>
               <Link
-                href={"/dashboard/offers"}
+                href={"/dashboard/users"}
                 className={`flex px-6 py-2 rounded-full bg-sea-80 hover:bg-sea-100 transition text-slate-50`}
               >
-                Back to offers
+                Back to users
               </Link>
             </div>
           )}
@@ -159,7 +160,7 @@ function Page() {
                 href={"/dashboard/offers"}
                 className={`flex px-6 py-2 rounded-full bg-sea-80 hover:bg-sea-100 transition text-slate-50`}
               >
-                Back to offers
+                Back to users
               </Link>
             </div>
           )}
@@ -250,7 +251,7 @@ function Page() {
                     id="user_phone"
                     value={formData.phone}
                     onChange={(e) => {
-                      update.zipCode(e.target.value);
+                      update.phone(e.target.value);
                     }}
                   />
                   <InputField
@@ -260,7 +261,7 @@ function Page() {
                     type="date"
                     value={formData.dateOfBirth.split("T")[0]}
                     onChange={(e) => {
-                      update.zipCode(e.target.value);
+                      update.dateOfBirth(e.target.value);
                     }}
                   />
 
@@ -294,9 +295,9 @@ function Page() {
                     label="Roles"
                     name="user_roles"
                     id="user_roles"
-                    value={formData.roles.join(", ")}
+                    value={formData.roles}
                     onChange={(e) => {
-                      update.zipCode(e.target.value);
+                      update.roles(e.target.value);
                     }}
                   />
                 </>
@@ -323,7 +324,7 @@ function Page() {
                   isActive
                   isSmall
                   onClick={() => {
-                    updateOffer();
+                    updateUser();
                   }}
                 >
                   Update

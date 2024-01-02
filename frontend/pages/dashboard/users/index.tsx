@@ -155,13 +155,11 @@ function Page() {
                       <div
                         className={`md:flex lg:hidden xl:flex items-center justify-center`}
                       >
-                        {user.roles.map((role) => (
-                          <p
-                            className={`font-sans font-medium text-trumpet-desktop text-center`}
-                          >
-                            {role}
-                          </p>
-                        ))}
+                        <p
+                          className={`font-sans font-medium text-trumpet-desktop text-center`}
+                        >
+                          {user.roles}
+                        </p>
                       </div>
                       <div
                         className={`flex flex-row items-center justify-end gap-4 xl:col-span-2 pr-4`}
