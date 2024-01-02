@@ -3,6 +3,7 @@ import { ReactNode, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/context/AuthContext";
 import { BeatLoader } from "react-spinners";
+import verifyAuth from "./verifyAuth";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { authState } = useContext(AuthContext);
@@ -10,11 +11,20 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!authState.isAuthenticated) {
-      router.push("/dashboard/auth");
-    } else {
-      setLoading(false);
+    async function checkAuthentication() {
+      const adminAuthenticationResult = await verifyAuth("admin");
+      if (
+        !authState.isAuthenticated ||
+        !adminAuthenticationResult.isAuthenticated
+      ) {
+        console.log(authState.userData?.roles[0]);
+        router.push("/dashboard/auth");
+      } else {
+        setLoading(false);
+      }
     }
+
+    checkAuthentication();
   }, []);
 
   return loading ? (
