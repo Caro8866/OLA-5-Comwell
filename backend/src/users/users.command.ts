@@ -2,6 +2,7 @@ import { Command } from 'nestjs-command';
 import { Injectable } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Role } from './enums/role.enum';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersCommand {
@@ -19,7 +20,7 @@ export class UsersCommand {
       email: 'admin@admin.com',
       zipCode: 1234,
       phone: 1234,
-      password: 'Administrator1',
+      password: await bcrypt.hash('Administrator1', 10),
       gender: 'Prefer not to say',
       dateOfBirth: new Date('1900-03-25'),
       roles: [Role.Admin],
@@ -29,7 +30,7 @@ export class UsersCommand {
       email: 'user@user.com',
       zipCode: 1234,
       phone: 1234,
-      password: 'UserAccount1',
+      password: await bcrypt.hash('UserAccount1', 10),
       gender: 'Prefer not to say',
       dateOfBirth: new Date('1900-03-25'),
       roles: [Role.User],
