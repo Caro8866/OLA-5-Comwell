@@ -132,12 +132,12 @@ The backend provides the following endpoints:
 To have access to an admin account with Admin privileges, update an existing account's Roles property from 'User' to 'Admin' or use the Account Seeding command mentioned in the seeding section of this README.
 Afterwards a token refresh is needed - user should sign out and sign in again.
 
-### Admin account
+### Seeded admin account credentials
 
     email: 'admin@admin.com',
     password: 'Administrator1',
 
-### User account
+### Seeded user account credentials
 
     email: 'user@user.com',
     password: 'UserAccount1',
