@@ -1,4 +1,4 @@
-type ValidatorType = {
+export type ValidatorType = {
   fieldName: string;
   validationFunction: () => boolean;
 };

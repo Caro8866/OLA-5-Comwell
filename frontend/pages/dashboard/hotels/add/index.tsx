@@ -148,148 +148,131 @@ function Page() {
       });
   }
 
-  const handleUpdate = (
-    prop: string,
-    value: string | boolean | Offer | HotelPackage | HotelRoom | Addon
-  ) => {
-    if (formData) {
-      if (prop === "name" && typeof value == "string") {
-        setFormData((prevState) => ({
-          ...prevState,
-          name: value,
-        }));
-      }
-
-      if (prop === "location") {
-        const location = value as Area;
-        setFormData((prevState) => ({
-          ...prevState,
-          location: location,
-        }));
-      }
-
-      if (prop === "hotel") {
-        const isChecked = value as unknown as boolean;
-        setFormData((prevState) => ({
-          ...prevState,
-          isHotel: isChecked,
-        }));
-      }
-
-      if (prop === "banquet") {
-        const isChecked = value as unknown as boolean;
-        setFormData((prevState) => ({
-          ...prevState,
-          isBanquet: isChecked,
-        }));
-      }
-
-      if (prop === "conference") {
-        const isChecked = value as unknown as boolean;
-        setFormData((prevState) => ({
-          ...prevState,
-          isConferenceCenter: isChecked,
-        }));
-      }
-
-      if (prop === "region") {
-        const region = value as Region;
-        setFormData((prevState) => ({
-          ...prevState,
-          region: region,
-        }));
-      }
-
-      if (prop === "description" && typeof value == "string") {
-        setFormData((prevState) => ({
-          ...prevState,
-          description: value,
-        }));
-      }
-
-      if (prop === "image" && typeof value == "string") {
-        setFormData((prevState) => ({
-          ...prevState,
-          image: value,
-        }));
-      }
-    }
-
-    if (prop === "offers") {
-      const offer = value as unknown as Offer;
-      if (formData?.offers.some((offerData) => offerData._id === offer._id)) {
+  const update = {
+    name: (value: string) => {
+      setFormData((prevState) => ({
+        ...prevState,
+        name: value,
+      }));
+    },
+    location: (value: string) => {
+      const location = value as Area;
+      setFormData((prevState) => ({
+        ...prevState,
+        location: location,
+      }));
+    },
+    region: (value: string) => {
+      const region = value as Region;
+      setFormData((prevState) => ({
+        ...prevState,
+        region: region,
+      }));
+    },
+    hotel: (value: boolean) => {
+      setFormData((prevState) => ({
+        ...prevState,
+        isHotel: value,
+      }));
+    },
+    banquet: (value: boolean) => {
+      setFormData((prevState) => ({
+        ...prevState,
+        isBanquet: value,
+      }));
+    },
+    conference: (value: boolean) => {
+      setFormData((prevState) => ({
+        ...prevState,
+        isConferenceCenter: value,
+      }));
+    },
+    description: (value: string) => {
+      setFormData((prevState) => ({
+        ...prevState,
+        description: value,
+      }));
+    },
+    roomDescription: (value: string) => {
+      setFormData((prevState) => ({
+        ...prevState,
+        roomsDescription: value,
+      }));
+    },
+    image: (value: string) => {
+      setFormData((prevState) => ({
+        ...prevState,
+        image: value,
+      }));
+    },
+    offers: (value: Offer) => {
+      if (formData?.offers.some((offerData) => offerData._id === value._id)) {
         setFormData((prevState) => ({
           ...prevState,
           offers: [
             ...formData.offers.filter(
-              (offerData) => offerData._id !== offer._id
+              (offerData) => offerData._id !== value._id
             ),
           ],
         }));
       } else {
         setFormData((prevState) => ({
           ...prevState,
-          offers: [...formData.offers, offer],
+          offers: [...formData.offers, value],
         }));
       }
-    }
-
-    if (prop === "packages") {
-      const pkg = value as unknown as HotelPackage;
+    },
+    packages: (value: HotelPackage) => {
       if (
-        formData?.packages.some((packageData) => packageData._id === pkg._id)
+        formData?.packages.some((packageData) => packageData._id === value._id)
       ) {
         setFormData((prevState) => ({
           ...prevState,
           packages: [
             ...formData.packages.filter(
-              (packageData) => packageData._id !== pkg._id
+              (packageData) => packageData._id !== value._id
             ),
           ],
         }));
       } else {
         setFormData((prevState) => ({
           ...prevState,
-          packages: [...formData.packages, pkg],
+          packages: [...formData.packages, value],
         }));
       }
-    }
-
-    if (prop === "rooms") {
-      const room = value as unknown as HotelRoom;
-      if (formData?.rooms.some((roomData) => roomData._id === room._id)) {
+    },
+    rooms: (value: HotelRoom) => {
+      if (formData?.rooms.some((roomData) => roomData._id === value._id)) {
         setFormData((prevState) => ({
           ...prevState,
           rooms: [
-            ...formData.rooms.filter((roomData) => roomData._id !== room._id),
+            ...formData.rooms.filter((roomData) => roomData._id !== value._id),
           ],
         }));
       } else {
         setFormData((prevState) => ({
           ...prevState,
-          rooms: [...formData.rooms, room],
+          rooms: [...formData.rooms, value],
         }));
       }
-    }
-
-    if (prop === "addons") {
-      const addon = value as unknown as Addon;
-      if (formData?.addons.some((addonData) => addonData.name === addon.name)) {
+    },
+    addons: (value: Addon) => {
+      if (formData?.addons.some((addonData) => addonData.name === value.name)) {
         setFormData((prevState) => ({
           ...prevState,
           addons: [
             ...formData.addons.filter(
-              (addonData) => addonData.name !== addon.name
+              (addonData) => addonData.name !== value.name
             ),
           ],
         }));
       } else {
         setFormData((prevState) => ({
           ...prevState,
-          addons: [...formData.addons, addon],
+          addons: [...formData.addons, value],
         }));
       }
-    }
+    },
   };
 
   const addonUpdateHandler = {
@@ -482,7 +465,7 @@ function Page() {
                         addonData.name.length > 0 &&
                         addonData.price > 0
                       ) {
-                        handleUpdate("addons", addonData);
+                        update.addons(addonData);
                       }
                     }}
                   >
@@ -519,7 +502,7 @@ function Page() {
                 id="hotel_name"
                 value={formData.name}
                 onChange={(e) => {
-                  handleUpdate("name", e.target.value);
+                  update.name(e.target.value);
                 }}
               />
               <div className={`relative`}>
@@ -543,7 +526,7 @@ function Page() {
                         <li
                           key={location}
                           onClick={() => {
-                            handleUpdate("location", location);
+                            update.location(location);
                             setAreRegionsVisible(false);
                             setAreLocationsVisible(false);
                           }}
@@ -577,7 +560,7 @@ function Page() {
                         <li
                           key={region}
                           onClick={() => {
-                            handleUpdate("region", region);
+                            update.region(region);
                             setAreLocationsVisible(false);
                             setAreRegionsVisible(false);
                           }}
@@ -604,7 +587,7 @@ function Page() {
                   rows={6}
                   defaultValue={formData.description}
                   onChange={(e) => {
-                    handleUpdate("description", e.target.value);
+                    update.description(e.target.value);
                   }}
                 ></textarea>
               </div>
@@ -622,7 +605,7 @@ function Page() {
                   rows={3}
                   defaultValue={formData.roomsDescription}
                   onChange={(e) => {
-                    handleUpdate("roomDescription", e.target.value);
+                    update.roomDescription(e.target.value);
                   }}
                 ></textarea>
               </div>
@@ -655,7 +638,7 @@ function Page() {
                 id="hotel_image"
                 value={formData.image}
                 onChange={(e) => {
-                  handleUpdate("image", e.target.value);
+                  update.image(e.target.value);
                 }}
               />
               <div className={`flex flex-col`}>
@@ -666,7 +649,7 @@ function Page() {
                   <li
                     className={`flex flex-row gap-2 items-center cursor-pointer w-fit`}
                     onClick={() => {
-                      handleUpdate("hotel", !formData.isHotel);
+                      update.hotel(!formData.isHotel);
                     }}
                   >
                     <div
@@ -683,7 +666,7 @@ function Page() {
                   <li
                     className={`flex flex-row gap-2 items-center cursor-pointer w-fit`}
                     onClick={() => {
-                      handleUpdate("conference", !formData.isConferenceCenter);
+                      update.conference(!formData.isConferenceCenter);
                     }}
                   >
                     <div
@@ -702,7 +685,7 @@ function Page() {
                   <li
                     className={`flex flex-row gap-2 items-center cursor-pointer w-fit`}
                     onClick={() => {
-                      handleUpdate("banquet", !formData.isBanquet);
+                      update.banquet(!formData.isBanquet);
                     }}
                   >
                     <div
@@ -742,7 +725,7 @@ function Page() {
                           }`}
                           key={offer._id}
                           onClick={() => {
-                            handleUpdate("offers", offer);
+                            update.offers(offer);
                           }}
                         >
                           <span
@@ -802,7 +785,7 @@ function Page() {
                           }`}
                           key={pkg._id}
                           onClick={() => {
-                            handleUpdate("packages", pkg);
+                            update.packages(pkg);
                           }}
                         >
                           <span
@@ -862,7 +845,7 @@ function Page() {
                           }`}
                           key={room._id}
                           onClick={() => {
-                            handleUpdate("rooms", room);
+                            update.rooms(room);
                           }}
                         >
                           <span
@@ -944,7 +927,7 @@ function Page() {
                         }`}
                         key={addon.name}
                         onClick={() => {
-                          handleUpdate("addons", addon);
+                          update.addons(addon);
                         }}
                       >
                         <span

@@ -4,6 +4,7 @@ import { UpdateHotelOfferDto } from './dto/update-hotel-offer.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { HotelOffer } from './schemas/hotel-offer.schema';
 import { Model } from 'mongoose';
+import mongoose from 'mongoose';
 
 @Injectable()
 export class HotelOffersService {
@@ -20,15 +21,26 @@ export class HotelOffersService {
     return this.hotelOfferModel.find().exec();
   }
 
-  findOne(id: number) {
-    return this.hotelOfferModel.findById({ id }).exec();
+  findOne(id: string) {
+    return this.hotelOfferModel
+      .findById(new mongoose.Types.ObjectId(id))
+      .exec();
   }
 
-  update(id: number, updateHotelOfferDto: UpdateHotelOfferDto) {
-    return this.hotelOfferModel.findByIdAndUpdate(id, updateHotelOfferDto);
+  update(id: string, updateHotelOfferDto: UpdateHotelOfferDto) {
+    return this.hotelOfferModel.findByIdAndUpdate(
+      new mongoose.Types.ObjectId(id),
+      updateHotelOfferDto,
+    );
   }
 
-  remove(id: number) {
-    return this.hotelOfferModel.findByIdAndDelete(id).exec();
+  remove(id: string) {
+    return this.hotelOfferModel
+      .findByIdAndDelete(new mongoose.Types.ObjectId(id))
+      .exec();
+  }
+
+  removeAll() {
+    return this.hotelOfferModel.deleteMany({}).exec();
   }
 }

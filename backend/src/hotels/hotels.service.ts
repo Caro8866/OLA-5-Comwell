@@ -41,6 +41,10 @@ export class HotelsService {
     return this.hotelModel.findByIdAndDelete(id).exec();
   }
 
+  async removeAll() {
+    return this.hotelModel.deleteMany({}).exec();
+  }
+
   /* --- PACKAGES --- */
 
   async addPackage(id: string, pkg: CreatePackageDto) {

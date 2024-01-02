@@ -4,6 +4,7 @@ import { UpdatePackageDto } from './dto/update-package.dto';
 import { HotelPackage } from './schemas/package.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import mongoose from 'mongoose';
 
 @Injectable()
 export class PackagesService {
@@ -20,15 +21,24 @@ export class PackagesService {
     return this.packageModel.find().exec();
   }
 
-  findOne(id: number) {
-    return this.packageModel.findById(id).exec();
+  findOne(id: string) {
+    return this.packageModel.findById(new mongoose.Types.ObjectId(id)).exec();
   }
 
-  update(id: number, updatePackageDto: UpdatePackageDto) {
-    return this.packageModel.findByIdAndUpdate(id, updatePackageDto);
+  update(id: string, updatePackageDto: UpdatePackageDto) {
+    return this.packageModel.findByIdAndUpdate(
+      new mongoose.Types.ObjectId(id),
+      updatePackageDto,
+    );
   }
 
-  remove(id: number) {
-    return this.packageModel.findByIdAndDelete(id).exec();
+  remove(id: string) {
+    return this.packageModel
+      .findByIdAndDelete(new mongoose.Types.ObjectId(id))
+      .exec();
+  }
+
+  async removeAll() {
+    return await this.packageModel.deleteMany({}).exec();
   }
 }
