@@ -8,7 +8,6 @@ import Spinner from "@/components/spinner/Spinner";
 import Button from "@/components/button/Button";
 import Link from "next/link";
 import { User } from "@/utils/user.types";
-import { resolveSoa } from "dns";
 
 function Page() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -52,7 +51,13 @@ function Page() {
     const options = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...formData, roles: formData.roles.split(",") }),
+      body: JSON.stringify({
+        ...formData,
+        roles:
+          formData.roles.length === 1
+            ? formData.roles
+            : formData.roles.split(","),
+      }),
     };
     fetch(`http://localhost:5000/users/${slug}`, options)
       .then((response) => response.json())
@@ -69,7 +74,7 @@ function Page() {
     const options = {
       method: "DELETE",
     };
-    fetch(`http://localhost:5000/hotel-offers/${slug}`, options)
+    fetch(`http://localhost:5000/users/${slug}`, options)
       .then((response) => response.json())
       .then((res) => {
         setModalContent("delete");
