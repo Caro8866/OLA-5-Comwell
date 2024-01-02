@@ -18,10 +18,14 @@ import { Response } from 'express';
 import { Role } from 'src/users/enums/role.enum';
 import { Roles } from 'src/roles.decorator';
 import { RolesGuard } from './roles.guard';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private usersService: UsersService,
+  ) {}
 
   @Post('/signup')
   async signup(@Body() createUserDto: CreateUserDto) {
@@ -58,6 +62,13 @@ export class AuthController {
   @Roles(Role.Admin)
   getAdmin(@Request() req) {
     return req.user;
+  }
+
+  @Get('users')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  findAll() {
+    return this.usersService.findAll();
   }
 
   @Get('logout')

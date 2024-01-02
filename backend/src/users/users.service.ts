@@ -18,4 +18,8 @@ export class UsersService {
   async findOne(email: string): Promise<UserDocument> {
     return this.userModel.findOne({ email: email });
   }
+
+  findAll() {
+    return this.userModel.find().exec();
+  }
 }
