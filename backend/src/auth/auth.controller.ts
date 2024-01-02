@@ -9,6 +9,7 @@ import {
   UseGuards,
   Request,
   Res,
+  Param,
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
@@ -69,6 +70,11 @@ export class AuthController {
   @Roles(Role.Admin)
   findAll() {
     return this.usersService.findAll();
+  }
+
+  @Get(':id')
+  findOneId(@Param('id') id: string) {
+    return this.usersService.findOneById(id);
   }
 
   @Get('logout')

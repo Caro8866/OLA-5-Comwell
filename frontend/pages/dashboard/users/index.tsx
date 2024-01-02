@@ -13,7 +13,7 @@ function Page() {
   const [areUsersLoading, setAreUsersLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalState, setModalState] = useState("confirmation");
-  const [modalOffer, setModalOffer] = useState<User>();
+  const [modalUser, setModalUser] = useState<User>();
 
   const token = getCookie("token");
 
@@ -44,21 +44,21 @@ function Page() {
   function handleModal(user: User) {
     setIsModalVisible(true);
     setModalState("confirmation");
-    setModalOffer(user);
+    setModalUser(user);
   }
 
   return (
     <>
       <div
         className={`fixed w-full h-screen z-50 items-center justify-center bg-sea-80 bg-opacity-50 p-4 ${
-          isModalVisible && modalOffer ? "flex" : "hidden"
+          isModalVisible && modalUser ? "flex" : "hidden"
         }`}
       >
         <div className={`flex flex-col gap-4 bg-white p-8 rounded-lg `}>
-          {modalState == "confirmation" && modalOffer && (
+          {modalState == "confirmation" && modalUser && (
             <>
               <Heading size={4}>Delete user</Heading>
-              <p>{`Are you sure you want to delete ${modalOffer?.fullName} user?`}</p>
+              <p>{`Are you sure you want to delete ${modalUser?.fullName} user?`}</p>
               <div
                 className={`flex flex-row gap-2 justify-between items-center mt-4`}
               >
@@ -67,7 +67,7 @@ function Page() {
                   isActive
                   isSmall
                   onClick={() => {
-                    setModalOffer(undefined);
+                    setModalUser(undefined);
                     setIsModalVisible(false);
                   }}
                 >
@@ -78,7 +78,7 @@ function Page() {
                   isActive
                   isSmall
                   onClick={() => {
-                    deleteUser(modalOffer._id);
+                    deleteUser(modalUser._id);
                   }}
                 >
                   Delete user
@@ -98,7 +98,7 @@ function Page() {
                   isActive
                   isSmall
                   onClick={() => {
-                    setModalOffer(undefined);
+                    setModalUser(undefined);
                     setIsModalVisible(false);
                   }}
                 >
@@ -114,12 +114,6 @@ function Page() {
           <Heading size={3} styles={`my-8`}>
             Users
           </Heading>
-          <Link
-            href={"/dashboard/users/add"}
-            className={`flex flex-row py-2 px-6 rounded-full bg-sea-80 text-slate-50 hover:bg-sea-100 transition font-medium`}
-          >
-            Add new user
-          </Link>
         </div>
         <section
           className={`w-full bg-slate-50 rounded-lg px-2 lg:px-8 py-4 flex flex-col col-span-2`}
