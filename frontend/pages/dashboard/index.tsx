@@ -12,6 +12,7 @@ import { Hotel } from "@/utils/Hotel.types";
 import { HotelPackage } from "@/utils/HotelPackage.types";
 import { HotelRoom } from "@/utils/HotelRoom.types";
 import Link from "next/link";
+import ProtectedRoute from "@/utils/ProtectedRoute";
 
 import React from "react";
 import { useEffect, useState } from "react";
@@ -107,7 +108,7 @@ function Index() {
   }
 
   return (
-    <>
+    <ProtectedRoute>
       <div
         className={`fixed w-full h-screen z-50 items-center justify-center bg-sea-80 bg-opacity-50 p-4 ${
           isModalVisible && modalBooking ? "flex" : "hidden"
@@ -355,7 +356,7 @@ function Index() {
           </section>
         </div>
       </DashboardWrapper>
-    </>
+    </ProtectedRoute>
   );
 }
 
