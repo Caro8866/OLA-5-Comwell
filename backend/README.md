@@ -123,3 +123,8 @@ The backend provides the following endpoints:
 - GET /bookings/:id - Get a specific booking
 - PUT /bookings/:id - Update a specific booking
 - DELETE /bookings/:id - Delete a specific booking
+
+## User roles
+
+To have access to an admin account with Admin privileges, update an existing account's Roles property from 'User' to 'Admin'.
+Afterwards a token refresh is needed - user should sign out and sign in again.
