@@ -30,8 +30,8 @@ export default function SignOutSection({
         isLoginVisible ? "" : "hidden"
       }`}
     >
-      <Link href="#" className={`transition hover:text-charcoal-100`}>
-        Comwell Club
+      <Link href="/dashboard" className={`transition hover:text-charcoal-100`}>
+        Dashboard
       </Link>
       <Link href="#" className={`transition hover:text-charcoal-100`}>
         Frequently Asked Questions
@@ -42,7 +42,7 @@ export default function SignOutSection({
       <Link href="#" className={`transition hover:text-charcoal-100`}>
         Notifications
       </Link>
-      <Link href="#" className={`transition hover:text-charcoal-100`}>
+      <Link href="/dashboard" className={`transition hover:text-charcoal-100`}>
         Profile Settings
       </Link>
 

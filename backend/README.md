@@ -68,6 +68,9 @@ $ npx nestjs-command create:packages
 
 # add comwell offers
 $ npx nestjs-command create:offers
+
+# add default user accounts
+$ npx nestjs-command create:accounts
 ```
 
 ## API endpoints
@@ -79,6 +82,7 @@ The backend provides the following endpoints:
 - POST /auth/signup - User signup
 - POST /auth/login - User login
 - GET /auth/profile - Get user profile
+- GET /auth/admin - Get the profile of an admin account
 - GET /auth/logout - User logout
 
 ### Hotels
@@ -123,3 +127,23 @@ The backend provides the following endpoints:
 - GET /bookings/:id - Get a specific booking
 - PUT /bookings/:id - Update a specific booking
 - DELETE /bookings/:id - Delete a specific booking
+
+## User accounts
+
+To have access to an admin account with Admin privileges, update an existing account's Roles property from 'User' to 'Admin' or use the Account Seeding command mentioned in the seeding section of this README.
+Afterwards a token refresh is needed - user should sign out and sign in again.
+
+- GET /users - Get all users
+- GET /users/:id - Get a specific user
+- PUT /users/:id - Update a specific user
+- DELETE /users/:id - Delete a specific user
+
+### Seeded admin account credentials
+
+    email: 'admin@admin.com',
+    password: 'Administrator1',
+
+### Seeded user account credentials
+
+    email: 'user@user.com',
+    password: 'UserAccount1',

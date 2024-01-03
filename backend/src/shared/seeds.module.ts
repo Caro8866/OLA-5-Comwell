@@ -22,6 +22,9 @@ import {
 import { HotelsCommand } from '../hotels/hotels.command';
 import { HotelsService } from '../hotels/hotels.service';
 import { Hotel, HotelSchema } from '../hotels/schemas/hotel.schema';
+import { UsersCommand } from '../users/users.command';
+import { UsersService } from '../users/users.service';
+import { User, UserSchema } from '../users/schemas/user.schema';
 
 @Module({
   imports: [
@@ -36,6 +39,7 @@ import { Hotel, HotelSchema } from '../hotels/schemas/hotel.schema';
     MongooseModule.forFeature([
       { name: HotelOffer.name, schema: HotelOfferSchema },
     ]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   providers: [
     HotelsCommand,
@@ -46,7 +50,15 @@ import { Hotel, HotelSchema } from '../hotels/schemas/hotel.schema';
     PackagesService,
     HotelOffersCommand,
     HotelOffersService,
+    UsersCommand,
+    UsersService,
   ],
-  exports: [HotelsCommand, HotelRoomsCommand, PackagesCommand],
+  exports: [
+    HotelsCommand,
+    HotelRoomsCommand,
+    PackagesCommand,
+    HotelOffersCommand,
+    UsersCommand,
+  ],
 })
 export class SeedsModule {}

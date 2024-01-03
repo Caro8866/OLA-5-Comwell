@@ -21,7 +21,7 @@ type AuthContextType = {
 
 export const AuthContext = createContext<AuthContextType>({
   authState: {
-    isAuthenticated: false,
+    isAuthenticated: true,
     userData: null,
   },
   onSignInSuccess: () => {},
@@ -34,7 +34,7 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [authState, setAuthState] = useState({
-    isAuthenticated: false,
+    isAuthenticated: true,
     userData: null,
   });
 
