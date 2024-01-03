@@ -6,7 +6,17 @@ import { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/button/Button";
 import { getCookie } from "cookies-next";
-import { User } from "@/utils/user.types";
+
+type User = {
+  _id: string;
+  email: string;
+  fullName: string;
+  zipCode: number;
+  phone: number;
+  gender: "Male" | "Female" | "Prefer not to say" | "Other";
+  dateOfBirth: string;
+  roles: string[];
+};
 
 function Page() {
   const [users, setUsers] = useState<User[]>();
@@ -158,7 +168,7 @@ function Page() {
                         <p
                           className={`font-sans font-medium text-trumpet-desktop text-center`}
                         >
-                          {user.roles}
+                          {user.roles.join(", ")}
                         </p>
                       </div>
                       <div

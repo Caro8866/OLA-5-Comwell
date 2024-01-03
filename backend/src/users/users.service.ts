@@ -30,6 +30,9 @@ export class UsersService {
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
-    return this.userModel.findByIdAndUpdate(updateUserDto);
+    return this.userModel.findByIdAndUpdate(
+      new mongoose.Types.ObjectId(id),
+      updateUserDto,
+    );
   }
 }

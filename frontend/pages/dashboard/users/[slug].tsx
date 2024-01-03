@@ -56,7 +56,7 @@ function Page() {
         roles:
           formData.roles.length === 1
             ? formData.roles
-            : formData.roles.split(","),
+            : formData.roles.split(", "),
       }),
     };
     fetch(`http://localhost:5000/users/${slug}`, options)
