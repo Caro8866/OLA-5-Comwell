@@ -1,4 +1,12 @@
-import { Body, Controller, Get, UseGuards, Param, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  UseGuards,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { Role } from 'src/users/enums/role.enum';
 import { Roles } from 'src/roles.decorator';
 import { UsersService } from 'src/users/users.service';
@@ -25,5 +33,10 @@ export class UsersController {
   @Put(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.usersService.remove(id);
   }
 }

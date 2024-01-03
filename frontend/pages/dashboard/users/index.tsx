@@ -48,7 +48,19 @@ function Page() {
   }, []);
 
   function deleteUser(id: string) {
-    console.log("delete");
+    const options = {
+      method: "DELETE",
+    };
+    fetch(`http://localhost:5000/users/${id}`, options)
+      .then((response) => response.json())
+      .then((res) => {
+        setModalState("finished");
+        // remove offer from fetched offers to decrease amount of requests (refetch)
+        setUsers(users?.filter((user) => user._id !== id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleModal(user: User) {

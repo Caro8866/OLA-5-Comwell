@@ -35,4 +35,10 @@ export class UsersService {
       updateUserDto,
     );
   }
+
+  remove(id: string) {
+    return this.userModel
+      .findByIdAndDelete(new mongoose.Types.ObjectId(id))
+      .exec();
+  }
 }

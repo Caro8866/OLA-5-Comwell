@@ -70,7 +70,7 @@ function Page() {
       });
   }
 
-  function deleteOffer() {
+  function deleteUser() {
     const options = {
       method: "DELETE",
     };
@@ -162,7 +162,7 @@ function Page() {
           {modalContent === "delete" && (
             <div className={`flex flex-row gap-4 items-center justify-center`}>
               <Link
-                href={"/dashboard/offers"}
+                href={"/dashboard/users"}
                 className={`flex px-6 py-2 rounded-full bg-sea-80 hover:bg-sea-100 transition text-slate-50`}
               >
                 Back to users
@@ -186,7 +186,7 @@ function Page() {
               isActive
               isSmall
               onClick={() => {
-                deleteOffer();
+                deleteUser();
               }}
             >
               <span className={`flex flex-row gap-2 items-center`}>
